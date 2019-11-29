@@ -1,3 +1,3 @@
 # Haven
 Small Group Project for Sacramento State GDDC
-Admins are Jaime, Armando, Sonny, Mathew, Theo, and possibly Ryan
+Admins are Jaime Ramirez, Armando Juarez, Nathan Aquino, Gustavo Hernandez, Carlos Caceres
