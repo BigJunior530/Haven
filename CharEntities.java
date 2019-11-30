@@ -15,4 +15,7 @@ public abstract class CharEntities{
       public <E> int getHealth(){
             return health;
       }
+      public void damage(int hurt) {
+    	  health = health -1;
+      }
 }
