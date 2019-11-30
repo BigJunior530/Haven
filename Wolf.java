@@ -1,18 +1,29 @@
-public class Wolf {
+public class Wolf extends CharEntities{
       private int health;
       private int attack;
-      private int shield;
 
-      public Wolf(int health, int attack, int shield){
+      public Wolf(){
+          this(7,5);
+    }
+      public Wolf(int health, int attack){
             this.health = health;
             this.attack = attack;
-            this.shield = shield;
       }
 
-      public int useAttack(){
-            return this.attack;
-      }
-      public int useShield(){
-            return this.shield;
-      }
+      public int getAttack(){
+          return this.attack;
+    }
+
+    public void intro() throws InterruptedException {
+          Main.sleep500();
+          Thread.sleep(1000);
+          System.out.println("\n\nA rabid Wolf appeared!");
+    }
+
+    public int getHealth(){
+          return this.health;
+    }
+    public void damage(int hurt) {
+  	  health = health - hurt;
+    }
 }
