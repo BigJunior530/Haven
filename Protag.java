@@ -1,3 +1,5 @@
+package Haven;
+
 public class Protag {
       private int health;
       private int attack;

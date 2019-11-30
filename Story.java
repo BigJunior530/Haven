@@ -1,4 +1,4 @@
-
+package Haven;
 
 public class Story {
 	public static void intro() throws InterruptedException {

@@ -1,3 +1,5 @@
+package Haven;
+
 public class WildBoar extends CharEntities{
       private int health;
       private int attack;
