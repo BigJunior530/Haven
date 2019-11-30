@@ -3,7 +3,7 @@ public class WildBoar extends CharEntities{
       private int attack;
 
       public WildBoar(){
-            this(5,3);
+            this(6,3);
       }
       public WildBoar(int health, int attack){
             this.health = health;
@@ -22,5 +22,8 @@ public class WildBoar extends CharEntities{
 
       public int getHealth(){
             return this.health;
+      }
+      public void damage(int hurt) {
+    	  health = health - hurt;
       }
 }
