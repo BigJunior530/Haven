@@ -1,3 +1,4 @@
+package Haven;
 public class Wolf extends CharEntities{
       private int health;
       private int attack;
