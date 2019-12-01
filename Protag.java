@@ -2,6 +2,7 @@ import java.util.TreeSet;
 
 public class Protag {
       private int health;
+      private int totalHealth;
       private int attack;
       private int shield;
       private int exp;
@@ -13,6 +14,7 @@ public class Protag {
 
       public Protag(){
             this.health = 100;
+            totalHealth = 100;
             this.attack = 5;
             this.shield = 2;
             level = 1;
@@ -34,6 +36,9 @@ public class Protag {
       public int getHealth(){
           return health;
       }
+      public int getTotal() {
+    	  return totalHealth;
+      }
       public void upgradeShield(int boost){
           shield = shield + boost;
       }
@@ -41,8 +46,17 @@ public class Protag {
     	  attack = attack + boost;
       }
       public void upgradeHealth(int boost){
-        health = health + boost;
+        totalHealth = totalHealth + boost;
       }
+      public void heal(int boost){
+          if(health < totalHealth) {
+        	  if((boost + health) > totalHealth) {
+        		  health = totalHealth;
+        	  }else {
+        		  health = health + boost;
+        	  }
+          }
+        }
       public int getExp() {
     	  return exp;
       }
@@ -62,9 +76,9 @@ public class Protag {
       
       public void levelUp() {
     	  System.out.println("You leveled up!");
-    	  health = health + 5;
-    	  attack = attack + 5;
-    	  shield = shield + 3;
+    	  upgradeHealth(5);
+    	  upgradeAttack(5);
+    	  upgradeShield(3);
     	  exp = exp - getNeeded();
     	  level++;
     	  setNeeded();
