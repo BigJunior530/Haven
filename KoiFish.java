@@ -14,7 +14,7 @@ public class KoiFish extends CharEntities{
       }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = (rand.nextInt(3) + 1) * enemy;
       }
       public void setAttack() {
     	  
