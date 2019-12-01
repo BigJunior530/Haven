@@ -1,3 +1,5 @@
+import java.util.TreeSet;
+
 public class Protag {
       private int health;
       private int attack;
@@ -5,7 +7,7 @@ public class Protag {
       private int exp;
       private int level;
       private int needed;
-      private static String[] items = new String[10];
+      private static TreeSet<String> items = new TreeSet<String>();
       private int counter;
 
 
@@ -79,19 +81,21 @@ public class Protag {
         	  return false;
           }else {
         	  for(int i = 0; i< counter; i++) {
-        		  System.out.println((i + 1) + ": " + items[i]);
+        		  System.out.println((i + 1) + ": " + items.toArray()[i]);
         	  }
         	  return true;
           }
       }
       public String getItem(int idx) {
-    	  return items[idx];
+    	  return (String) items.toArray()[idx];
+      }
+      public void removeItem(String word) {
+    	  items.remove(word);
       }
       public void putItems(String thing) {
-    	  if(counter < 10) {
-    		  items[counter] =  thing;
-    		  counter++;
-    	  }
+    	  items.add(thing);
+    	  counter++;
+    	  
       }
 
       
