@@ -100,7 +100,7 @@ public class Main {
             sleep500();
             Thread.sleep(500);
             System.out.println("\nWhat do you want to do for your turn?");
-            System.out.println("Enter in your choice using the numbers 1-3");
+            System.out.println("Enter in your choice using the numbers 1-4");
             System.out.println("1: Defend");
             System.out.println("2: Attack");
             System.out.println("3: Items");
