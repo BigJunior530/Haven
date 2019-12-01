@@ -37,6 +37,8 @@ public class WildBoar extends CharEntities{
             Main.sleep500();
             Thread.sleep(1000);
             System.out.println("\n\nA wild boar appeared!");
+            System.out.println("Level: " + getLevel());
+            System.out.println("Health: " + getHealth());
       }
 
       public int getHealth(){
