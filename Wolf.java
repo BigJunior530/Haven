@@ -1,15 +1,33 @@
+import java.util.Random;
+
 public class Wolf extends CharEntities{
       private int health;
       private int attack;
+      private int level;
+      public static Random rand = new Random();
 
-      public Wolf(){
-          this(7,5);
-    }
-      public Wolf(int health, int attack){
-            this.health = health;
-            this.attack = attack;
+      public Wolf(Protag pc){
+    	  int enemy = pc.getLevel();
+    	  setLevel(enemy);
+          setAttack();
+          setHealth();
       }
-
+      public void setLevel(int enemy) {
+    	  
+    	  level = (rand.nextInt(4) + 1) * enemy;
+      }
+      public void setAttack() {
+    	  
+    	  attack = 5*level;
+      }
+      public void setHealth() {
+    	  
+    	  health = 7*level;
+      }
+      
+      public int getLevel() {
+    	  return level;
+      }
       public int getAttack(){
           return this.attack;
     }
