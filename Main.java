@@ -166,6 +166,7 @@ public class Main {
                             		  Items.strengthPotion();
                             		  pc.upgradeAttack(4);
                             	  } 
+                            	  pc.removeItem(c);
                               }
                               
                               // something regarding ITEMS
