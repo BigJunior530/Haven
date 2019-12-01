@@ -5,6 +5,8 @@ public class Protag {
       private int exp;
       private int level;
       private int needed;
+      private static String[] items = new String[10];
+      private int counter;
 
 
       public Protag(){
@@ -13,7 +15,8 @@ public class Protag {
             this.shield = 2;
             level = 1;
             exp = 0;
-            needed = 100;
+            needed = 10;
+            counter = 0;
 
       }
       
@@ -29,6 +32,15 @@ public class Protag {
       public int getHealth(){
           return health;
       }
+      public void upgradeShield(int boost){
+          shield = shield + boost;
+      }
+      public void upgradeAttack(int boost){
+    	  attack = attack + boost;
+      }
+      public void upgradeHealth(int boost){
+        health = health + boost;
+      }
       public int getExp() {
     	  return exp;
       }
@@ -39,10 +51,15 @@ public class Protag {
     	  return needed;
       }
       public void setNeeded() {
-    	  needed = 10*getLevel();
+    	  needed = 10*getLevel() - exp;
+    	  if(needed <= 0) {
+    		  needed = 10*getLevel();
+    		  levelUp();
+    	  }
       }
       
       public void levelUp() {
+    	  System.out.println("You leveled up!");
     	  health = health + 5;
     	  attack = attack + 5;
     	  shield = shield + 3;
@@ -56,8 +73,25 @@ public class Protag {
     	  health = health - hurt;
       }
 
-      public void getItems(){
-            System.out.println("No Items");
+      public boolean getItems(){
+          if(counter == 0) {  
+        	  System.out.println("No Items");
+        	  return false;
+          }else {
+        	  for(int i = 0; i< counter; i++) {
+        		  System.out.println((i + 1) + ": " + items[i]);
+        	  }
+        	  return true;
+          }
+      }
+      public String getItem(int idx) {
+    	  return items[idx];
+      }
+      public void putItems(String thing) {
+    	  if(counter < 10) {
+    		  items[counter] =  thing;
+    		  counter++;
+    	  }
       }
 
       
