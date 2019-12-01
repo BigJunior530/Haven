@@ -155,10 +155,10 @@ public class Main {
                               if(has) {
                             	  System.out.println("Which one do you want to use?");
                             	  int reply = console.nextInt();
-                            	  String c = pc.getItem(reply + 1);
+                            	  String c = pc.getItem(reply - 1);
                             	  if(c.equalsIgnoreCase("Health Potion")) {
                             		  Items.healthPotion();
-                            		  pc.upgradeHealth(10);
+                            		  pc.heal(10);
                             	  } else if(c.equalsIgnoreCase("Duct tape")) {
                             		  Items.ductTape();
                             		  pc.upgradeShield(2);
@@ -197,7 +197,14 @@ public class Main {
                         	}
                         	System.out.println(name + " ATTACKED");
                         	pc.damage(CPUAttack);
-                        	System.out.println("Your health is " + pc.getHealth()); 
+                        	if(pc.getHealth()>0) {
+                        		System.out.println("Your health is " + pc.getHealth()); 
+                        	}else {
+                        		System.out.println("You fainted...");
+                        		System.out.println("You wake up again hours later");
+                        		pc.heal(50);
+                        		System.out.println("Your health is " + pc.getHealth()); 
+                        	}
                               // something regarding ATTACK
                               break;
                         case 3:
