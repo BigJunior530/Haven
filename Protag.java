@@ -75,14 +75,19 @@ public class Protag {
       }
       
       public void levelUp() {
-    	  System.out.println("You leveled up!");
+    	  System.out.println("You leveled up!\n");
+    	  System.out.print("Total Health: " + getTotal() + "-->");
     	  upgradeHealth(5);
+    	  System.out.print(getTotal()+ "\n");
+    	  System.out.print("Attack: " + getAttack() + "-->");
     	  upgradeAttack(5);
+    	  System.out.print(getAttack()+ "\n");
+    	  System.out.print("Shield: " + getShield() + "-->");
     	  upgradeShield(3);
+    	  System.out.print(getShield()+ "\n");
     	  exp = exp - getNeeded();
     	  level++;
     	  setNeeded();
-    	  
       }
 
       public void damage(int hurt) {
