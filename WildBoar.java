@@ -1,13 +1,32 @@
+import java.util.Random;
+
 public class WildBoar extends CharEntities{
       private int health;
       private int attack;
+      private int level;
+      public static Random rand = new Random();
 
-      public WildBoar(){
-            this(5,3);
+      public WildBoar(Protag pc){
+    	  int enemy = pc.getLevel();
+    	  setLevel(enemy);
+          setAttack();
+          setHealth();
       }
-      public WildBoar(int health, int attack){
-            this.health = health;
-            this.attack = attack;
+      public void setLevel(int enemy) {
+    	  
+    	  level = (rand.nextInt(4) + 1) * enemy;
+      }
+      public void setAttack() {
+    	  
+    	  attack = 3*level;
+      }
+      public void setHealth() {
+    	  
+    	  health = 6*level;
+      }
+      
+      public int getLevel() {
+    	  return level;
       }
 
       public int getAttack(){
@@ -22,5 +41,8 @@ public class WildBoar extends CharEntities{
 
       public int getHealth(){
             return this.health;
+      }
+      public void damage(int hurt) {
+    	  health = health - hurt;
       }
 }
