@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class WildBoar extends CharEntities{
+public class Mermaid extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public WildBoar(Protag pc){
+      public Mermaid(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -22,7 +22,7 @@ public class WildBoar extends CharEntities{
       }
       public void setHealth() {
     	  
-    	  health = 6*level;
+    	  health = 5*level;
       }
       
       public int getLevel() {
@@ -36,7 +36,7 @@ public class WildBoar extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA wild boar appeared!");
+            System.out.println("\n\nA Mermaid appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
