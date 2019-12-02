@@ -36,6 +36,9 @@ public class Protag {
       public int getHealth(){
           return health;
       }
+      public void setHealth(int idx){
+          health = idx ;
+      }
       public int getTotal() {
     	  return totalHealth;
       }
@@ -88,6 +91,7 @@ public class Protag {
     	  exp = exp - getNeeded();
     	  level++;
     	  setNeeded();
+    	  
       }
 
       public void damage(int hurt) {
@@ -99,8 +103,12 @@ public class Protag {
         	  System.out.println("No Items");
         	  return false;
           }else {
-        	  for(int i = 0; i< counter; i++) {
-        		  System.out.println((i + 1) + ": " + items.toArray()[i]);
+        	  if(counter > 1) {
+        		  for(int i = 0; i< counter; i++) {
+        			  System.out.println((i + 1) + ": " + items.toArray()[i]);
+        		  }
+        	  }else if(counter == 1) {
+        		  System.out.println("1: " + items.toArray()[0]);
         	  }
         	  return true;
           }
@@ -110,6 +118,7 @@ public class Protag {
       }
       public void removeItem(String word) {
     	  items.remove(word);
+        counter--;
       }
       public void putItems(String thing) {
     	  items.add(thing);
