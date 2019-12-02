@@ -1,5 +1,5 @@
 package Haven;
-
+// This is a test
 public abstract class CharEntities{
       int health;
       int attack;
