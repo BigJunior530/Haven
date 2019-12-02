@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class WildBoar extends CharEntities{
+public class KoiFish extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public WildBoar(Protag pc){
+      public KoiFish(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -18,7 +18,7 @@ public class WildBoar extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 3*level;
+    	  attack = 1*level;
       }
       public void setHealth() {
     	  
@@ -28,21 +28,20 @@ public class WildBoar extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getAttack(){
-            return this.attack;
-      }
+          return this.attack;
+    }
 
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA wild boar appeared!");
-      }
+    public void intro() throws InterruptedException {
+          Main.sleep500();
+          Thread.sleep(1000);
+          System.out.println("\n\nA Koi Fish appeared!");
+    }
 
-      public int getHealth(){
-            return this.health;
-      }
-      public void damage(int hurt) {
-    	  health = health - hurt;
-      }
+    public int getHealth(){
+          return this.health;
+    }
+    public void damage(int hurt) {
+  	  health = health - hurt;
+    }
 }
