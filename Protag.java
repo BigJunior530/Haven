@@ -1,5 +1,9 @@
 import java.util.TreeSet;
 
+/**
+ * Constructor class for the main character. Contains the statistics 
+ * for what the Protag entity has.
+ */
 public class Protag {
       private int health;
       private int totalHealth;
@@ -11,8 +15,11 @@ public class Protag {
       private static TreeSet<String> items = new TreeSet<String>();
       private int counter;
 
-
-      public Protag(){
+        /**
+         * Default construtor for the Protag class and sets default values.
+         * <pre>{@code TODO}</pre> Make a construtor with parameters for when a save game is present
+         */
+        public Protag(){
             this.health = 100;
             totalHealth = 100;
             this.attack = 5;
@@ -24,27 +31,57 @@ public class Protag {
 
       }
       /**
-       * 
-       * @param strength
+       * Sets the value for experience.
+       * @param strength Is the getAttack value from the entity that was fought.
        */
       public void setExp(int strength) {
     	  exp = exp + (strength*2);
       }
+
+      /**
+       * Is used to get the value of the instance field shield.
+       * @return Returns the value of shield.
+       */
       public int getShield(){
             return shield;
       }
+
+      /**
+       * Is used to get the value of the instance field attack.
+       * @return Returns the value of attack.
+       */
       public int getAttack(){
           return attack;
       }
+
+      /**
+       * Is used to get the value of the instance field health.
+       * @return Returns the value of health.
+       */
       public int getHealth(){
           return health;
       }
+
+      /**
+       * Sets the value for health.
+       * @param idx Is passed inside Main.java.
+       */
       public void setHealth(int idx){
           health = idx ;
       }
+
+      /**
+       * Is used to get the value of the instance field totalHealth.
+       * @return Returns the value of totalHealth.
+       */
       public int getTotal() {
     	  return totalHealth;
       }
+
+      /**
+       * Modifies the existing shield value based on the change in boost.
+       * @param boost Is the change in what armor has been equipped.
+       */
       public void upgradeShield(int boost){
           shield = shield + boost;
       }
