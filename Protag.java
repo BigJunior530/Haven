@@ -132,12 +132,16 @@ public class Protag {
     }
 
     /**
-     * 
-     * @return
+     * Is used to get the value of the instance field needed.
+     * @return Returns the needed value of the player.
      */
     public int getNeeded() {
         return needed;
     }
+
+    /**
+     * Sets the value of needed of the player.
+     */
     public void setNeeded() {
         needed = 10*getLevel() - exp;
         if(needed <= 0) {
@@ -145,7 +149,13 @@ public class Protag {
             levelUp();
         }
     }
-      
+    
+    /**
+     * This method prints out the notification of player level change.
+     * Shows the difference between old health, old attack, old shield to
+     * new health, new attack, and new shield.
+     * Then the method shows the experience needed to gain another level.
+     */
     public void levelUp() {
         System.out.println("You leveled up!\n");
         System.out.print("Total Health: " + getTotal() + "-->");
@@ -163,10 +173,20 @@ public class Protag {
         
     }
 
+    /**
+     * The damage method takes in the harm caused to the player and 
+     * the modifies the current health of the player.
+     * @param hurt Is the caused damage from the enemy entity.
+     */
     public void damage(int hurt) {
         health = health - hurt;
     }
 
+    /**
+     * Method prints out the current items the player has in their inventory.
+     * It either prints out "No Items" when inventory is empty or prints out
+     * inventory.
+     */
     public boolean getItems(){
         if(counter == 0) {  
             System.out.println("No Items");
@@ -174,7 +194,7 @@ public class Protag {
         }else {
             if(counter > 1) {
                 for(int i = 0; i< counter; i++) {
-                    System.out.println((i + 1) + ": " + items.toArray()[i]);
+                    System.out.println((i + 1) + ": " + items.toArray()[i]); //TODO unstable for loop
                 }
             }else if(counter == 1) {
                 System.out.println("1: " + items.toArray()[0]);
@@ -182,13 +202,32 @@ public class Protag {
             return true;
         }
     }
+
+    /**
+     * Prints out the specific item inside an inventory by calling a treeSet
+     * and then casting to String.
+     * @param idx Is the specific index of the item treeSet.
+     * @return Returns the item as a string.
+     */
     public String getItem(int idx) {
         return (String) items.toArray()[idx];
     }
+
+    /**
+     * Method removes the item the players chooses and decreases the amount of items
+     * inside of the inventory.
+     * @param word Is the string the player enters when prompted.
+     */
     public void removeItem(String word) {
         items.remove(word);
-    counter--;
+        counter--;
     }
+
+    /**
+     * Adds an item to the players' inventory and increases the amount of items that 
+     * are inside of the inventory.
+     * @param thing
+     */
     public void putItems(String thing) {
         items.add(thing);
         counter++;
