@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class Wolf extends CharEntities{
+public class FlyingSquirrel extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Wolf(Protag pc){
+      public FlyingSquirrel(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -18,16 +18,13 @@ public class Wolf extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 5*level;
+    	  attack = 2*level;
       }
       public void setHealth() {
     	  
-    	  health = 7*level;
+    	  health = 4*level;
       }
-      public void upAttack(int boost) {
-    	  
-    	  attack = attack + boost;
-      }
+      
       public int getLevel() {
     	  return level;
       }
@@ -35,18 +32,19 @@ public class Wolf extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Wolf uses Howl");
+        	  System.out.println("Squirell uses Fluffy Tail");
         	  dam = 0;
-        	  System.out.println("It's attack increased.");
-        	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack()/2);
-        	  System.out.print(getAttack()+ "\n");
+        	  System.out.println("You kind of don't want to hurt it now.");
+        	  System.out.println("You lost some attack");
+        	  System.out.println("Attack " + pc.getAttack() + "-->");
+        	  pc.downgradeAttack(1);
+        	  System.out.print(pc.getAttack()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Wolf uses Mutilate");
+        	  System.out.println("Squirrel uses Pierce");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Wolf uses Tackle");
+        	  System.out.println("Squirrel uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -59,7 +57,7 @@ public class Wolf extends CharEntities{
     public void intro() throws InterruptedException {
           Main.sleep500();
           Thread.sleep(1000);
-          System.out.println("\n\nA rabid Wolf appeared!");
+          System.out.println("\n\nA Flying Squirrel appeared!");
           System.out.println("Level: " + getLevel());
           System.out.println("Health: " + getHealth());
     }

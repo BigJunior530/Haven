@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class Wolf extends CharEntities{
+public class KoiFish extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Wolf(Protag pc){
+      public KoiFish(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -18,11 +18,11 @@ public class Wolf extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 5*level;
+    	  attack = 1*level;
       }
       public void setHealth() {
     	  
-    	  health = 7*level;
+    	  health = 6*level;
       }
       public void upAttack(int boost) {
     	  
@@ -35,18 +35,18 @@ public class Wolf extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Wolf uses Howl");
+        	  System.out.println("Koi uses Glistening Scales");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Wolf uses Mutilate");
+        	  System.out.println("Koi uses Razor Scales");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Wolf uses Tackle");
+        	  System.out.println("Koi uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -59,7 +59,7 @@ public class Wolf extends CharEntities{
     public void intro() throws InterruptedException {
           Main.sleep500();
           Thread.sleep(1000);
-          System.out.println("\n\nA rabid Wolf appeared!");
+          System.out.println("\n\nA Koi Fish appeared!");
           System.out.println("Level: " + getLevel());
           System.out.println("Health: " + getHealth());
     }

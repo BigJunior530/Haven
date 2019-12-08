@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class WildBoar extends CharEntities{
+public class Chimpanzee extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public WildBoar(Protag pc){
+      public Chimpanzee(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -18,51 +18,47 @@ public class WildBoar extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 3*level;
+    	  attack = 4*level;
       }
       public void setHealth() {
     	  
-    	  health = 6*level;
+    	  health = 5*level;
       }
-      public void upHealth(int boost) {
-    	  if(boost + health > 10*level) {
-    		  setHealth();
-    	  }else {
-    		  health = health + boost;
-    	  }
-      }
+      
       public int getLevel() {
     	  return level;
+      }
+
+      public int getAttack(){
+            return this.attack;
       }
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Boar rolls in mud");
+        	  System.out.println("Chimpanzee uses Poop Throw");
         	  dam = 0;
-        	  System.out.println("It's healed some health.");
-        	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
-        	  System.out.print(getHealth()+ "\n");
+        	  System.out.println("You lost some shield");
+        	  System.out.println("Shield " + pc.getShield() + "-->");
+        	  pc.downgradeShield(1);
+        	  System.out.print(pc.getShield()+ "\n");
+        	  
           }else if(move == 1) {
-        	  System.out.println("Boar uses Body Slam");
+        	  System.out.println("Chimpanzee uses both arms to smash against your body");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Boar uses Tackle");
+        	  System.out.println("Chimpanzee uses Tackle");
         	  dam = attack;
           }
           return dam;
     	  
       }
-      public int getAttack(){
-            return this.attack;
-      }
 
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA wild boar appeared!");
+            System.out.println("\n\nA Wild Chimpanzee appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }

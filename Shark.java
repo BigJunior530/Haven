@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class Wolf extends CharEntities{
+public class Shark extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Wolf(Protag pc){
+      public Shark(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
@@ -14,20 +14,21 @@ public class Wolf extends CharEntities{
       }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = (rand.nextInt(3) + 1) * enemy;
       }
       public void setAttack() {
     	  
-    	  attack = 5*level;
-      }
-      public void setHealth() {
-    	  
-    	  health = 7*level;
+    	  attack = 10*level;
       }
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
       }
+      public void setHealth() {
+    	  
+    	  health = 12*level;
+      }
+      
       public int getLevel() {
     	  return level;
       }
@@ -35,39 +36,39 @@ public class Wolf extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Wolf uses Howl");
+        	  System.out.println("Shark smells Blood");
         	  dam = 0;
-        	  System.out.println("It's attack increased.");
+        	  System.out.println("It's attack Doubled.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack()/2);
+        	  upAttack(getAttack());
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Wolf uses Mutilate");
+        	  System.out.println("Shark uses its rows of Razer Sharp teeth to shred you");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Wolf uses Tackle");
+        	  System.out.println("Shark uses Tackle");
         	  dam = attack;
           }
           return dam;
     	  
       }
       public int getAttack(){
-          return this.attack;
-    }
+            return this.attack;
+      }
 
-    public void intro() throws InterruptedException {
-          Main.sleep500();
-          Thread.sleep(1000);
-          System.out.println("\n\nA rabid Wolf appeared!");
-          System.out.println("Level: " + getLevel());
-          System.out.println("Health: " + getHealth());
-    }
+      public void intro() throws InterruptedException {
+            Main.sleep500();
+            Thread.sleep(1000);
+            System.out.println("\n\nA Great White Shark appeared!");
+            System.out.println("Level: " + getLevel());
+            System.out.println("Health: " + getHealth());
+      }
 
-    public int getHealth(){
-          return this.health;
-    }
-    public void damage(int hurt) {
-  	  health = health - hurt;
-    }
+      public int getHealth(){
+            return this.health;
+      }
+      public void damage(int hurt) {
+    	  health = health - hurt;
+      }
 }
