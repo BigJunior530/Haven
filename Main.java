@@ -1,6 +1,20 @@
 import java.util.*;
 
-
+/**
+ * The program as a whole should let the user play as the main character as
+ * represented as 
+ * <pre>    {@code
+ *          Protag pc = new Protag();
+ *    } </pre>
+ * 
+ * @author Carlos Caceres
+ * @author Jaime Ramirez
+ * @author Nathan Aquino
+ * @author Armando Juarez
+ * 
+ * @version 1.01 ---> 07 December 2019 
+ * @see ath
+ */
 public class Main {
 
       public static Scanner console = new Scanner(System.in);
@@ -192,7 +206,7 @@ public class Main {
     }
 
       /**
-       * 
+       * South defines the terrain and environment for the South region.
        * @param pc Primary Character is added into the argument to shorten the
        * main(String[] args) method
        * @throws InterruptedException Most likely is thrown when an outside command from the users
@@ -238,7 +252,7 @@ public class Main {
       }
 
       /**
-       * 
+       * Ocean defines the terrain and environment for the Ocean region.
        * @param pc Primary Character is added into the argument to shorten the
        * main(String[] args) method
        * @throws InterruptedException Most likely is thrown when an outside command from the users
@@ -284,7 +298,9 @@ public class Main {
       }
 
       /**
-       * 
+       * A fight sequence requires two entities to enter as parameters. The fight should not
+       * stop unless the user's health drops below 0, the enemy entities drop below 0 health,
+       * or the user runs away from the fight.
        * @param <E> General class type which is used for being robust in letting any 
        * subclass of character entity to enter a battle with the user.
        * @param pc Primary Character is added into the argument to shorten the
