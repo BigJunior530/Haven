@@ -1,11 +1,13 @@
+
 import java.util.*;
 
 /**
  * The program as a whole should let the user play as the main character as
- * represented as 
+ * represented as:
  * <pre>    {@code
  *          Protag pc = new Protag();
  *    } </pre>
+ * The new object of pc is now passable to different methods of the Main.java class.
  * 
  * @author Carlos Caceres
  * @author Jaime Ramirez
@@ -32,7 +34,6 @@ public class Main {
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       private static void choice() throws InterruptedException {
             sleep500();
             Thread.sleep(500);
@@ -43,7 +44,6 @@ public class Main {
             System.out.println("3: Items");
             System.out.println("4: Run");
       }
-
 
       
       /**
@@ -142,7 +142,6 @@ public class Main {
        * main(String[] args) method
        * @throws InterruptedException
        */
-
       private static void end(Protag pc) throws InterruptedException {
     	  int ans = console.nextInt();
           switch (ans){
@@ -158,7 +157,6 @@ public class Main {
           default:
                 // DEFAULT
                 break;
-
             }
       }
 
@@ -169,7 +167,6 @@ public class Main {
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       private static void North(Protag pc) throws InterruptedException {
     	  Story.North();
     	  int ans = console.nextInt();
@@ -210,7 +207,6 @@ public class Main {
           
     }
 
-
       /**
        * South defines the terrain and environment for the South region.
        * @param pc Primary Character is added into the argument to shorten the
@@ -218,7 +214,6 @@ public class Main {
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       private static void South(Protag pc) throws InterruptedException {
     	  Story.South();
     	  int ans = console.nextInt();
@@ -258,7 +253,6 @@ public class Main {
     	  end(pc);
       }
 
-
       /**
        * Ocean defines the terrain and environment for the Ocean region.
        * @param pc Primary Character is added into the argument to shorten the
@@ -266,7 +260,6 @@ public class Main {
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       private static void Ocean(Protag pc) throws InterruptedException {
     	  Story.Ocean();
     	  int ans = console.nextInt();
@@ -306,7 +299,6 @@ public class Main {
     	  end(pc);
       }
 
-
       /**
        * A fight sequence requires two entities to enter as parameters. The fight should not
        * stop unless the user's health drops below 0, the enemy entities drop below 0 health,
@@ -322,16 +314,11 @@ public class Main {
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       private static <E> void fightSequence(Protag pc, E ek, String name) throws InterruptedException {
             while (!(pc.getHealth() <= 0) || !(((CharEntities) ek).getHealth() <= 0)) {
                   int p1Attack;
                   int CPUAttack;
                   int p1Defence = pc.getShield();
-
-                  //int CPUDefence;
-                  //String p1Items;
-                  //String CPUItems;
 
                   choice();
                   console.nextLine();
@@ -340,7 +327,6 @@ public class Main {
                   // Main character choice
                   switch (choice){
                         case 1:
-
                         	p1Attack = pc.getAttack();
                         	System.out.println("You dealt " + p1Attack + " damage");
                             ((CharEntities) ek).damage(p1Attack);
@@ -461,7 +447,6 @@ public class Main {
                               System.out.println(name + " is Bored");
                               // something ITEMS
                               break;
-
                         default:
                               // DEFAULT
                               break;
@@ -469,13 +454,11 @@ public class Main {
             }
       }
       
-
       /**
        * Method would allow a "...." sequence to appear with a Thread.sleep(500) inbetween each "."
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
-
       public static void sleep500() throws InterruptedException {
             for(int i = 0; i <= 4; i++){
                   Thread.sleep(500);
@@ -483,3 +466,4 @@ public class Main {
             }
       }
 }
+
