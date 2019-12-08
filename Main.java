@@ -437,7 +437,7 @@ public class Main {
       }
       
       /**
-       * Method would allow a "...." sequence to appear with a Thread.sleep(millis) inbetween each "."
+       * Method would allow a "...." sequence to appear with a Thread.sleep(500) inbetween each "."
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
