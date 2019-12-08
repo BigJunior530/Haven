@@ -23,7 +23,10 @@ public class Protag {
             counter = 0;
 
       }
-      
+      /**
+       * 
+       * @param strength
+       */
       public void setExp(int strength) {
     	  exp = exp + (strength*2);
       }
