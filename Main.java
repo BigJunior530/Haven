@@ -29,6 +29,7 @@ public class Main {
             System.out.println("4: Run");
       }
 
+      
       /**
        * Method starts the story with getting input from the player and
        * having a battle. Depending on what path the user chooses, the method 
@@ -284,11 +285,14 @@ public class Main {
 
       /**
        * 
-       * @param <E>
+       * @param <E> General class type which is used for being robust in letting any 
+       * subclass of character entity to enter a battle with the user.
        * @param pc Primary Character is added into the argument to shorten the
-       * main(String[] args) method
-       * @param ek
-       * @param name
+       * main(String[] args) method.
+       * @param ek General name for the enemy (passed as a parameter) to begin being used
+       * the method.
+       * @param name Specifies the specific type of enemy the user will fight against whether
+       * it be a Boar or Panther or Vulture. Used to be output to the screen for the user.
        * @throws InterruptedException Most likely is thrown when an outside command from the users
        * computer ends the Thread.sleep(millis) method
        */
