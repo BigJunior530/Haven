@@ -2,10 +2,11 @@ import java.util.*;
 
 /**
  * The program as a whole should let the user play as the main character as
- * represented as 
+ * represented as:
  * <pre>    {@code
  *          Protag pc = new Protag();
  *    } </pre>
+ * The new object of pc is now passable to different methods of the Main.java class.
  * 
  * @author Carlos Caceres
  * @author Jaime Ramirez
