@@ -10,8 +10,8 @@ public class Protag {
       private int needed;
       private static TreeSet<String> items = new TreeSet<String>();
       private static TreeSet<String> equip = new TreeSet<String>();
-      private int counter;
-
+      private int itemCounter;
+      private int equipCounter;
 
       public Protag(){
             this.health = 100;
@@ -21,7 +21,8 @@ public class Protag {
             level = 1;
             exp = 0;
             needed = 10;
-            counter = 0;
+            itemCounter = 0;
+            equipCounter = 0;
 
       }
       public void sprite(){
@@ -118,15 +119,15 @@ public class Protag {
       }
 
       public boolean getItems(){
-          if(counter == 0) {  
+          if(itemCounter == 0) {  
         	  System.out.println("No Items");
         	  return false;
           }else {
-        	  if(counter > 1) {
-        		  for(int i = 0; i< counter; i++) {
+        	  if(itemCounter > 1) {
+        		  for(int i = 0; i< itemCounter; i++) {
         			  System.out.println((i + 1) + ": " + items.toArray()[i]);
         		  }
-        	  }else if(counter == 1) {
+        	  }else if(itemCounter == 1) {
         		  System.out.println("1: " + items.toArray()[0]);
         	  }
         	  return true;
@@ -137,23 +138,23 @@ public class Protag {
       }
       public void removeItem(String word) {
     	  items.remove(word);
-    	  counter--;
+    	  itemCounter--;
       }
       public void putItems(String thing) {
     	  items.add(thing);
-    	  counter++;
+    	  itemCounter++;
     	  
       }
       public boolean getEquipment(){
-          if(counter == 0) {  
+          if(equipCounter == 0) {  
         	  System.out.println("No Equipment");
         	  return false;
           }else {
-        	  if(counter > 1) {
-        		  for(int i = 0; i< counter; i++) {
+        	  if(equipCounter > 1) {
+        		  for(int i = 0; i< equipCounter; i++) {
         			  System.out.println((i + 1) + ": " + equip.toArray()[i]);
         		  }
-        	  }else if(counter == 1) {
+        	  }else if(equipCounter == 1) {
         		  System.out.println("1: " + equip.toArray()[0]);
         	  }
         	  return true;
@@ -164,11 +165,11 @@ public class Protag {
       }
       public void removeEquipment(String word) {
     	  equip.remove(word);
-    	  counter--;
+    	  equipCounter--;
       }
       public void putEquipment(String word) {
     	  equip.add(word);
-    	  counter++;
+    	  equipCounter++;
     	  
       }
 

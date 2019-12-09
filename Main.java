@@ -57,10 +57,11 @@ public class Main {
       sleep500();
       Thread.sleep(500);
       System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-3");
+      System.out.println("Enter in your choice using the numbers 1-4");
       System.out.println("1: Items");
       System.out.println("2: Equipment");
-      System.out.println("3: Return");
+      System.out.println("3: Check Stats");
+      System.out.println("4: Return");
       console.nextLine();
       int choice = console.nextInt();
           
@@ -104,11 +105,15 @@ public class Main {
                   Equipment.leggings();
                   pc.upgradeShield(2);
                }
-               pc.removeItem(c);
+               pc.removeEquipment(c);
             }
             rest(pc);
             return;
          case 3:
+            checkStats(pc);
+            rest(pc);
+            return;
+         case 4:
             rest(pc);
             return;
          default:
@@ -116,7 +121,14 @@ public class Main {
             break;
       }
    }
-      
+   private static <E> void checkStats(Protag pc) throws InterruptedException {
+        System.out.println("Total Health: " + pc.getTotal());
+    	  System.out.println("Attack: " + pc.getAttack());
+    	  System.out.println("Shield: " + pc.getShield());
+    	  System.out.println("Level: " + pc.getLevel());
+        System.out.println("Health: " + pc.getHealth());
+        
+   }
    private static <E> void attacksStarter(Protag pc, E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-2");
@@ -242,7 +254,7 @@ public class Main {
                   Equipment.leggings();
                   pc.upgradeShield(2);
                }
-               pc.removeItem(c);
+               pc.removeEquipment(c);
             }
             return;
          case 3:
@@ -284,15 +296,15 @@ public class Main {
          	  
             if(helmet == 0) {
                System.out.println("You got a Helmet!");
-               pc.putItems("Helmet");
+               pc.putEquipment("Helmet");
                helmet++;
             }else if(chest == 0) {
                System.out.println("You got a Chest Plate!");
-               pc.putItems("Chest Plate");
+               pc.putEquipment("Chest Plate");
                chest++;
             }else if(leg == 0) {
                System.out.println("You got Leggings!");
-               pc.putItems("Leggings");
+               pc.putEquipment("Leggings");
                leg++;
             }else {
                System.out.println("You got nothing...");
@@ -336,15 +348,15 @@ public class Main {
          	  
             if(helmet == 0) {
                System.out.println("You got a Helmet!");
-               pc.putItems("Helmet");
+               pc.putEquipment("Helmet");
                helmet++;
             }else if(chest == 0) {
                System.out.println("You got a Chest Plate!");
-               pc.putItems("Chest Plate");
+               pc.putEquipment("Chest Plate");
                chest++;
             }else if(leg == 0) {
                System.out.println("You got Leggings!");
-               pc.putItems("Leggings");
+               pc.putEquipment("Leggings");
                leg++;
             }else {
                System.out.println("You got nothing...");
@@ -358,7 +370,7 @@ public class Main {
       int p1Attack;
       int count;
       count = 0;
-      p1Attack = console.nextInt(pc.getAttack());
+      p1Attack = rand.nextInt(pc.getAttack());
       while(count < 4 && ((CharEntities) ek).getHealth() > 0) {
          System.out.println("You dealt " + p1Attack + " damage");
          ((CharEntities) ek).damage(p1Attack);
@@ -389,15 +401,15 @@ public class Main {
          	  
             if(helmet == 0) {
                System.out.println("You got a Helmet!");
-               pc.putItems("Helmet");
+               pc.putEquipment("Helmet");
                helmet++;
             }else if(chest == 0) {
                System.out.println("You got a Chest Plate!");
-               pc.putItems("Chest Plate");
+               pc.putEquipment("Chest Plate");
                chest++;
             }else if(leg == 0) {
                System.out.println("You got Leggings!");
-               pc.putItems("Leggings");
+               pc.putEquipment("Leggings");
                leg++;
             }else {
                System.out.println("You got nothing...");
@@ -699,14 +711,15 @@ public class Main {
          
                   // CPU choice
                   //Switch back to four when you want to add leaving again
-         int num = rand.nextInt(3) + 1;
+         int num = rand.nextInt(2) + 1;
          sleep500();
          switch (num){
+             //Too common and makes the game uninteresting
+             // case 1:
+//                System.out.println(name + " does NOTHING.");
+                               //something regarding DEFENCE
+//                break;
             case 1:
-               System.out.println(name + " does NOTHING.");
-                              // something regarding DEFENCE
-               break;
-            case 2:
             	CPUAttack = ((CharEntities) ek).getMove(pc);
                 if(CPUAttack - p1Defence > 0) {
                          		
@@ -722,13 +735,13 @@ public class Main {
                 }else {
                    System.out.println("You fainted...");
                    System.out.println("You wake up again hours later");
-                   pc.setHealth(50);
+                   pc.setHealth(pc.getTotal());
                    System.out.println("Your health is " + pc.getHealth());
                    return;
                 }
                               // something regarding ATTACK
                break;
-            case 3:
+            case 2:
                CPUAttack = ((CharEntities) ek).getMove(pc);
                if(CPUAttack - p1Defence > 0) {
                         		
