@@ -24,9 +24,38 @@ public class PolarBear extends CharEntities{
     	  
     	  health = 11*level;
       }
-      
+
+      public void upHealth(int boost) {
+    	  if(boost + health > 10*level) {
+    		  setHealth();
+    	  }else {
+    		  health = health + boost;
+    	  }
+      }
       public int getLevel() {
     	  return level;
+      }
+      
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Polar Bear uses its thick fur to warm itself up.");
+        	  dam = 0;
+        	  System.out.println("It's healed some health.");
+        	  System.out.println("Health " + getHealth() + "-->");
+        	  upHealth(1*level);
+        	  System.out.print(getHealth()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Polar Bear smashes its paws against the Ice to completely shatter the Ice under you");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Polar Bear uses Strike");
+        	  dam = attack;
+          }
+          return dam;
+    	  
       }
 
       public int getAttack(){

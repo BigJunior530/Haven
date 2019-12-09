@@ -20,6 +20,12 @@ public class Ram extends CharEntities{
     	  
     	  attack = 5*level;
       }
+
+      public void upAttack(int boost) {
+    	  
+    	  attack = attack + boost;
+      }
+
       public void setHealth() {
     	  
     	  health = 4*level;
@@ -27,6 +33,28 @@ public class Ram extends CharEntities{
       
       public int getLevel() {
     	  return level;
+      }
+
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Ram smashes his Horns into the wall");
+        	  dam = 0;
+        	  System.out.println("It's attack increased.");
+        	  System.out.println("Attack " + getAttack() + "-->");
+        	  upAttack(getAttack()/2);
+        	  System.out.print(getAttack()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Ram uses Head Smash");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Ram uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
       }
 
       public int getAttack(){

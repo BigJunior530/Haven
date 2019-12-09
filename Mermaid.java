@@ -29,6 +29,25 @@ public class Mermaid extends CharEntities{
     	  return level;
       }
 
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Mermaid uses Song");
+        	  dam = pc.getAttack()/2;
+        	  System.out.println("You're body slowing started walking by itself towads the Mermaid. You stabbed youself to Stop.");
+          }else if(move == 1) {
+        	  System.out.println("Mermaid uses drown");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Mermaid uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+      }
+
       public int getAttack(){
             return this.attack;
       }

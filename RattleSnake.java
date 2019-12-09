@@ -29,6 +29,28 @@ public class RattleSnake extends CharEntities{
     	  return level;
       }
 
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Snake uses its poison");
+        	  dam = 0;
+        	  System.out.println("You lost some shield");
+        	  System.out.println("Shield " + pc.getShield() + "-->");
+        	  pc.downgradeShield(2);
+        	  System.out.print(pc.getShield()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Snake uses Constriction");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Snake uses Strike");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+      }
+
       public int getAttack(){
             return this.attack;
       }

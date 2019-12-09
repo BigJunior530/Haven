@@ -20,6 +20,11 @@ public class MountainLion extends CharEntities{
     	  
     	  attack = 7*level;
       }
+      public void upAttack(int boost) {
+    	  
+    	  attack = attack + boost;
+      }
+
       public void setHealth() {
     	  
     	  health = 8*level;
@@ -27,6 +32,28 @@ public class MountainLion extends CharEntities{
       
       public int getLevel() {
     	  return level;
+      }
+
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Mountain Lion used Sharpen claw");
+        	  dam = 0;
+        	  System.out.println("It's attack doubled.");
+        	  System.out.println("Attack " + getAttack() + "-->");
+        	  upAttack(getAttack());
+        	  System.out.print(getAttack()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Moutain Lion uses Mangle");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Mountain Lion uses Pounce");
+        	  dam = attack;
+          }
+          return dam;
+    	  
       }
 
       public int getAttack(){

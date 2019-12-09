@@ -29,8 +29,27 @@ public class Alien extends CharEntities{
     	  return level;
       }
 
-      public int getAttack(){
-            return this.attack;
+      public int getAttack() {
+    	  return attack;
+      }
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Alien uses Hypnosis");
+        	  dam = pc.getAttack()/2;
+        	  System.out.println("You got confused. Then punched yourself to get out of confusion");
+          }else if(move == 1) {
+        	  System.out.println("Alien uses Probe");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Alien uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+
       }
 
       public void intro() throws InterruptedException {

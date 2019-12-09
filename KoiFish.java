@@ -24,10 +24,36 @@ public class KoiFish extends CharEntities{
     	  
     	  health = 6*level;
       }
-      
+
+      public void upAttack(int boost) {
+    	  
+    	  attack = attack + boost;
+      }
       public int getLevel() {
     	  return level;
       }
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Koi uses Glistening Scales");
+        	  dam = 0;
+        	  System.out.println("It's attack increased.");
+        	  System.out.println("Attack " + getAttack() + "-->");
+        	  upAttack(getAttack()/2);
+        	  System.out.print(getAttack()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Koi uses Razor Scales");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Koi uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+      }
+
       public int getAttack(){
           return this.attack;
     }
