@@ -32,6 +32,7 @@ public class Chimpanzee extends CharEntities{
       public int getAttack(){
             return this.attack;
       }
+
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -54,6 +55,7 @@ public class Chimpanzee extends CharEntities{
           return dam;
     	  
       }
+
 
       public void intro() throws InterruptedException {
             Main.sleep500();

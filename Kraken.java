@@ -24,6 +24,7 @@ public class Kraken extends CharEntities{
     	  
     	  health = 10*level;
       }
+
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -31,10 +32,12 @@ public class Kraken extends CharEntities{
     		  health = health + boost;
     	  }
       }
+
       
       public int getLevel() {
     	  return level;
       }
+
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -56,6 +59,7 @@ public class Kraken extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

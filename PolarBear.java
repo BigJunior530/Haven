@@ -24,6 +24,7 @@ public class PolarBear extends CharEntities{
     	  
     	  health = 11*level;
       }
+
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -56,6 +57,7 @@ public class PolarBear extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

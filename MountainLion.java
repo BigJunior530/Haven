@@ -24,6 +24,7 @@ public class MountainLion extends CharEntities{
     	  
     	  attack = attack + boost;
       }
+
       public void setHealth() {
     	  
     	  health = 8*level;
@@ -32,6 +33,7 @@ public class MountainLion extends CharEntities{
       public int getLevel() {
     	  return level;
       }
+
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -53,6 +55,7 @@ public class MountainLion extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

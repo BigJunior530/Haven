@@ -1,5 +1,6 @@
 import java.util.TreeSet;
 
+
 public class Protag {
       private int health;
       private int totalHealth;
@@ -14,6 +15,7 @@ public class Protag {
       private int equipCounter;
 
       public Protag(){
+
             this.health = 100;
             totalHealth = 100;
             this.attack = 5;
@@ -21,6 +23,7 @@ public class Protag {
             level = 1;
             exp = 0;
             needed = 10;
+
             itemCounter = 0;
             equipCounter = 0;
 
@@ -174,4 +177,5 @@ public class Protag {
       }
 
       
+
 }

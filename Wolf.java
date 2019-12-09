@@ -19,6 +19,7 @@ public class Wolf extends CharEntities{
       public void setAttack() {
     	  
     	  attack = 5*level;
+
       }
       public void setHealth() {
     	  
@@ -52,6 +53,7 @@ public class Wolf extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
           return this.attack;
     }

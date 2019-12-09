@@ -28,6 +28,7 @@ public class Vulture extends CharEntities{
       public int getLevel() {
     	  return level;
       }
+
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -50,6 +51,7 @@ public class Vulture extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

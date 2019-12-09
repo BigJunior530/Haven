@@ -20,10 +20,12 @@ public class Shark extends CharEntities{
     	  
     	  attack = 10*level;
       }
+
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
       }
+
       public void setHealth() {
     	  
     	  health = 12*level;
@@ -32,6 +34,7 @@ public class Shark extends CharEntities{
       public int getLevel() {
     	  return level;
       }
+
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -53,6 +56,7 @@ public class Shark extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

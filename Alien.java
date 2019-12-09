@@ -28,6 +28,7 @@ public class Alien extends CharEntities{
       public int getLevel() {
     	  return level;
       }
+
       public int getAttack() {
     	  return attack;
       }
@@ -48,6 +49,7 @@ public class Alien extends CharEntities{
           }
           return dam;
     	  
+
       }
 
       public void intro() throws InterruptedException {

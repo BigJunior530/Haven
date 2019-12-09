@@ -24,6 +24,7 @@ public class WildBoar extends CharEntities{
     	  
     	  health = 6*level;
       }
+
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -55,6 +56,7 @@ public class WildBoar extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
             return this.attack;
       }

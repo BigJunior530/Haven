@@ -15,6 +15,7 @@ public abstract class CharEntities{
       public void intro() throws InterruptedException{
           
        }
+
       
       public String showHealth(){
             String output = "HP is " + this.health;

@@ -24,6 +24,7 @@ public class KoiFish extends CharEntities{
     	  
     	  health = 6*level;
       }
+
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
@@ -52,6 +53,7 @@ public class KoiFish extends CharEntities{
           return dam;
     	  
       }
+
       public int getAttack(){
           return this.attack;
     }
