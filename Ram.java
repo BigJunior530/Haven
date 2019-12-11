@@ -1,27 +1,26 @@
 import java.util.Random;
 
-public class WildBoar extends CharEntities{
+public class Ram extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public WildBoar(Protag pc){
+      public Ram(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                     __   __");
-          System.out.println("                     \\/---\\/");
-          System.out.println("                      ). .(");
-          System.out.println("                     ( (\") )");
-          System.out.println("                      )   (");
-          System.out.println("                     /     \\ ");
-          System.out.println("                    (       )`9");
-          System.out.println("                   ( \\ /-\\ / )");
-          System.out.println("                    w'W   W'w");
+    	  System.out.println("                   _.-..");
+          System.out.println("                 ,'9 )\\)`-.,.--.");
+          System.out.println("                 `-.|           `.");
+          System.out.println("                     \\,      ,    \\)");
+          System.out.println("                      `.  )._\\   (\\");
+          System.out.println("                       |//   `-,//");
+          System.out.println("                       ]||    //\"");
+          System.out.println("                       \"\"    \"\"");
        }
       public void setLevel(int enemy) {
     	  
@@ -29,19 +28,17 @@ public class WildBoar extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 3*level;
+    	  attack = 5*level;
+      }
+      public void upAttack(int boost) {
+    	  
+    	  attack = attack + boost;
       }
       public void setHealth() {
     	  
-    	  health = 6*level;
+    	  health = 4*level;
       }
-      public void upHealth(int boost) {
-    	  if(boost + health > 10*level) {
-    		  setHealth();
-    	  }else {
-    		  health = health + boost;
-    	  }
-      }
+      
       public int getLevel() {
     	  return level;
       }
@@ -49,18 +46,18 @@ public class WildBoar extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Boar rolls in mud");
+        	  System.out.println("Ram smashes his Horns into the wall");
         	  dam = 0;
-        	  System.out.println("It's healed some health.");
-        	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
-        	  System.out.print(getHealth()+ "\n");
+        	  System.out.println("It's attack increased.");
+        	  System.out.println("Attack " + getAttack() + "-->");
+        	  upAttack(getAttack()/2);
+        	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Boar uses Body Slam");
+        	  System.out.println("Ram uses Head Smash");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Boar uses Tackle");
+        	  System.out.println("Ram uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -73,7 +70,7 @@ public class WildBoar extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA wild boar appeared!");
+            System.out.println("\n\nA Ram appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
