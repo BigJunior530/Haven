@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Wolf extends CharEntities{
@@ -12,6 +13,19 @@ public class Wolf extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                              .");
+          System.out.println("                             / V\\");
+          System.out.println("                            / ` /");
+          System.out.println("                          <<   |");
+          System.out.println("                          /    |");
+          System.out.println("                        /      |");
+          System.out.println("                      /        |");
+          System.out.println("                    /    \\  \\ /");
+          System.out.println("                   (      ) | |");
+          System.out.println("           ________|   _/_  | |");
+          System.out.println("         <__________\\______)\\__)");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -19,7 +33,6 @@ public class Wolf extends CharEntities{
       public void setAttack() {
     	  
     	  attack = 5*level;
-
       }
       public void setHealth() {
     	  
@@ -53,7 +66,6 @@ public class Wolf extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
           return this.attack;
     }

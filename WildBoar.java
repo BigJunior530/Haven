@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class WildBoar extends CharEntities{
@@ -12,6 +13,17 @@ public class WildBoar extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                     __   __");
+          System.out.println("                     \\/---\\/");
+          System.out.println("                      ). .(");
+          System.out.println("                     ( (\") )");
+          System.out.println("                      )   (");
+          System.out.println("                     /     \\ ");
+          System.out.println("                    (       )`9");
+          System.out.println("                   ( \\ /-\\ / )");
+          System.out.println("                    w'W   W'w");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -24,7 +36,6 @@ public class WildBoar extends CharEntities{
     	  
     	  health = 6*level;
       }
-
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -56,7 +67,6 @@ public class WildBoar extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Penguin extends CharEntities{
@@ -12,6 +13,18 @@ public class Penguin extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                  .___.");
+          System.out.println("                 /     \\");
+          System.out.println("                | O _ O |");
+          System.out.println("                /  \\_/  \\ ");
+          System.out.println("              .' /     \\ `.");
+          System.out.println("             / _|       |_ \\");
+          System.out.println("            (_/ |       | \\_)");
+          System.out.println("                \\       /");
+          System.out.println("               __\\_>-<_/__");
+          System.out.println("               ~;/     \\;~");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +41,6 @@ public class Penguin extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -51,7 +63,6 @@ public class Penguin extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

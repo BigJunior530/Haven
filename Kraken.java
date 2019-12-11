@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Kraken extends CharEntities{
@@ -12,6 +13,16 @@ public class Kraken extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                       .'-'.");
+          System.out.println("                   .  (  o O)");
+          System.out.println("                    \\_ `  _,   _");
+          System.out.println("                 -.___'.) ( ,-'");
+          System.out.println("                      '-.O.'-..-..");
+          System.out.println("                  ./\\/\\/ | \\_.-._");
+          System.out.println("                         ;");
+          System.out.println("                      ._/");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(3) + 1) * enemy;
@@ -24,7 +35,6 @@ public class Kraken extends CharEntities{
     	  
     	  health = 10*level;
       }
-
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -32,12 +42,10 @@ public class Kraken extends CharEntities{
     		  health = health + boost;
     	  }
       }
-
       
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -59,7 +67,6 @@ public class Kraken extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }
@@ -79,3 +86,4 @@ public class Kraken extends CharEntities{
     	  health = health - hurt;
       }
 }
+

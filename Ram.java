@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Ram extends CharEntities{
@@ -12,6 +13,16 @@ public class Ram extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                   _.-..");
+          System.out.println("                 ,'9 )\\)`-.,.--.");
+          System.out.println("                 `-.|           `.");
+          System.out.println("                     \\,      ,    \\)");
+          System.out.println("                      `.  )._\\   (\\");
+          System.out.println("                       |//   `-,//");
+          System.out.println("                       ]||    //\"");
+          System.out.println("                       \"\"    \"\"");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -20,12 +31,10 @@ public class Ram extends CharEntities{
     	  
     	  attack = 5*level;
       }
-
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
       }
-
       public void setHealth() {
     	  
     	  health = 4*level;
@@ -34,7 +43,6 @@ public class Ram extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -56,7 +64,6 @@ public class Ram extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

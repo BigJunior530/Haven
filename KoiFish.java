@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class KoiFish extends CharEntities{
@@ -12,6 +13,12 @@ public class KoiFish extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                   /\"*._         _");
+          System.out.println("               .-*'`    `*-.._.-'/");
+          System.out.println("             < * ))     ,       ( ");
+          System.out.println("              `*-._`._(__.--*\"`.\\");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -24,7 +31,6 @@ public class KoiFish extends CharEntities{
     	  
     	  health = 6*level;
       }
-
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
@@ -53,7 +59,6 @@ public class KoiFish extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
           return this.attack;
     }
@@ -73,3 +78,4 @@ public class KoiFish extends CharEntities{
   	  health = health - hurt;
     }
 }
+

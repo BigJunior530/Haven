@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Alien extends CharEntities{
@@ -12,6 +13,14 @@ public class Alien extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                                  .-.");
+          System.out.println("                   .-\"\"`\"\"-.    |(@ @)");
+          System.out.println("                _/`oOoOoOoOo`\\_ \\ \\-/");
+          System.out.println("               '.-=-=-=-=-=-=-.' \\/ \\");
+          System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
+          System.out.println("                    ^  ^  ^       _H_ \\");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +37,6 @@ public class Alien extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getAttack() {
     	  return attack;
       }
@@ -49,7 +57,6 @@ public class Alien extends CharEntities{
           }
           return dam;
     	  
-
       }
 
       public void intro() throws InterruptedException {

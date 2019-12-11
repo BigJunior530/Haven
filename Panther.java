@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Panther extends CharEntities{
@@ -12,6 +13,13 @@ public class Panther extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                 (\"`-''-/\").___..--''\"`-._");
+          System.out.println("                  `6_ 6  )   `-.  (     ).`-.__.`)");
+          System.out.println("                  (_Y_.)'  ._   )  `._ `. ``-..-'");
+          System.out.println("                _..`--'_..-_/  /--'_.' ,'");
+          System.out.println("               (il),-''  (li),'  ((!.-' ");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(3) + 1) * enemy;
@@ -20,12 +28,10 @@ public class Panther extends CharEntities{
     	  
     	  attack = 7*level;
       }
-
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
       }
-
       public void setHealth() {
     	  
     	  health = 9*level;
@@ -34,7 +40,6 @@ public class Panther extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -57,7 +62,6 @@ public class Panther extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

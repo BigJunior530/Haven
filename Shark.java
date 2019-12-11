@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Shark extends CharEntities{
@@ -12,6 +13,18 @@ public class Shark extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                       _________         .    .");
+          System.out.println("                      (..       \\_    ,  |\\  /|");
+          System.out.println("                       \\       O  \\  /|  \\ \\/ /");
+          System.out.println("                        \\______    \\/ |   \\  / ");
+          System.out.println("                           vvvv\\    \\ |   /  |");
+          System.out.println("                           \\^^^^  ==   \\_/   |");
+          System.out.println("                            `\\_   ===    \\.  |");
+          System.out.println("                            / /\\_   \\ /      |");
+          System.out.println("                            |/   \\_  \\|      /");
+          System.out.println("                                   \\________/");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(3) + 1) * enemy;
@@ -20,12 +33,10 @@ public class Shark extends CharEntities{
     	  
     	  attack = 10*level;
       }
-
       public void upAttack(int boost) {
     	  
     	  attack = attack + boost;
       }
-
       public void setHealth() {
     	  
     	  health = 12*level;
@@ -34,7 +45,6 @@ public class Shark extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -56,7 +66,6 @@ public class Shark extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

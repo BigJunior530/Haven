@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class FlyingSquirrel extends CharEntities{
@@ -12,6 +13,15 @@ public class FlyingSquirrel extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("              (\\__/)  .~    ~. ))");
+          System.out.println("              /O O `./      .'");
+          System.out.println("             {O__,   \\    {");
+          System.out.println("              / .  . )    \\");
+          System.out.println("              |-| '-' \\    } ))");
+          System.out.println("             .(   _(   )_.'");
+          System.out.println("            '---.~_ _ _&");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +38,6 @@ public class FlyingSquirrel extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -51,7 +60,6 @@ public class FlyingSquirrel extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
           return this.attack;
     }
@@ -70,4 +78,5 @@ public class FlyingSquirrel extends CharEntities{
     public void damage(int hurt) {
   	  health = health - hurt;
     }
+
 }

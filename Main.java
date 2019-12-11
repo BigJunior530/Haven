@@ -43,10 +43,10 @@ public class Main {
       System.out.println("3: Run");
    }
    private static <E> void battle(Protag pc, E ek) throws InterruptedException {
-      System.out.println("_______________");
-      CharEntities.enemy();
+      System.out.println("_________________________________________________________________");
+      ((CharEntities) ek).enemy();
       pc.sprite();
-      System.out.println("_______________");
+      System.out.println("_________________________________________________________________");
    }
       
    private static void rest(Protag pc) throws InterruptedException {
@@ -60,7 +60,11 @@ public class Main {
             Inventory(pc);
             break;
          case 2: 
+        	 checkStats(pc);
+             rest(pc);
             return;
+         case 3:
+        	 return;
          default:
                         // DEFAULT
             break;
@@ -70,11 +74,10 @@ public class Main {
       sleep500();
       Thread.sleep(500);
       System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-4");
+      System.out.println("Enter in your choice using the numbers 1-3");
       System.out.println("1: Items");
       System.out.println("2: Equipment");
-      System.out.println("3: Check Stats");
-      System.out.println("4: Return");
+      System.out.println("3: Return");
       console.nextLine();
       int choice = console.nextInt();
           
@@ -123,10 +126,6 @@ public class Main {
             rest(pc);
             return;
          case 3:
-            checkStats(pc);
-            rest(pc);
-            return;
-         case 4:
             rest(pc);
             return;
          default:

@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class RattleSnake extends CharEntities{
@@ -12,6 +13,11 @@ public class RattleSnake extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                                   ____");
+          System.out.println("          ________________________/ O  \\___/");
+          System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(3) + 1) * enemy;
@@ -28,7 +34,6 @@ public class RattleSnake extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -50,7 +55,6 @@ public class RattleSnake extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

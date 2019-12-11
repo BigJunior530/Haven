@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class PolarBear extends CharEntities{
@@ -12,6 +13,14 @@ public class PolarBear extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                     ..------~~~--.__");
+          System.out.println("                   /               c~\\");
+          System.out.println("                   /             \\__ `\\");
+          System.out.println("                   |  /~~--__/  /'\\ ~~'");
+          System.out.println("                  /'/'\\ |    | |`\\ \\_");
+          System.out.println("                 `-))  `-))  `-)) `-))");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(3) + 1) * enemy;
@@ -24,7 +33,6 @@ public class PolarBear extends CharEntities{
     	  
     	  health = 11*level;
       }
-
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
     		  setHealth();
@@ -57,7 +65,6 @@ public class PolarBear extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }

@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Chimpanzee extends CharEntities{
@@ -12,6 +13,14 @@ public class Chimpanzee extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("            __");
+          System.out.println("          (/00\\)");
+          System.out.println("           \\--/");
+          System.out.println("         \\/ [] \\/");
+          System.out.println("            []/");
+          System.out.println("          _|  |_");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -32,7 +41,6 @@ public class Chimpanzee extends CharEntities{
       public int getAttack(){
             return this.attack;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -55,7 +63,6 @@ public class Chimpanzee extends CharEntities{
           return dam;
     	  
       }
-
 
       public void intro() throws InterruptedException {
             Main.sleep500();

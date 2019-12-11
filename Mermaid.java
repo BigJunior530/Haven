@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Mermaid extends CharEntities{
@@ -12,6 +13,17 @@ public class Mermaid extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                                               .-\"\"-.");
+          System.out.println("                                              (___/\\ \\");
+          System.out.println("                           ,                 (|^ ^ ) )");
+          System.out.println("                          /(                _)_\\=_/  (");
+          System.out.println("                    ,..__/ `\\          ____(_/_ ` \\   )");
+          System.out.println("                     `\\    _/        _/---._/(_)_  `\\ (");
+          System.out.println("                       '--\\ `-.__..-'    /.    (_), |  )");
+          System.out.println("                           `._        ___\\_____.'_| |__/");
+          System.out.println("                              `~----\"`   `-.........'");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +40,6 @@ public class Mermaid extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -47,7 +58,6 @@ public class Mermaid extends CharEntities{
           return dam;
     	  
       }
-
       public int getAttack(){
             return this.attack;
       }
@@ -67,3 +77,4 @@ public class Mermaid extends CharEntities{
     	  health = health - hurt;
       }
 }
+

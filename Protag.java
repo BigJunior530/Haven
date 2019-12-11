@@ -1,5 +1,5 @@
-import java.util.TreeSet;
 
+import java.util.TreeSet;
 
 public class Protag {
       private int health;
@@ -15,7 +15,6 @@ public class Protag {
       private int equipCounter;
 
       public Protag(){
-
             this.health = 100;
             totalHealth = 100;
             this.attack = 5;
@@ -23,17 +22,15 @@ public class Protag {
             level = 1;
             exp = 0;
             needed = 10;
-
             itemCounter = 0;
             equipCounter = 0;
 
       }
       public void sprite(){
-          System.out.println("  /\\");
-    	  System.out.println(" /00\\");
-          System.out.println(" \\  /");
-          System.out.println("  []");
-          System.out.println("||  ||");
+    	  System.out.println("  O  /");
+          System.out.println(" /|\\/");
+          System.out.println("  |");
+          System.out.println(" _^_");
        }
       
       public void setExp(int strength) {
@@ -177,5 +174,4 @@ public class Protag {
       }
 
       
-
 }

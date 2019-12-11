@@ -1,3 +1,4 @@
+
 public abstract class CharEntities{
       int health;
       int attack;
@@ -8,14 +9,13 @@ public abstract class CharEntities{
       public int getMove(Protag pc) {
     	  return this.attack;
       }
-      public static void enemy(){
+      public void enemy(){
           System.out.println("          \\/");
           System.out.println("          /\\");
        }
       public void intro() throws InterruptedException{
           
        }
-
       
       public String showHealth(){
             String output = "HP is " + this.health;
