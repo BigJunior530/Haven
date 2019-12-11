@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Mermaid extends CharEntities{
@@ -76,3 +77,4 @@ public class Mermaid extends CharEntities{
     	  health = health - hurt;
       }
 }
+

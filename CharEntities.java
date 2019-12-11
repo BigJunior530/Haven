@@ -1,3 +1,4 @@
+
 public abstract class CharEntities{
       int health;
       int attack;

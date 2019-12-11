@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class KoiFish extends CharEntities{
@@ -77,3 +78,4 @@ public class KoiFish extends CharEntities{
   	  health = health - hurt;
     }
 }
+

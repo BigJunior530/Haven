@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class FlyingSquirrel extends CharEntities{
@@ -77,4 +78,5 @@ public class FlyingSquirrel extends CharEntities{
     public void damage(int hurt) {
   	  health = health - hurt;
     }
+
 }

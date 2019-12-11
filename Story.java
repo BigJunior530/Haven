@@ -1,5 +1,4 @@
 
-
 public class Story {
 	public static void intro() throws InterruptedException {
         System.out.println("You wake up in forest.");

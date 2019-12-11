@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Kraken extends CharEntities{
@@ -85,3 +86,4 @@ public class Kraken extends CharEntities{
     	  health = health - hurt;
       }
 }
+

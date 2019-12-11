@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Chimpanzee extends CharEntities{
