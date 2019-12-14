@@ -1,21 +1,5 @@
-
 import java.util.*;
-/**
- * The program as a whole should let the user play as the main character as
- * represented as:
- * <pre>    {@code
- *          Protag pc = new Protag();
- *    } </pre>
- * The new object of pc is now passable to different methods of the Main.java class.
- * 
- * @author Carlos Caceres
- * @author Jaime Ramirez
- * @author Nathan Aquino
- * @author Armando Juarez
- * 
- * @version 1.01 ---> 07 December 2019 
- * @see ath
- */
+
 public class Main {
 
    public static Scanner console = new Scanner(System.in);
@@ -23,6 +7,7 @@ public class Main {
    public static int helmet = 0;
    public static int chest = 0;
    public static int leg = 0;
+   public static int ran = 0;
 
    public static void main(String[] args) throws InterruptedException {
       Protag pc = new Protag();
@@ -679,14 +664,11 @@ public class Main {
    private static <E> void fightSequence(Protag pc, E ek, String name) throws InterruptedException {
       Story.clearScreen(); 
       ((CharEntities) ek).intro();
-      battle(pc, ek);
-      while (!(pc.getHealth() <= 0) || !(((CharEntities) ek).getHealth() <= 0)) {
-                  
+      int run = ran;
+      while (!(pc.getHealth() <= 0) || !(((CharEntities) ek).getHealth() <= 0) || run == ran) {
+         battle(pc, ek);     
          int CPUAttack;
          int p1Defence = pc.getShield();
-                  //int CPUDefence;
-                  //String p1Items;
-                  //String CPUItems;
          choice();
          console.nextLine();
          int choice = console.nextInt();
@@ -710,14 +692,21 @@ public class Main {
                               // something regarding ITEMS
                break;
             case 3:
-               System.out.println("You ran away!!");
-                              // run
-               return;
+            	//possibly broken where even if you do run away, it'll still keep the battle going
+            	//add something to make sure the run away worked
+            	int chance = rand.nextInt(5);
+            	if(chance >= 3) {
+            		System.out.println("You ran away!!");
+                    ran++;
+            		return;
+            	}
+            	System.out.println("You couldn't run away...");
+               break;
             default:
                               // DEFAULT
                break;
          }
-         if((pc.getHealth() <= 0) || (((CharEntities) ek).getHealth() <= 0)){
+         if((pc.getHealth() <= 0) || (((CharEntities) ek).getHealth() <= 0) || run != ran){
             return;
          }
          
