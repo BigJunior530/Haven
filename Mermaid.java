@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Mermaid extends CharEntities{
@@ -13,17 +12,6 @@ public class Mermaid extends CharEntities{
           setAttack();
           setHealth();
       }
-      public void enemy(){
-    	  System.out.println("                                               .-\"\"-.");
-          System.out.println("                                              (___/\\ \\");
-          System.out.println("                           ,                 (|^ ^ ) )");
-          System.out.println("                          /(                _)_\\=_/  (");
-          System.out.println("                    ,..__/ `\\          ____(_/_ ` \\   )");
-          System.out.println("                     `\\    _/        _/---._/(_)_  `\\ (");
-          System.out.println("                       '--\\ `-.__..-'    /.    (_), |  )");
-          System.out.println("                           `._        ___\\_____.'_| |__/");
-          System.out.println("                              `~----\"`   `-.........'");
-       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -40,24 +28,7 @@ public class Mermaid extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-      public int getMove(Protag pc){
-          int move = rand.nextInt(4);
-          int dam = 0;
-          if(move == 0) {
-        	  System.out.println("Mermaid uses Song");
-        	  dam = pc.getAttack()/2;
-        	  System.out.println("You're body slowing started walking by itself towads the Mermaid. You stabbed youself to Stop.");
-          }else if(move == 1) {
-        	  System.out.println("Mermaid uses drown");
-        	  dam = attack*2;
-        	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
-        	  System.out.println("Mermaid uses Tackle");
-        	  dam = attack;
-          }
-          return dam;
-    	  
-      }
+
       public int getAttack(){
             return this.attack;
       }
@@ -77,4 +48,3 @@ public class Mermaid extends CharEntities{
     	  health = health - hurt;
       }
 }
-
