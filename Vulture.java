@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Vulture extends CharEntities{
@@ -12,6 +13,14 @@ public class Vulture extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                   .-..-.__");
+          System.out.println("                 /`  |\\_( \"\\__");
+          System.out.println("                 |   / __/`'--)");
+          System.out.println("                 |  /  | |");
+          System.out.println("                 /_/ _/_/");
+          System.out.println("                 `|/))))");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +37,28 @@ public class Vulture extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Vulture uses Fly");
+        	  dam = 0;
+        	  System.out.println("You cant't really reach it.");
+        	  System.out.println("You lost some attack");
+        	  System.out.println("Attack " + pc.getAttack() + "-->");
+        	  pc.downgradeAttack(1);
+        	  System.out.print(pc.getAttack()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Vulture uses Scavenger");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Vulture uses tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+      }
       public int getAttack(){
             return this.attack;
       }

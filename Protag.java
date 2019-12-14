@@ -1,3 +1,4 @@
+
 import java.util.TreeSet;
 
 public class Protag {
@@ -9,8 +10,9 @@ public class Protag {
       private int level;
       private int needed;
       private static TreeSet<String> items = new TreeSet<String>();
-      private int counter;
-
+      private static TreeSet<String> equip = new TreeSet<String>();
+      private int itemCounter;
+      private int equipCounter;
 
       public Protag(){
             this.health = 100;
@@ -20,9 +22,16 @@ public class Protag {
             level = 1;
             exp = 0;
             needed = 10;
-            counter = 0;
+            itemCounter = 0;
+            equipCounter = 0;
 
       }
+      public void sprite(){
+    	  System.out.println("  O  /");
+          System.out.println(" /|\\/");
+          System.out.println("  |");
+          System.out.println(" _^_");
+       }
       
       public void setExp(int strength) {
     	  exp = exp + (strength*2);
@@ -44,6 +53,12 @@ public class Protag {
       }
       public void upgradeShield(int boost){
           shield = shield + boost;
+      }
+      public void downgradeShield(int boost){
+          shield = shield - boost;
+      }
+      public void downgradeAttack(int boost){
+          attack = attack - boost;
       }
       public void upgradeAttack(int boost){
     	  attack = attack + boost;
@@ -78,7 +93,7 @@ public class Protag {
       }
       
       public void levelUp() {
-    	  System.out.println("You leveled up!\n");
+    	  
     	  System.out.print("Total Health: " + getTotal() + "-->");
     	  upgradeHealth(5);
     	  System.out.print(getTotal()+ "\n");
@@ -89,7 +104,12 @@ public class Protag {
     	  upgradeShield(3);
     	  System.out.print(getShield()+ "\n");
     	  exp = exp - getNeeded();
+    	  System.out.println("Level up " + getLevel() + "-->");
     	  level++;
+    	  System.out.print(getLevel()+ "\n");
+    	  if(level == 3 || level == 7) {
+    		  System.out.print("You learned a new move\n");
+    	  }
     	  setNeeded();
     	  
       }
@@ -99,15 +119,15 @@ public class Protag {
       }
 
       public boolean getItems(){
-          if(counter == 0) {  
+          if(itemCounter == 0) {  
         	  System.out.println("No Items");
         	  return false;
           }else {
-        	  if(counter > 1) {
-        		  for(int i = 0; i< counter; i++) {
+        	  if(itemCounter > 1) {
+        		  for(int i = 0; i< itemCounter; i++) {
         			  System.out.println((i + 1) + ": " + items.toArray()[i]);
         		  }
-        	  }else if(counter == 1) {
+        	  }else if(itemCounter == 1) {
         		  System.out.println("1: " + items.toArray()[0]);
         	  }
         	  return true;
@@ -118,11 +138,38 @@ public class Protag {
       }
       public void removeItem(String word) {
     	  items.remove(word);
-        counter--;
+    	  itemCounter--;
       }
       public void putItems(String thing) {
     	  items.add(thing);
-    	  counter++;
+    	  itemCounter++;
+    	  
+      }
+      public boolean getEquipment(){
+          if(equipCounter == 0) {  
+        	  System.out.println("No Equipment");
+        	  return false;
+          }else {
+        	  if(equipCounter > 1) {
+        		  for(int i = 0; i< equipCounter; i++) {
+        			  System.out.println((i + 1) + ": " + equip.toArray()[i]);
+        		  }
+        	  }else if(equipCounter == 1) {
+        		  System.out.println("1: " + equip.toArray()[0]);
+        	  }
+        	  return true;
+          }
+      }
+      public String getEquipment(int idx) {
+    	  return (String) equip.toArray()[idx];
+      }
+      public void removeEquipment(String word) {
+    	  equip.remove(word);
+    	  equipCounter--;
+      }
+      public void putEquipment(String word) {
+    	  equip.add(word);
+    	  equipCounter++;
     	  
       }
 
