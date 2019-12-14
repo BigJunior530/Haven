@@ -1,4 +1,5 @@
 
+
 public class Story {
 	public static void intro() throws InterruptedException {
         System.out.println("You wake up in forest.");
@@ -337,9 +338,8 @@ public class Story {
         Thread.sleep(2000);
         System.out.println("That fight was too close.");
         Thread.sleep(2000);
-        System.out.println("You continue on your path.");
+        System.out.println("You continue on your path to the homeland.");
         Thread.sleep(1500);
-        
   }
 	public static void homeLand() throws InterruptedException {
         System.out.println("You made it");
@@ -369,15 +369,6 @@ public class Story {
         System.out.println("1: Home");
         System.out.println("2: Adventure");
 	}
-	public static void Check() throws InterruptedException { 
-		System.out.println("You can rest for a bit.");
-        Thread.sleep(2000);
-        System.out.println("What do you want to do?");
-        Thread.sleep(3000);
-        System.out.println("1: Inventory");
-        System.out.println("2: Check Stats");
-        System.out.println("3: Continue");
-	}
 	public static void adventure() throws InterruptedException { 
 		System.out.println("You say bye to home and any for sure safety");
 		Thread.sleep(3000);
@@ -387,72 +378,4 @@ public class Story {
         Thread.sleep(10000);
         Ad();
 	}
-	public static void clearScreen() throws InterruptedException {
-		  Thread.sleep(1000);
-		  System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	      System.out.println();
-	   }
 }
