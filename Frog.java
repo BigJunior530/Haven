@@ -1,24 +1,25 @@
 import java.util.Random;
 
-public class Alien extends CharEntities{
+public class Frog extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Alien(Protag pc){
+      public Frog(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                                  .-.");
-          System.out.println("                   .-\"\"`\"\"-.    |(@ @)");
-          System.out.println("                _/`oOoOoOoOo`\\_ \\ \\-/");
-          System.out.println("               '.-=-=-=-=-=-=-.' \\/ \\");
-          System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
-          System.out.println("                    ^  ^  ^       _H_ \\");
+    	  System.out.println("                      _   _");
+          System.out.println("                     (.)_(.)");
+          System.out.println("                  _ (   _   ) _");
+          System.out.println("                 / \\/`-----'\\/ \\");
+          System.out.println("               __\\ ( (     ) ) /__");
+          System.out.println("               )   /\\ \\._./ /\\   (");
+          System.out.println("                )_/ /|\\   /|\\ \\_(");
        }
       public void setLevel(int enemy) {
     	  

@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class FlyingSquirrel extends CharEntities{
@@ -24,7 +23,7 @@ public class FlyingSquirrel extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -67,7 +66,7 @@ public class FlyingSquirrel extends CharEntities{
     public void intro() throws InterruptedException {
           Main.sleep500();
           Thread.sleep(1000);
-          System.out.println("\n\nA Flying Squirrel appeared!");
+          System.out.println("\nA Flying Squirrel appeared!");
           System.out.println("Level: " + getLevel());
           System.out.println("Health: " + getHealth());
     }
@@ -78,5 +77,9 @@ public class FlyingSquirrel extends CharEntities{
     public void damage(int hurt) {
   	  health = health - hurt;
     }
-
+    public void endMessage() throws InterruptedException{
+  	  System.out.println("You rip off the extra skin making it into just a normal squirrel.");
+        Thread.sleep(2000);
+        
+    }
 }

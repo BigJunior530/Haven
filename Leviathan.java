@@ -1,28 +1,21 @@
 import java.util.Random;
 
-public class Penguin extends CharEntities{
+public class Leviathan extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Penguin(Protag pc){
+      public Leviathan(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                  .___.");
-          System.out.println("                 /     \\");
-          System.out.println("                | O _ O |");
-          System.out.println("                /  \\_/  \\ ");
-          System.out.println("              .' /     \\ `.");
-          System.out.println("             / _|       |_ \\");
-          System.out.println("            (_/ |       | \\_)");
-          System.out.println("                \\       /");
-          System.out.println("               __\\_>-<_/__");
-          System.out.println("               ~;/     \\;~");
+    	  System.out.println("                                   ____");
+          System.out.println("          ________________________/ O  \\___/");
+          System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
        }
       public void setLevel(int enemy) {
     	  
@@ -30,11 +23,11 @@ public class Penguin extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 2*level;
+    	  attack = 10*level;
       }
       public void setHealth() {
     	  
-    	  health = 6*level;
+    	  health = 12*level;
       }
       
       public int getLevel() {
@@ -44,19 +37,18 @@ public class Penguin extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Penguin uses Happy Feet");
+        	  System.out.println("Leviathan uses glare");
         	  dam = 0;
-        	  System.out.println("You kind of don't want to hurt it now.");
-        	  System.out.println("You lost some attack");
-        	  System.out.println("Attack " + pc.getAttack() + "-->");
-        	  pc.downgradeAttack(1);
-        	  System.out.print(pc.getAttack()+ "\n");
+        	  System.out.println("You lost some shield");
+        	  System.out.println("Shield " + pc.getShield() + "-->");
+        	  pc.downgradeShield(3);
+        	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Penguin uses Drill  Peck");
+        	  System.out.println("Leviathan uses crunch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Penguin uses Tackle");
+        	  System.out.println("Leviathan uses tackle");
         	  dam = attack;
           }
           return dam;
@@ -69,7 +61,7 @@ public class Penguin extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA Penguin appeared!");
+            System.out.println("\n\nA Leviathan appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -81,7 +73,11 @@ public class Penguin extends CharEntities{
     	  health = health - hurt;
       }
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You slit open the Penguin and let it get covered by the now heavy snow");
+    	  System.out.println("You split the Leviathan straight down the middle.");
+          Thread.sleep(2000);
+          System.out.println("You realize this wasn't the best place.");
+          Thread.sleep(2000);
+          System.out.println("You leave the Lost City and wonder where to next");
           Thread.sleep(2000);
       }
 }

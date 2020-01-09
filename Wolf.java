@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Wolf extends CharEntities{
@@ -28,7 +27,7 @@ public class Wolf extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) +enemy;
       }
       public void setAttack() {
     	  
@@ -73,7 +72,7 @@ public class Wolf extends CharEntities{
     public void intro() throws InterruptedException {
           Main.sleep500();
           Thread.sleep(1000);
-          System.out.println("\n\nA rabid Wolf appeared!");
+          System.out.println("\nA rabid Wolf appeared!");
           System.out.println("Level: " + getLevel());
           System.out.println("Health: " + getHealth());
     }
@@ -83,5 +82,10 @@ public class Wolf extends CharEntities{
     }
     public void damage(int hurt) {
   	  health = health - hurt;
+    }
+    public void endMessage() throws InterruptedException{
+  	  System.out.println("You slash the wolf until the whimpers finally stop.");
+        Thread.sleep(2000);
+        
     }
 }

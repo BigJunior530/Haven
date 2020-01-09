@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Mermaid extends CharEntities{
@@ -26,7 +25,7 @@ public class Mermaid extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -76,5 +75,8 @@ public class Mermaid extends CharEntities{
       public void damage(int hurt) {
     	  health = health - hurt;
       }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You split the mermaid cleanly in half, seperating the human from fish");
+          Thread.sleep(2000);
+      }
 }
-

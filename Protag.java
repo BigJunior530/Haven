@@ -1,4 +1,3 @@
-
 import java.util.TreeSet;
 
 public class Protag {
@@ -9,10 +8,13 @@ public class Protag {
       private int exp;
       private int level;
       private int needed;
+      private int lvlPoint;
       private static TreeSet<String> items = new TreeSet<String>();
       private static TreeSet<String> equip = new TreeSet<String>();
       private int itemCounter;
       private int equipCounter;
+      public int attackTemp;
+      public int shieldTemp;
 
       public Protag(){
             this.health = 100;
@@ -20,10 +22,13 @@ public class Protag {
             this.attack = 5;
             this.shield = 2;
             level = 1;
+            lvlPoint = 0;
             exp = 0;
             needed = 10;
             itemCounter = 0;
             equipCounter = 0;
+            attackTemp = 0;
+            shieldTemp = 0;
 
       }
       public void sprite(){
@@ -60,6 +65,9 @@ public class Protag {
       public void downgradeAttack(int boost){
           attack = attack - boost;
       }
+      public void usePoint(int boost){
+          lvlPoint =  lvlPoint- boost;
+      }
       public void upgradeAttack(int boost){
     	  attack = attack + boost;
       }
@@ -80,6 +88,9 @@ public class Protag {
       }
       public int getLevel() {
     	  return level;
+      }
+      public int getPoints() {
+    	  return lvlPoint;
       }
       public int getNeeded() {
     	  return needed;
@@ -104,10 +115,13 @@ public class Protag {
     	  upgradeShield(3);
     	  System.out.print(getShield()+ "\n");
     	  exp = exp - getNeeded();
-    	  System.out.println("Level up " + getLevel() + "-->");
+    	  System.out.print("Points: " + getPoints() + "-->");
+    	  lvlPoint++;
+    	  System.out.print(getPoints()+ "\n");
+    	  System.out.print("Level up " + getLevel() + "-->");
     	  level++;
     	  System.out.print(getLevel()+ "\n");
-    	  if(level == 3 || level == 7) {
+    	  if(level == 3 || level == 7 || level == 10) {
     		  System.out.print("You learned a new move\n");
     	  }
     	  setNeeded();
@@ -171,6 +185,34 @@ public class Protag {
     	  equip.add(word);
     	  equipCounter++;
     	  
+      }
+      
+      public void increaseAttackTemp() {
+    	  if(attackTemp < 20) {
+    		  attackTemp = attackTemp + 6;
+    		  System.out.println("Attack has been increased");
+    		  upgradeAttack(attackTemp);
+    	  }else {
+    		  System.out.println("Attack can't go higher");
+    	  }
+      }
+      public void increaseShieldTemp() {
+    	  if(shieldTemp < 17) {
+    		  shieldTemp = shieldTemp + 4;
+    		  System.out.println("Shield has been increased");
+    		  upgradeShield(shieldTemp);
+    	  }else {
+    		  System.out.println("Shield can't go higher");
+    	  }
+      }
+      
+      public void reset() {
+    	  if(attackTemp > 0 || shieldTemp > 0) {
+    		  downgradeAttack(attackTemp);
+    		  downgradeShield(shieldTemp);
+    		  attackTemp = 0;
+    		  shieldTemp = 0;
+    	  }
       }
 
       

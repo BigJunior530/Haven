@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Ram extends CharEntities{
@@ -25,7 +24,7 @@ public class Ram extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -81,5 +80,10 @@ public class Ram extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You kill the Goat and watch its lifeless body fall down the side of the Moutain");
+          Thread.sleep(2000);
+
       }
 }

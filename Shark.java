@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Shark extends CharEntities{
@@ -27,11 +26,11 @@ public class Shark extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(3) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
-    	  attack = 10*level;
+    	  attack = 7*level;
       }
       public void upAttack(int boost) {
     	  
@@ -39,7 +38,7 @@ public class Shark extends CharEntities{
       }
       public void setHealth() {
     	  
-    	  health = 12*level;
+    	  health = 9*level;
       }
       
       public int getLevel() {
@@ -83,5 +82,9 @@ public class Shark extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You stab your sword straight through the Shark's eye to the other.");
+          Thread.sleep(2000);
       }
 }

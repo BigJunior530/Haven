@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Chimpanzee extends CharEntities{
@@ -23,7 +22,7 @@ public class Chimpanzee extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = (rand.nextInt(4)) + enemy;
       }
       public void setAttack() {
     	  
@@ -77,5 +76,9 @@ public class Chimpanzee extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You stab the Chimp against the tree and head back into the Jungle");
+          Thread.sleep(2000);
       }
 }

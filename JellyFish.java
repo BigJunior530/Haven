@@ -1,24 +1,30 @@
 import java.util.Random;
 
-public class Alien extends CharEntities{
+public class JellyFish extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Alien(Protag pc){
+      public JellyFish(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                                  .-.");
-          System.out.println("                   .-\"\"`\"\"-.    |(@ @)");
-          System.out.println("                _/`oOoOoOoOo`\\_ \\ \\-/");
-          System.out.println("               '.-=-=-=-=-=-=-.' \\/ \\");
-          System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
-          System.out.println("                    ^  ^  ^       _H_ \\");
+    	  System.out.println("                     .-;':':'-.");
+          System.out.println("                    {'.'.'.'.'.}");
+          System.out.println("                     )        '`.");
+          System.out.println("                    '-. ._ ,_.-='");
+          System.out.println("                      `). ( `);(");
+          System.out.println("                      ('. .)(,'.)");
+          System.out.println("                       ) ( ,').(");
+          System.out.println("                      ( .').'(').");
+          System.out.println("                      .) (' ).('");
+          System.out.println("                       '  ) (  ).");
+          System.out.println("                        .'( .)'");
+          System.out.println("                          .).'");
        }
       public void setLevel(int enemy) {
     	  
@@ -26,11 +32,11 @@ public class Alien extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 4*level;
+    	  attack = 5*level;
       }
       public void setHealth() {
     	  
-    	  health = 4*level;
+    	  health = 3*level;
       }
       
       public int getLevel() {
@@ -43,15 +49,18 @@ public class Alien extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Alien uses Hypnosis");
-        	  dam = pc.getAttack()/2;
-        	  System.out.println("You got confused. Then punched yourself to get out of confusion");
+        	  System.out.println("JellyFish uses Paralyze");
+        	  dam = 0;
+        	  System.out.println("You lost some shield");
+        	  System.out.println("Shield " + pc.getShield() + "-->");
+        	  pc.downgradeShield(2);
+        	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Alien uses Probe");
+        	  System.out.println("JellyFish uses Poison Sting");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Alien uses Tackle");
+        	  System.out.println("JellyFish uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -61,7 +70,7 @@ public class Alien extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nAn Alien appeared!");
+            System.out.println("\nA JellyFish appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -74,7 +83,7 @@ public class Alien extends CharEntities{
       }
       
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You slash the aliens into bits and jump out of the UFO back to the ocean");
+    	  System.out.println("You slice the JellyFish up into bits and make your own 'Jelly'");
           Thread.sleep(2000);
       }
 }

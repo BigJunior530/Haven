@@ -8,15 +8,29 @@ public class Main {
    public static int chest = 0;
    public static int leg = 0;
    public static int ran = 0;
+   public static boolean run = false;
+   public static boolean adventure = true;
 
    public static void main(String[] args) throws InterruptedException {
-      Protag pc = new Protag();
-      Story.intro();
-      start(pc);
+      enterGame();
+      if(run == true) {
+    	  Protag pc = new Protag();
+    	  Story.intro();
+    	  start(pc);
+      }
             
    }
       
-      
+     private static void enterGame() throws InterruptedException{
+    	 System.out.println("Haven");
+    	 System.out.println("Press 1 to start Game");
+    	 System.out.println("Press 2 to exit");
+    	 int start = console.nextInt();
+    	 if(start == 1) {
+    		 run = true;
+    	 }
+    	 Story.clearScreen();
+     }
       
    private static void choice() throws InterruptedException {
       sleep500();
@@ -49,6 +63,39 @@ public class Main {
              rest(pc);
             return;
          case 3:
+        	 if(pc.getPoints() < 1) {
+        		 System.out.println("No points available");
+        	 }else {
+        		 System.out.println("Points: " + pc.getPoints());
+        		 System.out.println("What do you want to upgrade?");
+        		 System.out.println("1. Attack");
+        		 System.out.println("2. Defense");
+        		 System.out.println("3. Health");
+        		 console.nextLine();
+        		 int answer = console.nextInt();
+        		 switch(answer) {
+        		 	case 1:
+        		 		System.out.print("Attack: " + pc.getAttack() + "-->");
+        		    	pc.upgradeAttack(1);
+        		    	System.out.print(pc.getAttack()+ "\n");
+        		    	break;
+        		 	case 2:
+        		 		System.out.print("Shield: " + pc.getShield() + "-->");
+        		    	pc.upgradeShield(1);
+        		    	System.out.print(pc.getShield()+ "\n");
+        		    	break;
+        		 	case 3:
+        		 		System.out.print("Total Health: " + pc.getTotal() + "-->");
+        		    	pc.upgradeHealth(1);
+        		    	System.out.print(pc.getTotal()+ "\n");
+        		    	break;
+        		 	default:
+                        // DEFAULT
+        		 		break;
+        		 }
+        		 
+        	 }
+         case 4:
         	 return;
          default:
                         // DEFAULT
@@ -122,36 +169,16 @@ public class Main {
         System.out.println("Total Health: " + pc.getTotal());
     	  System.out.println("Attack: " + pc.getAttack());
     	  System.out.println("Shield: " + pc.getShield());
+    	  System.out.println("Points: " + pc.getPoints());
     	  System.out.println("Level: " + pc.getLevel());
         System.out.println("Health: " + pc.getHealth());
         
    }
    private static <E> void attacksStarter(Protag pc, E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
-      System.out.println("Enter in your choice using the numbers 1-2");
-      System.out.println("1: Basic Attack");
-      System.out.println("2: Return");
-      console.nextLine();
-      int choice = console.nextInt();
-          
-          // Main character choice
-      switch (choice){
-         case 1:
-            Basic(pc, ek, name);
-            break;
-         case 2:
-            fightSequence(pc, ek, name);
-            return;
-         default:
-                      // DEFAULT
-            break;
-      }
-   }
-   private static <E> void attacksMid(Protag pc, E ek, String name) throws InterruptedException {
-      System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-3");
       System.out.println("1: Basic Attack");
-      System.out.println("2: Strong Attack");
+      System.out.println("2: Toughen");
       System.out.println("3: Return");
       console.nextLine();
       int choice = console.nextInt();
@@ -162,8 +189,8 @@ public class Main {
             Basic(pc, ek, name);
             break;
          case 2:
-            Strong(pc, ek, name);
-            break;
+        	 pc.increaseShieldTemp();
+        	 break;
          case 3:
             fightSequence(pc, ek, name);
             return;
@@ -172,12 +199,12 @@ public class Main {
             break;
       }
    }
-   private static <E> void attacksMaster(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksMid(Protag pc, E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-4");
       System.out.println("1: Basic Attack");
-      System.out.println("2: Strong Attack");
-      System.out.println("3: Triple Attack");
+      System.out.println("2: Toughen");
+      System.out.println("3: Strong Attack");
       System.out.println("4: Return");
       console.nextLine();
       int choice = console.nextInt();
@@ -188,10 +215,10 @@ public class Main {
             Basic(pc, ek, name);
             break;
          case 2:
-            Strong(pc, ek, name);
-            break;
+        	 pc.increaseShieldTemp();
+        	 break;
          case 3:
-            Triple(pc, ek, name);
+            Strong(pc, ek, name);
             break;
          case 4:
             fightSequence(pc, ek, name);
@@ -201,6 +228,76 @@ public class Main {
             break;
       }
    }
+   private static <E> void attacksMaster(Protag pc, E ek, String name) throws InterruptedException {
+      System.out.println("\nWhat Attack do you want to use?");
+      System.out.println("Enter in your choice using the numbers 1-5");
+      System.out.println("1: Basic Attack");
+      System.out.println("2: Toughen");
+      System.out.println("3: Strong Attack");
+      System.out.println("4: Triple Attack");
+      System.out.println("5: Return");
+      console.nextLine();
+      int choice = console.nextInt();
+          
+          // Main character choice
+      switch (choice){
+         case 1:
+            Basic(pc, ek, name);
+            break;
+         case 2:
+        	 pc.increaseShieldTemp();
+        	 break;
+         case 3:
+            Strong(pc, ek, name);
+            break;
+         case 4:
+            Triple(pc, ek, name);
+            break;
+         case 5:
+            fightSequence(pc, ek, name);
+            return;
+         default:
+                      // DEFAULT
+            break;
+      }
+   }
+   private static <E> void attacksGod(Protag pc, E ek, String name) throws InterruptedException {
+	      System.out.println("\nWhat Attack do you want to use?");
+	      System.out.println("Enter in your choice using the numbers 1-6");
+	      System.out.println("1: Basic Attack");
+	      System.out.println("2: Toughen");
+	      System.out.println("3: Strong Attack");
+	      System.out.println("4: Triple Attack");
+	      System.out.println("5: Sharpen");
+	      System.out.println("6: Return");
+	      console.nextLine();
+	      int choice = console.nextInt();
+	          
+	          // Main character choice
+	      switch (choice){
+	         case 1:
+	            Basic(pc, ek, name);
+	            break;
+	         case 2:
+	        	 pc.increaseShieldTemp();
+	        	 break;
+	         case 3:
+	            Strong(pc, ek, name);
+	            break;
+	         case 4:
+	            Triple(pc, ek, name);
+	            break;
+	         case 5:
+	        	 pc.increaseAttackTemp();
+	        	 break;
+	         case 6:
+	            fightSequence(pc, ek, name);
+	            return;
+	         default:
+	                      // DEFAULT
+	            break;
+	      }
+	   }
    private static <E> void Inventory(Protag pc, E ek, String name) throws InterruptedException {
       sleep500();
       Thread.sleep(500);
@@ -270,7 +367,7 @@ public class Main {
       if(((CharEntities) ek).getHealth() > 0) {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
       }else {
-         System.out.println("You beat the " + name);
+         ((CharEntities) ek).endMessage();
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
@@ -322,7 +419,7 @@ public class Main {
       if(((CharEntities) ek).getHealth() > 0) {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
       }else {
-         System.out.println("You beat the " + name);
+    	  ((CharEntities) ek).endMessage();
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
@@ -375,7 +472,7 @@ public class Main {
       if(((CharEntities) ek).getHealth() > 0) {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
       }else {
-         System.out.println("You beat the " + name);
+    	  ((CharEntities) ek).endMessage();
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
@@ -495,7 +592,8 @@ public class Main {
       Story.choice();
       answer = console.nextInt();
       if(answer == 1) {
-         Story.homeLand();
+         adventure = false;
+    	 Story.homeLand();
          end(pc);
       }else {
          Story.adventure();
@@ -534,6 +632,25 @@ public class Main {
          fightSequence(pc, r, "Ram");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adMoutain();
+        	 Eagle e = new Eagle(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, e, "Eagle");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civMoutain();
+        	 Yak y = new Yak(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, y, "Yak");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Moutain();
          MountainLion ml = new MountainLion(pc);
          System.out.println("Your health is " + pc.getHealth()); 
@@ -545,13 +662,32 @@ public class Main {
       }else {
          rest(pc);
          Story.Frozen();
-         Penguin p = new Penguin(pc);
+         Owl o = new Owl(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, p, "Penguin");
+         fightSequence(pc, o, "Owl");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adTundra();
+        	 Fox f = new Fox(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, f, "Fox");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civTundra();
+        	 Penguin p = new Penguin(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, p, "Penguin");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Tundra();
          PolarBear pb = new PolarBear(pc);
          System.out.println("Your health is " + pc.getHealth()); 
@@ -577,30 +713,68 @@ public class Main {
          fightSequence(pc, v, "Vulture");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adDesert();
+        	 RattleSnake rs = new RattleSnake(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, rs, "Rattle Snake");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civDesert();
+        	 Scorpion s = new Scorpion(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, s, "Scorpion");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Desert();
-         RattleSnake rs = new RattleSnake(pc);
+         Komodo k = new Komodo(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, rs, "Rattle Snake");
+         fightSequence(pc, k, "Komodo Dragon");
          Story.Encounter(pc);
       	  
       }else {
          rest(pc);
          Story.Green();
-         Chimpanzee c = new Chimpanzee(pc);
+         Frog f = new Frog(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, c, "Chimpanzee");
+         fightSequence(pc, f, "Frog");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adJungle();
+        	 Piranha p = new Piranha(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, p, "Piranha");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civJungle();
+        	 Chimpanzee c = new Chimpanzee(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, c, "Chimpanzee");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Jungle();
-         Panther p = new Panther(pc);
+         Panther bp = new Panther(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, p, "Panther");
+         fightSequence(pc, bp, "Panther");
          Story.Encounter(pc);
       }
       Story.next();
@@ -619,12 +793,31 @@ public class Main {
          fightSequence(pc, a, "Alien");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adTriangle();
+        	 Kraken k = new Kraken(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, k, "Kraken");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civTriangle();
+        	 JellyFish jf = new JellyFish(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, jf, "JellyFish");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Triangle();
-         Kraken k = new Kraken(pc);
+         Hydra h = new Hydra(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, k, "Kraken");
+         fightSequence(pc, h, "Hydra");
          Story.Encounter(pc);
       	  
       }else {
@@ -637,12 +830,31 @@ public class Main {
          fightSequence(pc, m, "Mermaid");
          Story.Encounter(pc);
          rest(pc);
+         if(adventure) {
+        	 Story.adAlantis();
+        	 Poseidon p = new Poseidon(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, p, "Poseidon");
+             Story.Encounter(pc);
+             rest(pc);
+         }else {
+        	 Story.civAlantis();
+        	 Shark s = new Shark(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+          
+                    
+             fightSequence(pc, s, "Shark");
+             Story.Encounter(pc);
+             rest(pc);
+         }
          Story.Alantis();
-         Shark s = new Shark(pc);
+         Leviathan l = new Leviathan(pc);
          System.out.println("Your health is " + pc.getHealth()); 
       
                 
-         fightSequence(pc, s, "Shark");
+         fightSequence(pc, l, "Leviathan");
          Story.Encounter(pc);
       }
       Story.next();
@@ -681,9 +893,18 @@ public class Main {
                   attacksStarter(pc, ek, name);
                }else if(level >= 3 && level < 7) {
                   attacksMid(pc, ek, name);
-               }else {
+               }else if(level >= 7 && level < 10){
                   attacksMaster(pc, ek, name);
+               }else {
+            	   attacksGod(pc, ek, name);
                }
+               if(pc.getHealth()<0){
+                   System.out.println("You fainted...");
+                   System.out.println("You wake up again hours later");
+                   pc.setHealth(pc.getTotal());
+                   System.out.println("Your health is " + pc.getHealth());
+                   return;
+                }
                               // something regarding ATTACK
                break;
             case 2:

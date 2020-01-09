@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Kraken extends CharEntities{
@@ -25,15 +24,15 @@ public class Kraken extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(3) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
-    	  attack = 8*level;
+    	  attack = 5*level;
       }
       public void setHealth() {
     	  
-    	  health = 10*level;
+    	  health = 7*level;
       }
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
@@ -74,7 +73,7 @@ public class Kraken extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA Kraken appeared!");
+            System.out.println("\nA Kraken appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -85,5 +84,9 @@ public class Kraken extends CharEntities{
       public void damage(int hurt) {
     	  health = health - hurt;
       }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You cut the last tentacle of the kraken and let it sink back into the ocean");
+          Thread.sleep(2000);
+          
+      }
 }
-

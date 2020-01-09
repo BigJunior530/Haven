@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class PolarBear extends CharEntities{
@@ -23,7 +22,7 @@ public class PolarBear extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(3) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -82,5 +81,15 @@ public class PolarBear extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You stab the Bear through its chest and watch it fall to the ground.");
+          Thread.sleep(2000);
+          System.out.println("The only see white with a large red puddle");
+          Thread.sleep(2000);
+          System.out.println("You realize this wasn't the best place.");
+          Thread.sleep(2000);
+          System.out.println("You leave the Tundra and wonder where to next");
+          Thread.sleep(2000);
       }
 }

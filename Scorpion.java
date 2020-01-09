@@ -1,24 +1,27 @@
 import java.util.Random;
 
-public class Alien extends CharEntities{
+public class Scorpion extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Alien(Protag pc){
+      public Scorpion(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                                  .-.");
-          System.out.println("                   .-\"\"`\"\"-.    |(@ @)");
-          System.out.println("                _/`oOoOoOoOo`\\_ \\ \\-/");
-          System.out.println("               '.-=-=-=-=-=-=-.' \\/ \\");
-          System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
-          System.out.println("                    ^  ^  ^       _H_ \\");
+    	  System.out.println("            _    _");
+          System.out.println("           /_]  [_\\");
+          System.out.println("          //      \\\\");
+          System.out.println("          \\\\      //");
+          System.out.println("           \\`-..-'/");
+          System.out.println("            `\\  /`");
+          System.out.println("              ||    _");
+          System.out.println("              ||   ( )");
+          System.out.println("              \\\\___/");
        }
       public void setLevel(int enemy) {
     	  
@@ -26,11 +29,11 @@ public class Alien extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 4*level;
+    	  attack = 6*level;
       }
       public void setHealth() {
     	  
-    	  health = 4*level;
+    	  health = 3*level;
       }
       
       public int getLevel() {
@@ -43,15 +46,15 @@ public class Alien extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Alien uses Hypnosis");
+        	  System.out.println("Scorpion uses Posion Sting");
         	  dam = pc.getAttack()/2;
-        	  System.out.println("You got confused. Then punched yourself to get out of confusion");
+        	  System.out.println("You cut off the area to stop the Poison from spreading");
           }else if(move == 1) {
-        	  System.out.println("Alien uses Probe");
+        	  System.out.println("Scorpion uses Pinch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Alien uses Tackle");
+        	  System.out.println("Scorpion uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -61,7 +64,7 @@ public class Alien extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nAn Alien appeared!");
+            System.out.println("\nA Scorpion appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -74,7 +77,7 @@ public class Alien extends CharEntities{
       }
       
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You slash the aliens into bits and jump out of the UFO back to the ocean");
+    	  System.out.println("You cut off the stringer and the claws leaving the Scorpion to a pathetic existence.");
           Thread.sleep(2000);
       }
 }
