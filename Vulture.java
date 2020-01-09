@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Vulture extends CharEntities{
@@ -23,7 +22,7 @@ public class Vulture extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -76,5 +75,9 @@ public class Vulture extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You're able to slash the vulture's wings, never able to fly again.");
+          Thread.sleep(2000);
       }
 }

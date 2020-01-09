@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class WildBoar extends CharEntities{
@@ -26,7 +25,7 @@ public class WildBoar extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -74,7 +73,7 @@ public class WildBoar extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA wild boar appeared!");
+            System.out.println("\nA wild boar appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -84,5 +83,10 @@ public class WildBoar extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You slice up the Boar and eat some good pork.");
+          Thread.sleep(2000);
+          
       }
 }

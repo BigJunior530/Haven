@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class RattleSnake extends CharEntities{
@@ -20,7 +19,7 @@ public class RattleSnake extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(3) + 1) * enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       public void setAttack() {
     	  
@@ -72,5 +71,10 @@ public class RattleSnake extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You cut the snakes head off and watch its body squirm.");
+          Thread.sleep(2000);
+
       }
 }

@@ -1,24 +1,24 @@
 import java.util.Random;
 
-public class Alien extends CharEntities{
+public class Owl extends CharEntities{
       private int health;
       private int attack;
       private int level;
       public static Random rand = new Random();
 
-      public Alien(Protag pc){
+      public Owl(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       public void enemy(){
-    	  System.out.println("                                  .-.");
-          System.out.println("                   .-\"\"`\"\"-.    |(@ @)");
-          System.out.println("                _/`oOoOoOoOo`\\_ \\ \\-/");
-          System.out.println("               '.-=-=-=-=-=-=-.' \\/ \\");
-          System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
-          System.out.println("                    ^  ^  ^       _H_ \\");
+    	  System.out.println("            , _ ,");
+          System.out.println("           ( o o )");
+          System.out.println("          /'` ' `'\\");
+          System.out.println("          |'''''''|");
+          System.out.println("          |\\\\'''//|");
+          System.out.println("             \"\"\"");
        }
       public void setLevel(int enemy) {
     	  
@@ -26,7 +26,7 @@ public class Alien extends CharEntities{
       }
       public void setAttack() {
     	  
-    	  attack = 4*level;
+    	  attack = 5*level;
       }
       public void setHealth() {
     	  
@@ -43,15 +43,15 @@ public class Alien extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Alien uses Hypnosis");
+        	  System.out.println("Owl spun its head");
         	  dam = pc.getAttack()/2;
-        	  System.out.println("You got confused. Then punched yourself to get out of confusion");
+        	  System.out.println("You got confused and tried to twist your own head.");
           }else if(move == 1) {
-        	  System.out.println("Alien uses Probe");
+        	  System.out.println("Owl used its Talons");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Alien uses Tackle");
+        	  System.out.println("Owl uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -61,7 +61,7 @@ public class Alien extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nAn Alien appeared!");
+            System.out.println("\nAn Artic Owl appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -74,7 +74,7 @@ public class Alien extends CharEntities{
       }
       
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You slash the aliens into bits and jump out of the UFO back to the ocean");
+    	  System.out.println("You decapitated the Owl after it turned its head again");
           Thread.sleep(2000);
       }
 }

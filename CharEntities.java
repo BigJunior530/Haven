@@ -1,4 +1,3 @@
-
 public abstract class CharEntities{
       int health;
       int attack;
@@ -17,6 +16,7 @@ public abstract class CharEntities{
           
        }
       
+      
       public String showHealth(){
             String output = "HP is " + this.health;
             return output;
@@ -27,5 +27,10 @@ public abstract class CharEntities{
       }
       public void damage(int hurt) {
     	  health = health -1;
+      }
+      
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("Yeet");
+          Thread.sleep(2000);
       }
 }

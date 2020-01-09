@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class KoiFish extends CharEntities{
@@ -21,7 +20,7 @@ public class KoiFish extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4) + 1) * enemy;
+    	  level = rand.nextInt(4) +  enemy;
       }
       public void setAttack() {
     	  
@@ -66,7 +65,7 @@ public class KoiFish extends CharEntities{
     public void intro() throws InterruptedException {
           Main.sleep500();
           Thread.sleep(1000);
-          System.out.println("\n\nA Koi Fish appeared!");
+          System.out.println("\nA Koi Fish appeared!");
           System.out.println("Level: " + getLevel());
           System.out.println("Health: " + getHealth());
     }
@@ -77,5 +76,9 @@ public class KoiFish extends CharEntities{
     public void damage(int hurt) {
   	  health = health - hurt;
     }
+    public void endMessage() throws InterruptedException{
+  	  System.out.println("You make yourself some sushi from the Koi.");
+        Thread.sleep(2000);
+        
+    }
 }
-

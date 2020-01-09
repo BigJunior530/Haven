@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Panther extends CharEntities{
@@ -22,7 +21,7 @@ public class Panther extends CharEntities{
        }
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(3) + 1) * enemy;
+    	  level = rand.nextInt(4) +enemy;
       }
       public void setAttack() {
     	  
@@ -79,5 +78,13 @@ public class Panther extends CharEntities{
       }
       public void damage(int hurt) {
     	  health = health - hurt;
+      }
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You slash the final blow against the Panther straight into its skull");
+          Thread.sleep(2000);
+          System.out.println("You realize this wasn't the best place.");
+          Thread.sleep(2000);
+          System.out.println("You leave the Jungle and wonder where to next");
+          Thread.sleep(2000);
       }
 }
