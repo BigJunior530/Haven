@@ -15,12 +15,26 @@ public class Protag {
       private int equipCounter;
       public int attackTemp;
       public int shieldTemp;
+      public int type;
 
-      public Protag(){
-            this.health = 100;
-            totalHealth = 100;
-            this.attack = 5;
-            this.shield = 2;
+      public Protag(int type){
+    	  this.type = type; 
+    	  if(type == 0) {
+    		  this.health = 125;
+              totalHealth = 125;
+              this.attack = 5;
+              this.shield = 3; 
+    	  }else if(type == 1) {
+    		  this.health = 75;
+              totalHealth = 75;
+              this.attack = 8;
+              this.shield = 5; 
+    	  }else {
+    		  this.health = 100;
+              totalHealth = 100;
+              this.attack = 3;
+              this.shield = 8; 
+    	  }
             level = 1;
             lvlPoint = 0;
             exp = 0;
@@ -29,7 +43,6 @@ public class Protag {
             equipCounter = 0;
             attackTemp = 0;
             shieldTemp = 0;
-
       }
       public void sprite(){
     	  System.out.println("  O  /");
@@ -106,13 +119,31 @@ public class Protag {
       public void levelUp() {
     	  
     	  System.out.print("Total Health: " + getTotal() + "-->");
-    	  upgradeHealth(5);
+    	  if(type == 0) {
+    		  upgradeHealth(7); 
+    	  }else if(type == 1) {
+    		  upgradeHealth(5);
+    	  }else {
+    		  upgradeHealth(6);
+    	  }
     	  System.out.print(getTotal()+ "\n");
     	  System.out.print("Attack: " + getAttack() + "-->");
-    	  upgradeAttack(5);
+    	  if(type == 0) {
+    		  upgradeAttack(4);
+    	  }else if(type == 1) {
+    		  upgradeAttack(5);
+    	  }else {
+    		  upgradeAttack(3);
+    	  }
     	  System.out.print(getAttack()+ "\n");
     	  System.out.print("Shield: " + getShield() + "-->");
-    	  upgradeShield(3);
+    	  if(type == 0) {
+    		  upgradeShield(2);
+    	  }else if(type == 1) {
+    		  upgradeShield(3);
+    	  }else {
+    		  upgradeShield(4);
+    	  }
     	  System.out.print(getShield()+ "\n");
     	  exp = exp - getNeeded();
     	  System.out.print("Points: " + getPoints() + "-->");
