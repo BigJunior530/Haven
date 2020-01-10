@@ -102,7 +102,7 @@ public class Main {
         		    	break;
         		 	case 3:
         		 		System.out.print("Total Health: " + pc.getTotal() + "-->");
-        		    	pc.upgradeHealth(1);
+        		    	pc.upgradeHealth(3);
 					 pc.usePoint(1);
         		    	System.out.print(pc.getTotal()+ "\n");
         		    	break;
