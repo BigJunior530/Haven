@@ -10,11 +10,12 @@ public class Main {
    public static int ran = 0;
    public static boolean run = false;
    public static boolean adventure = true;
+   public static int type = 1;
 
    public static void main(String[] args) throws InterruptedException {
       enterGame();
       if(run == true) {
-    	  Protag pc = new Protag();
+    	  Protag pc = new Protag(type);
     	  Story.intro();
     	  start(pc);
       }
@@ -22,14 +23,27 @@ public class Main {
    }
       
      private static void enterGame() throws InterruptedException{
-    	 System.out.println("Haven");
-    	 System.out.println("Press 1 to start Game");
-    	 System.out.println("Press 2 to exit");
+    	 System.out.println(" _    _     __      ________ _   _ ");
+         System.out.println("| |  | |   /\\ \\    / /  ____| \\ | |");
+         System.out.println("| |__| |  /  \\ \\  / /| |__  |  \\| |");
+         System.out.println("|  __  | / /\\ \\ \\/ / |  __| | . ` |");
+         System.out.println("| |  | |/ ____ \\  /  | |____| |\\  |");
+         System.out.println("|_|  |_/_/    \\_\\/   |______|_| \\_|");
+    	 System.out.println("Start a game by picking a class.");
+    	 System.out.println("Press 0 to  be a Barbarian(High-Health/Mid-Attack/Low-Shield)");
+    	 System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield)");
+    	 System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield)");
+    	 System.out.println("Press 3 to exit");
     	 int start = console.nextInt();
-    	 if(start == 1) {
+    	 if(start == 0 || start == 1 || start == 2) {
     		 run = true;
+    		 type = start;
+    		 Story.clearScreen();
+    	 }else {
+    		 Story.clearScreen();
+    		 System.out.println("Goodbye...");
     	 }
-    	 Story.clearScreen();
+    	 
      }
       
    private static void choice() throws InterruptedException {
@@ -166,7 +180,14 @@ public class Main {
       }
    }
    private static <E> void checkStats(Protag pc) throws InterruptedException {
-        System.out.println("Total Health: " + pc.getTotal());
+       if(type == 0) {
+    	   System.out.println("Class: Barbarian");
+       }else if(type == 1) {
+    	   System.out.println("Class: Warrior");
+       }else {
+    	   System.out.println("Class: Knight");
+       }
+	   System.out.println("Total Health: " + pc.getTotal());
     	  System.out.println("Attack: " + pc.getAttack());
     	  System.out.println("Shield: " + pc.getShield());
     	  System.out.println("Points: " + pc.getPoints());
