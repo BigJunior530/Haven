@@ -91,16 +91,19 @@ public class Main {
         		 	case 1:
         		 		System.out.print("Attack: " + pc.getAttack() + "-->");
         		    	pc.upgradeAttack(1);
+					 pc.usePoint(1);
         		    	System.out.print(pc.getAttack()+ "\n");
         		    	break;
         		 	case 2:
         		 		System.out.print("Shield: " + pc.getShield() + "-->");
         		    	pc.upgradeShield(1);
+					 pc.usePoint(1);
         		    	System.out.print(pc.getShield()+ "\n");
         		    	break;
         		 	case 3:
         		 		System.out.print("Total Health: " + pc.getTotal() + "-->");
         		    	pc.upgradeHealth(1);
+					 pc.usePoint(1);
         		    	System.out.print(pc.getTotal()+ "\n");
         		    	break;
         		 	default:
