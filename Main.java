@@ -91,19 +91,19 @@ public class Main {
         		 	case 1:
         		 		System.out.print("Attack: " + pc.getAttack() + "-->");
         		    	pc.upgradeAttack(1);
-					 pc.usePoint(1);
+        		    	pc.usePoint(1);
         		    	System.out.print(pc.getAttack()+ "\n");
         		    	break;
         		 	case 2:
         		 		System.out.print("Shield: " + pc.getShield() + "-->");
         		    	pc.upgradeShield(1);
-					 pc.usePoint(1);
+        		    	pc.usePoint(1);
         		    	System.out.print(pc.getShield()+ "\n");
         		    	break;
         		 	case 3:
         		 		System.out.print("Total Health: " + pc.getTotal() + "-->");
         		    	pc.upgradeHealth(3);
-					 pc.usePoint(1);
+        		    	pc.usePoint(1);
         		    	System.out.print(pc.getTotal()+ "\n");
         		    	break;
         		 	default:
@@ -112,6 +112,8 @@ public class Main {
         		 }
         		 
         	 }
+        	 rest(pc);
+        	 break;
          case 4:
         	 return;
          default:
@@ -489,9 +491,10 @@ public class Main {
       int count;
       count = 0;
       p1Attack = rand.nextInt(pc.getAttack());
-      while(count < 4 && ((CharEntities) ek).getHealth() > 0) {
+      while(count < 3 && ((CharEntities) ek).getHealth() > 0) {
          System.out.println("You dealt " + p1Attack + " damage");
          ((CharEntities) ek).damage(p1Attack);
+         count++;
       }
       if(((CharEntities) ek).getHealth() > 0) {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
