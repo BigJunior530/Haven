@@ -33,7 +33,13 @@ public class Frog extends CharEntities{
     	  
     	  health = 4*level;
       }
-      
+      public void upHealth(int boost) {
+    	  if(boost + health > 10*level) {
+    		  setHealth();
+    	  }else {
+    		  health = health + boost;
+    	  }
+      }
       public int getLevel() {
     	  return level;
       }
@@ -44,15 +50,18 @@ public class Frog extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Alien uses Hypnosis");
-        	  dam = pc.getAttack()/2;
-        	  System.out.println("You got confused. Then punched yourself to get out of confusion");
+        	  System.out.println("Frog uses slime");
+        	  dam = 0;
+        	  System.out.println("It's healed some health.");
+        	  System.out.println("Health " + getHealth() + "-->");
+        	  upHealth(1*level);
+        	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Alien uses Probe");
+        	  System.out.println("Frog uses its Tongue");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Alien uses Tackle");
+        	  System.out.println("Frog uses Tackle");
         	  dam = attack;
           }
           return dam;
@@ -62,7 +71,7 @@ public class Frog extends CharEntities{
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nAn Alien appeared!");
+            System.out.println("\nA Frog appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
@@ -75,7 +84,7 @@ public class Frog extends CharEntities{
       }
       
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You slash the aliens into bits and jump out of the UFO back to the ocean");
+    	  System.out.println("You cut the Frogs legs off and tongue making it useless.");
           Thread.sleep(2000);
       }
 }
