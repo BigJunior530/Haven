@@ -16,6 +16,7 @@ public class Protag {
       public int attackTemp;
       public int shieldTemp;
       public int type;
+      public int luck;
 
       public Protag(int type){
     	  this.type = type; 
@@ -24,17 +25,21 @@ public class Protag {
               totalHealth = 125;
               this.attack = 5;
               this.shield = 3; 
+              luck = 1;
     	  }else if(type == 1) {
     		  this.health = 75;
               totalHealth = 75;
               this.attack = 8;
               this.shield = 5; 
+              luck = 3;
     	  }else {
     		  this.health = 100;
               totalHealth = 100;
               this.attack = 3;
               this.shield = 8; 
+              luck = 5;
     	  }
+    	  	
             level = 1;
             lvlPoint = 0;
             exp = 0;
@@ -54,6 +59,9 @@ public class Protag {
       public void setExp(int strength) {
     	  exp = exp + (strength*2);
       }
+      public int getLuck(){
+          return luck;
+    }
       public int getShield(){
             return shield;
       }
@@ -80,6 +88,13 @@ public class Protag {
       }
       public void usePoint(int boost){
           lvlPoint =  lvlPoint- boost;
+      }
+      public void upgradeLuck(int boost){
+    	  if(luck < 100) {
+    		  luck = luck + boost;
+    	  }else {
+    		  System.out.println("Luck can't go higher");
+    	  }
       }
       public void upgradeAttack(int boost){
     	  attack = attack + boost;
@@ -127,6 +142,15 @@ public class Protag {
     		  upgradeHealth(6);
     	  }
     	  System.out.print(getTotal()+ "\n");
+    	  System.out.print("Health: " + getHealth() + "-->");
+    	  if(type == 0) {
+    		  heal(7); 
+    	  }else if(type == 1) {
+    		  heal(5);
+    	  }else {
+    		  heal(6);
+    	  }
+    	  System.out.print(getHealth()+ "\n");
     	  System.out.print("Attack: " + getAttack() + "-->");
     	  if(type == 0) {
     		  upgradeAttack(4);
