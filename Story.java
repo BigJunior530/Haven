@@ -4,7 +4,7 @@ public class Story {
 	public static void intro() throws InterruptedException {
         System.out.println("You wake up in forest.");
         Thread.sleep(2000);
-        System.out.println("You look around and see a sword and a shield.");
+        System.out.println("You look around and see a sword and shield.");
         Thread.sleep(3500);
         System.out.println("You pick them up and get back on your feet");
         Thread.sleep(3000);
@@ -21,11 +21,11 @@ public class Story {
         Thread.sleep(2000);
         System.out.println("It's dark now.");
         Thread.sleep(2000);
-        System.out.println("You've grown stronger since you started today.");
+        System.out.println("You've grown stronger since you started the day.");
         Thread.sleep(3500);
-        System.out.println("You wonder at how strong you can really be.");
+        System.out.println("You wonder... how strong you can be.");
         Thread.sleep(3000);
-        System.out.println("You've always wanted to explore.");
+        System.out.println("You've wanted to explore your whole life.");
         Thread.sleep(3000);
         System.out.println("The clearing ahead is home, you've almost reached it.");
         Thread.sleep(5000);
@@ -67,7 +67,7 @@ public class Story {
         Thread.sleep(3000);
         System.out.println("You get a lot of warm clothes and head off.");
         Thread.sleep(3000);
-        System.out.println("You realize you haven't decided where North you should you go.");
+        System.out.println("You realize you haven't decided where North you should go.");
         Thread.sleep(5000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(2000);
@@ -76,15 +76,15 @@ public class Story {
         Thread.sleep(1500);
 	}
 	public static void South() throws InterruptedException{
-		System.out.println("Youd decide you want to head towards the South.");
+		System.out.println("You decide you want to head towards the South.");
         Thread.sleep(2000);
-        System.out.println("It's warm and very uncomfortable place.");
+        System.out.println("It's a warm and very uncomfortable place.");
         Thread.sleep(3500);
         System.out.println("You feel as if that's the best place.");
         Thread.sleep(3000);
-        System.out.println("You get loose clothes and head off.");
+        System.out.println("You get loose fitting clothes and head off.");
         Thread.sleep(3000);
-        System.out.println("You realize you haven't decided where South you should you go.");
+        System.out.println("You realize you haven't decided where South you should go.");
         Thread.sleep(5000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(2000);
@@ -99,9 +99,9 @@ public class Story {
         Thread.sleep(3500);
         System.out.println("You feel as if that's the best place.");
         Thread.sleep(3000);
-        System.out.println("You buy a boat and head off.");
+        System.out.println("You build a boat and head off.");
         Thread.sleep(3000);
-        System.out.println("You realize you haven't decided where in the Ocean you should you go.");
+        System.out.println("You realize you haven't decided where in the Ocean you should go.");
         Thread.sleep(5000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(2000);
@@ -126,19 +126,19 @@ public class Story {
 	public static void Snowy() throws InterruptedException{
 		System.out.println("You go to a snowy Moutain.");
         Thread.sleep(2000);
-        System.out.println("You start climbling the side.");
+        System.out.println("You start climbling up the side of the Mountain.");
         Thread.sleep(3500);
-        System.out.println("You try your best to not slip, but it gets close.");
+        System.out.println("You try your best not to slip, but you get close.");
         Thread.sleep(3000);
         System.out.println("It gets harder and harder to breathe.");
         Thread.sleep(3000);
-        System.out.println("You see a expert animal climbing the moutain too.");
+        System.out.println("You see an animal climbing the moutain like an expert.");
         Thread.sleep(5000);
         System.out.println("It's heading towards you at full speed.\n");
         Thread.sleep(1500);
 	}
 	public static void adMoutain() throws InterruptedException{
-		System.out.println("You can see the top of the moutain.");
+		System.out.println("You can see the top of the Moutain.");
         Thread.sleep(2000);
         System.out.println("You feel acomplished.");
         Thread.sleep(3500);
@@ -168,7 +168,7 @@ public class Story {
 	public static void Moutain() throws InterruptedException{
 		System.out.println("That battle was different.");
         Thread.sleep(2000);
-        System.out.println("You smacked striaght into the side.");
+        System.out.println("You smacked striaght into the side of the Moutain.");
         Thread.sleep(3500);
         System.out.println("An avalanche is starting up above you.");
         Thread.sleep(3000);
@@ -184,7 +184,7 @@ public class Story {
         Thread.sleep(2000);
         System.out.println("You have heavy footsteps through the snow.");
         Thread.sleep(3500);
-        System.out.println("You look at they sky");
+        System.out.println("You look at the sky.");
         Thread.sleep(3000);
         System.out.println("You can't help but admire the beautiful Northern Lights.");
         Thread.sleep(3000);
@@ -196,7 +196,7 @@ public class Story {
 	public static void adTundra() throws InterruptedException{
 		System.out.println("Snow starts to fall all around you.");
         Thread.sleep(2000);
-        System.out.println("All there is white now as far as you can see.");
+        System.out.println("White as far as you can see, but the air still clear enough to see where you're going.");
         Thread.sleep(3500);
         System.out.println("You keep walking.");
         Thread.sleep(3000);
@@ -224,11 +224,11 @@ public class Story {
 	public static void Tundra() throws InterruptedException{
 		System.out.println("The snow fall becomes extremely heavy.");
         Thread.sleep(2000);
-        System.out.println("You look around and all you can see now it white.");
+        System.out.println("You look around and all you can see now is white.");
         Thread.sleep(3500);
         System.out.println("The wind is picking up and you realize it's a blizzard.");
         Thread.sleep(3000);
-        System.out.println("You try to see where you're going, but you're struggling to even move.");
+        System.out.println("You try to see where to go, but you're struggling to even move.");
         Thread.sleep(3000);
         System.out.println("You see a large figure in the distance.");
         Thread.sleep(5000);
@@ -256,7 +256,7 @@ public class Story {
         Thread.sleep(3500);
         System.out.println("You keep moving forward.");
         Thread.sleep(3000);
-        System.out.println("You're ready to give up, but see a glimpse of hope.");
+        System.out.println("You're ready to give up, but see a glimmer of hope.");
         Thread.sleep(3000);
         System.out.println("You here a small rattling noise.");
         Thread.sleep(5000);
@@ -288,7 +288,7 @@ public class Story {
         Thread.sleep(3000);
         System.out.println("A large creature is in front you, you're going too fast.");
         Thread.sleep(5000);
-        System.out.println("You stopped to  late, get ready.\n");
+        System.out.println("You stopped to late, get ready.\n");
         Thread.sleep(1500);
 	}
 	public static void Green() throws InterruptedException{
@@ -320,7 +320,7 @@ public class Story {
         Thread.sleep(1500);
 	}
 	public static void civJungle() throws InterruptedException{
-		System.out.println("The Jungle seems to wild of a place to have civilization.");
+		System.out.println("The Jungle seems too wild of a place for civilization.");
         Thread.sleep(2000);
         System.out.println("You get frustrated over how tired you are.");
         Thread.sleep(3500);
@@ -330,11 +330,11 @@ public class Story {
         Thread.sleep(3000);
         System.out.println("You see a primate up on the branches terrified.");
         Thread.sleep(5000);
-        System.out.println("The animal jumps off its branch straight to you.\n");
+        System.out.println("The animal jumps off its branch straight at you.\n");
         Thread.sleep(1500);
 	}
 	public static void Jungle() throws InterruptedException{
-		System.out.println("The rain and wind pick up to whole new extreme.");
+		System.out.println("The rain and wind pick up to a whole new extreme.");
         Thread.sleep(2000);
         System.out.println("It's a tropical storm.");
         Thread.sleep(3500);
@@ -384,7 +384,7 @@ public class Story {
         Thread.sleep(3000);
         System.out.println("You see a light glowing from under your boat.");
         Thread.sleep(3000);
-        System.out.println("You think light from above and below, that's great.");
+        System.out.println("You think light from above and below, how appropriate.");
         Thread.sleep(5000);
         System.out.println("The creature pushes its body out of the water.\n");
         Thread.sleep(1500);
@@ -396,7 +396,7 @@ public class Story {
         Thread.sleep(3500);
         System.out.println("Having more questions than answers.");
         Thread.sleep(3000);
-        System.out.println("You almost reach land when a creature large than anything comes out of the water.");
+        System.out.println("You almost reach land when a creature larger than anything comes out of the water.");
         Thread.sleep(3000);
         System.out.println("You really hope this isn't what happens.");
         Thread.sleep(5000);
@@ -432,7 +432,7 @@ public class Story {
         Thread.sleep(1500);
 	}
 	public static void civAlantis() throws InterruptedException{
-		System.out.println("After surving the weird encounter.");
+		System.out.println("After surviving the weird encounter.");
         Thread.sleep(2000);
         System.out.println("You give up this ridiculous quest.");
         Thread.sleep(3500);
@@ -446,7 +446,7 @@ public class Story {
         Thread.sleep(1500);
 	}
 	public static void Alantis() throws InterruptedException{
-		System.out.println("After surving the craziest expeiences.");
+		System.out.println("After surviving the craziest expeiences.");
         Thread.sleep(2000);
         System.out.println("You finally leave the area.");
         Thread.sleep(3500);
@@ -525,6 +525,8 @@ public class Story {
         Thread.sleep(3000);
         System.out.println("You walk around your old town and see remnants of people and homes.");
         Thread.sleep(2000);
+        System.out.println("You cry for hours about the home, friends and family you lost...");
+        Thread.sleep(2000);
 		System.out.println("You have to find civilization or you'll never survive");
         Thread.sleep(2000);
         System.out.println("Objective: Find Civilization.");
@@ -534,7 +536,7 @@ public class Story {
         
   }
 	public static void choice() throws InterruptedException { 
-		System.out.println("You see home clearly now.");
+		System.out.println("You're just a couple more steps away from home.");
         Thread.sleep(2000);
 		System.out.println("It's time to decide");
         Thread.sleep(2000);

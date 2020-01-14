@@ -29,10 +29,11 @@ public class Main {
          System.out.println("|  __  | / /\\ \\ \\/ / |  __| | . ` |");
          System.out.println("| |  | |/ ____ \\  /  | |____| |\\  |");
          System.out.println("|_|  |_/_/    \\_\\/   |______|_| \\_|");
+         System.out.println();
     	 System.out.println("Start a game by picking a class.");
-    	 System.out.println("Press 0 to  be a Barbarian(High-Health/Mid-Attack/Low-Shield)");
-    	 System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield)");
-    	 System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield)");
+    	 System.out.println("Press 0 to  be a Barbarian(High-Health/Mid-Attack/Low-Shield/Low-Luck)");
+    	 System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield/Mid-Luck)");
+    	 System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield/High-Luck)");
     	 System.out.println("Press 3 to exit");
     	 int start = console.nextInt();
     	 if(start == 0 || start == 1 || start == 2) {
@@ -85,6 +86,7 @@ public class Main {
         		 System.out.println("1. Attack");
         		 System.out.println("2. Defense");
         		 System.out.println("3. Health");
+        		 System.out.println("4. Luck");
         		 console.nextLine();
         		 int answer = console.nextInt();
         		 switch(answer) {
@@ -105,6 +107,12 @@ public class Main {
         		    	pc.upgradeHealth(3);
         		    	pc.usePoint(1);
         		    	System.out.print(pc.getTotal()+ "\n");
+        		    	break;
+        		 	case 4:
+        		 		System.out.print("Luck: " + pc.getLuck() + "-->");
+        		    	pc.upgradeLuck(1);
+        		    	pc.usePoint(1);
+        		    	System.out.print(pc.getLuck()+ "\n");
         		    	break;
         		 	default:
                         // DEFAULT
@@ -150,7 +158,10 @@ public class Main {
                }else if(c.equalsIgnoreCase("Stregnth Potion")) {
                   Items.strengthPotion();
                   pc.upgradeAttack(3);
-               } 
+               } else {
+               	Items.LuckPotion();
+               	pc.upgradeLuck(1);
+               }
                pc.removeItem(c);
             }
             rest(pc);
@@ -164,13 +175,13 @@ public class Main {
                String c = pc.getEquipment(reply - 1);
                if(c.equalsIgnoreCase("Helmet")) {
                   Equipment.helmet();
-                  pc.upgradeShield(1);
+                  pc.upgradeShield(3);
                }else if(c.equalsIgnoreCase("Chest Plate")) {
                   Equipment.chestPlate();
-                  pc.upgradeShield(3);
+                  pc.upgradeShield(5);
                }else if(c.equalsIgnoreCase("Leggings")) {
                   Equipment.leggings();
-                  pc.upgradeShield(2);
+                  pc.upgradeShield(4);
                }
                pc.removeEquipment(c);
             }
@@ -198,6 +209,7 @@ public class Main {
     	  System.out.println("Points: " + pc.getPoints());
     	  System.out.println("Level: " + pc.getLevel());
         System.out.println("Health: " + pc.getHealth());
+        System.out.println("Luck: " + pc.getLuck());
         
    }
    private static <E> void attacksStarter(Protag pc, E ek, String name) throws InterruptedException {
@@ -353,7 +365,10 @@ public class Main {
                }else if(c.equalsIgnoreCase("Stregnth Potion")) {
                   Items.strengthPotion();
                   pc.upgradeAttack(3);
-               } 
+               } else {
+            	   Items.LuckPotion();
+            	   pc.upgradeLuck(1);
+               }
                pc.removeItem(c);
             }
             return;
@@ -366,13 +381,13 @@ public class Main {
                String c = pc.getEquipment(reply - 1);
                if(c.equalsIgnoreCase("Helmet")) {
                   Equipment.helmet();
-                  pc.upgradeShield(1);
+                  pc.upgradeShield(3);
                }else if(c.equalsIgnoreCase("Chest Plate")) {
                   Equipment.chestPlate();
-                  pc.upgradeShield(3);
+                  pc.upgradeShield(5);
                }else if(c.equalsIgnoreCase("Leggings")) {
                   Equipment.leggings();
-                  pc.upgradeShield(2);
+                  pc.upgradeShield(4);
                }
                pc.removeEquipment(c);
             }
@@ -397,11 +412,21 @@ public class Main {
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
-        	  
-         if(chance > 2) {
+         int luck = pc.getLuck();
+        boolean help = testLuck(luck);
+        if(help) {
+        	chance++;
+        }
+        if(pc.getLevel() > 9) {
+        	help = testLuck(luck/2);
+        	if(help) {
+            	chance++;
+            }
+        }
+         if(chance < 1) {
             System.out.println("You got nothing...");
-         }else if(chance > 4) {
-            int item = rand.nextInt(3);
+         }else if(chance > 2) {
+            int item = rand.nextInt(4);
             if(item == 0) {
                System.out.println("You got a Health potion!");
                pc.putItems("Health Potion");
@@ -411,18 +436,21 @@ public class Main {
             }else if(item == 2) {
                System.out.println("You got a Stregnth potion!");
                pc.putItems("Stregnth Potion");
+            }else {
+            	System.out.println("You got a luck potion");
+            	pc.putItems("Luck Potion");
             }
          }else {
-         	  
-            if(helmet == 0) {
+        	 int item = rand.nextInt(3);
+            if(helmet == 0 && item == 0) {
                System.out.println("You got a Helmet!");
                pc.putEquipment("Helmet");
                helmet++;
-            }else if(chest == 0) {
+            }else if(chest == 0 && item == 1) {
                System.out.println("You got a Chest Plate!");
                pc.putEquipment("Chest Plate");
                chest++;
-            }else if(leg == 0) {
+            }else if(leg == 0 && item == 2) {
                System.out.println("You got Leggings!");
                pc.putEquipment("Leggings");
                leg++;
@@ -449,40 +477,53 @@ public class Main {
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
-        	  
-         if(chance > 2) {
-            System.out.println("You got nothing...");
-         }else if(chance > 4) {
-            int item = rand.nextInt(3);
-            if(item == 0) {
-               System.out.println("You got a Health potion!");
-               pc.putItems("Health Potion");
-            }else if(item == 1) {
-               System.out.println("You got Duck tape!");
-               pc.putItems("Duct tape");
-            }else if(item == 2) {
-               System.out.println("You got a Stregnth potion!");
-               pc.putItems("Stregnth Potion");
-            }
-         }else {
-         	  
-            if(helmet == 0) {
-               System.out.println("You got a Helmet!");
-               pc.putEquipment("Helmet");
-               helmet++;
-            }else if(chest == 0) {
-               System.out.println("You got a Chest Plate!");
-               pc.putEquipment("Chest Plate");
-               chest++;
-            }else if(leg == 0) {
-               System.out.println("You got Leggings!");
-               pc.putEquipment("Leggings");
-               leg++;
-            }else {
-               System.out.println("You got nothing...");
-            }
-         	  
+         int luck = pc.getLuck();
+         boolean help = testLuck(luck);
+         if(help) {
+         	chance++;
          }
+         if(pc.getLevel() > 9) {
+         	help = testLuck(luck/2);
+         	if(help) {
+             	chance++;
+             }
+         }	  
+         if(chance < 1) {
+             System.out.println("You got nothing...");
+          }else if(chance > 2) {
+             int item = rand.nextInt(4);
+             if(item == 0) {
+                System.out.println("You got a Health potion!");
+                pc.putItems("Health Potion");
+             }else if(item == 1) {
+                System.out.println("You got Duck tape!");
+                pc.putItems("Duct tape");
+             }else if(item == 2) {
+                System.out.println("You got a Stregnth potion!");
+                pc.putItems("Stregnth Potion");
+             }else {
+             	System.out.println("You got a luck potion");
+             	pc.putItems("Luck Potion");
+             }
+          }else {
+         	 int item = rand.nextInt(3);
+             if(helmet == 0 && item == 0) {
+                System.out.println("You got a Helmet!");
+                pc.putEquipment("Helmet");
+                helmet++;
+             }else if(chest == 0 && item == 1) {
+                System.out.println("You got a Chest Plate!");
+                pc.putEquipment("Chest Plate");
+                chest++;
+             }else if(leg == 0 && item == 2) {
+                System.out.println("You got Leggings!");
+                pc.putEquipment("Leggings");
+                leg++;
+             }else {
+                System.out.println("You got nothing...");
+             }
+          	  
+          }
          return;
       }
    }
@@ -503,40 +544,53 @@ public class Main {
          int b = ((CharEntities) ek).getAttack();
          pc.setExp(b);
          int chance = rand.nextInt(6);
-        	  
-         if(chance > 2) {
-            System.out.println("You got nothing...");
-         }else if(chance > 4) {
-            int item = rand.nextInt(3);
-            if(item == 0) {
-               System.out.println("You got a Health potion!");
-               pc.putItems("Health Potion");
-            }else if(item == 1) {
-               System.out.println("You got Duck tape!");
-               pc.putItems("Duct tape");
-            }else if(item == 2) {
-               System.out.println("You got a Stregnth potion!");
-               pc.putItems("Stregnth Potion");
-            }
-         }else {
-         	  
-            if(helmet == 0) {
-               System.out.println("You got a Helmet!");
-               pc.putEquipment("Helmet");
-               helmet++;
-            }else if(chest == 0) {
-               System.out.println("You got a Chest Plate!");
-               pc.putEquipment("Chest Plate");
-               chest++;
-            }else if(leg == 0) {
-               System.out.println("You got Leggings!");
-               pc.putEquipment("Leggings");
-               leg++;
-            }else {
-               System.out.println("You got nothing...");
-            }
-         	  
+         int luck = pc.getLuck();
+         boolean help = testLuck(luck);
+         if(help) {
+         	chance++;
          }
+         if(pc.getLevel() > 9) {
+         	help = testLuck(luck/2);
+         	if(help) {
+             	chance++;
+             }
+         } 
+         if(chance < 1) {
+             System.out.println("You got nothing...");
+          }else if(chance > 2) {
+             int item = rand.nextInt(4);
+             if(item == 0) {
+                System.out.println("You got a Health potion!");
+                pc.putItems("Health Potion");
+             }else if(item == 1) {
+                System.out.println("You got Duck tape!");
+                pc.putItems("Duct tape");
+             }else if(item == 2) {
+                System.out.println("You got a Stregnth potion!");
+                pc.putItems("Stregnth Potion");
+             }else {
+             	System.out.println("You got a luck potion");
+             	pc.putItems("Luck Potion");
+             }
+          }else {
+         	 int item = rand.nextInt(3);
+             if(helmet == 0 && item == 0) {
+                System.out.println("You got a Helmet!");
+                pc.putEquipment("Helmet");
+                helmet++;
+             }else if(chest == 0 && item == 1) {
+                System.out.println("You got a Chest Plate!");
+                pc.putEquipment("Chest Plate");
+                chest++;
+             }else if(leg == 0 && item == 2) {
+                System.out.println("You got Leggings!");
+                pc.putEquipment("Leggings");
+                leg++;
+             }else {
+                System.out.println("You got nothing...");
+             }
+          	  
+          }
          return;
       }
    }
@@ -957,6 +1011,7 @@ public class Main {
          if((pc.getHealth() <= 0) || (((CharEntities) ek).getHealth() <= 0) || run != ran){
             return;
          }
+         p1Defence = pc.getShield();
          
                   // CPU choice
                   //Switch back to four when you want to add leaving again
@@ -1021,7 +1076,14 @@ public class Main {
          }
       }
    }
-      
+   public static <E> boolean testLuck(int luck) {
+	   boolean plus = false;
+	   int lotto = rand.nextInt(101);
+	   if(luck > lotto) {
+		   plus = true;
+	   }
+	   return plus;
+   }
    public static void sleep500() throws InterruptedException {
       for(int i = 0; i <= 4; i++){
          Thread.sleep(500);
