@@ -49,11 +49,14 @@ public class Protag {
             attackTemp = 0;
             shieldTemp = 0;
       }
-      public void sprite(){
-    	  System.out.println("  O  /");
-          System.out.println(" /|\\/");
-          System.out.println("  |");
-          System.out.println(" _^_");
+       public void sprite(){
+    	      System.out.println("\\");
+            System.out.println(" \\    ");
+            System.out.println(" _\\|  O  }");
+            System.out.println("   M_/|\\_|}");
+            System.out.println("      |  }");
+            System.out.println("     / \\");
+            System.out.println("   _/   \\_");
        }
       
       public void setExp(int strength) {
@@ -61,7 +64,7 @@ public class Protag {
       }
       public int getLuck(){
           return luck;
-    }
+      }
       public int getShield(){
             return shield;
       }
