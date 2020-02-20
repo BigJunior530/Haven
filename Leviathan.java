@@ -1,38 +1,60 @@
 import java.util.Random;
-
+/**
+ * This class is used to make the Leviathan enemy
+ * @author Carlos
+ *
+ */
 public class Leviathan extends CharEntities{
-      private int health;
-      private int attack;
-      private int level;
       public static Random rand = new Random();
-
+      /**
+    	 * This is a constructor to make the Leviathan class
+    	 * 
+    	 * @param pc is the user class
+    	 */
       public Leviathan(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
+      /**
+       * This method prints out the ascii art for the Leviathan
+       * 
+       */
       public void enemy(){
     	  System.out.println("                                   ____");
           System.out.println("          ________________________/ O  \\___/");
           System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
        }
+      /**
+       * This method sets the level for the enemy based off the User's level
+       * 
+       *  @param enemy is the level of the User
+       */
       public void setLevel(int enemy) {
     	  
     	  level = rand.nextInt(4) + enemy;
       }
+      /**
+       * This method sets the attack using level
+       */
       public void setAttack() {
     	  
     	  attack = 10*level;
       }
+      /**
+       * This method sets the health using level
+       */
       public void setHealth() {
     	  
     	  health = 12*level;
       }
-      
-      public int getLevel() {
-    	  return level;
-      }
+      /**
+       * This method randomly chooses a move to determine the damage to the User
+       * 
+       * @param pc is the user class
+       * @return dam is the damage it will deal to the user
+       */
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -54,10 +76,9 @@ public class Leviathan extends CharEntities{
           return dam;
     	  
       }
-      public int getAttack(){
-            return this.attack;
-      }
-
+      /**
+       * This method prints out the introduction for the Leviathan
+       */
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
@@ -65,13 +86,9 @@ public class Leviathan extends CharEntities{
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
-
-      public int getHealth(){
-            return this.health;
-      }
-      public void damage(int hurt) {
-    	  health = health - hurt;
-      }
+      /**
+       * This method prints out the kill message for the Leviathan
+       */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You split the Leviathan straight down the middle.");
           Thread.sleep(2000);

@@ -1,17 +1,26 @@
 import java.util.Random;
-
+/**
+ * This class is used to make the Mountain Lion enemy
+ * @author Carlos
+ *
+ */
 public class MountainLion extends CharEntities{
-      private int health;
-      private int attack;
-      private int level;
       public static Random rand = new Random();
-
+      /**
+    	 * This is a constructor to make the Mountain Lion class
+    	 * 
+    	 * @param pc is the user class
+    	 */
       public MountainLion(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
+      /**
+       * This method prints out the ascii art for the Mountain Lion
+       * 
+       */
       public void enemy(){
     	  System.out.println("                 (\"`-''-/\").___..--''\"`-._");
           System.out.println("                  `6_ 6  )   `-.  (     ).`-.__.`)");
@@ -19,26 +28,35 @@ public class MountainLion extends CharEntities{
           System.out.println("                _..`--'_..-_/  /--'_.' ,'");
           System.out.println("               (il),-''  (li),'  ((!.-' ");
        }
+      /**
+       * This method sets the level for the enemy based off the User's level
+       * 
+       *  @param enemy is the level of the User
+       */
       public void setLevel(int enemy) {
     	  
     	  level = rand.nextInt(4) + enemy;
       }
+      /**
+       * This method sets the attack using level
+       */
       public void setAttack() {
     	  
     	  attack = 7*level;
       }
-      public void upAttack(int boost) {
-    	  
-    	  attack = attack + boost;
-      }
+      /**
+       * This method sets the health using level
+       */
       public void setHealth() {
     	  
     	  health = 8*level;
       }
-      
-      public int getLevel() {
-    	  return level;
-      }
+      /**
+       * This method randomly chooses a move to determine the damage to the User
+       * 
+       * @param pc is the user class
+       * @return dam is the damage it will deal to the user
+       */
       public int getMove(Protag pc){
           int move = rand.nextInt(4);
           int dam = 0;
@@ -60,10 +78,9 @@ public class MountainLion extends CharEntities{
           return dam;
     	  
       }
-      public int getAttack(){
-            return this.attack;
-      }
-
+      /**
+       * This method prints out the introduction for the Mountain Lion
+       */
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
@@ -72,12 +89,9 @@ public class MountainLion extends CharEntities{
             System.out.println("Health: " + getHealth());
       }
 
-      public int getHealth(){
-            return this.health;
-      }
-      public void damage(int hurt) {
-    	  health = health - hurt;
-      }
+      /**
+       * This method prints out the kill message for the Mountain Lion
+       */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You slash off the bottom jaw, watching the blood drain from its mouth");
           Thread.sleep(2000);
