@@ -1,33 +1,36 @@
 import java.util.Random;
 /**
- * This class is used to make the Chimpanzee enemy
+ * This class is used to make the Scorpion enemy
  * @author Carlos
  *
  */
-public class Chimpanzee extends CharEntities{
+public class Scorpion extends CharEntities{
       public static Random rand = new Random();
       /**
-  	 * This is a constructor to make the Chimpanzee class
+  	 * This is a constructor to make the Scorpion class
   	 * 
   	 * @param pc is the user class
   	 */
-      public Chimpanzee(Protag pc){
+      public Scorpion(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       /**
-       * This method prints out the ascii art for the Chimpanzee
+       * This method prints out the ascii art for the Scorpion
        * 
        */
       public void enemy(){
-    	  System.out.println("            __");
-          System.out.println("          (/00\\)");
-          System.out.println("           \\--/");
-          System.out.println("         \\/ [] \\/");
-          System.out.println("            []/");
-          System.out.println("          _|  |_");
+    	  System.out.println("            _    _");
+          System.out.println("           /_]  [_\\");
+          System.out.println("          //      \\\\");
+          System.out.println("          \\\\      //");
+          System.out.println("           \\`-..-'/");
+          System.out.println("            `\\  /`");
+          System.out.println("              ||    _");
+          System.out.println("              ||   ( )");
+          System.out.println("              \\\\___/");
        }
       /**
        * This method sets the level for the enemy based off the User's level
@@ -43,14 +46,14 @@ public class Chimpanzee extends CharEntities{
        */
       public void setAttack() {
     	  
-    	  attack = 4*level;
+    	  attack = 6*level;
       }
       /**
        * This method sets the health using level
        */
       public void setHealth() {
     	  
-    	  health = 5*level;
+    	  health = 3*level;
       }
       /**
        * This method randomly chooses a move to determine the damage to the User
@@ -62,39 +65,35 @@ public class Chimpanzee extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Chimpanzee uses Poop Throw");
-        	  dam = 0;
-        	  System.out.println("You lost some shield");
-        	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(1);
-        	  System.out.print(pc.getShield()+ "\n");
-        	  
+        	  System.out.println("Scorpion uses Posion Sting");
+        	  dam = pc.getAttack()/2;
+        	  System.out.println("You cut off the area to stop the Poison from spreading");
           }else if(move == 1) {
-        	  System.out.println("Chimpanzee uses both arms to smash against your body");
+        	  System.out.println("Scorpion uses Pinch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Chimpanzee uses Tackle");
+        	  System.out.println("Scorpion uses Tackle");
         	  dam = attack;
           }
           return dam;
     	  
       }
       /**
-       * This method prints out the introduction for the Chimpanzee
+       * This method prints out the introduction for the Scorpion
        */
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA Wild Chimpanzee appeared!");
+            System.out.println("\nA Scorpion appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
       /**
-       * This method prints out the kill message for the Chimpanzee
+       * This method prints out the kill message for the Scorpion
        */
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You stab the Chimp against the tree and head back into the Jungle");
+    	  System.out.println("You cut off the stringer and the claws leaving the Scorpion to a pathetic existence.");
           Thread.sleep(2000);
       }
 }

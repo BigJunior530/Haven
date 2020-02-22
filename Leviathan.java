@@ -1,33 +1,30 @@
 import java.util.Random;
 /**
- * This class is used to make the Chimpanzee enemy
+ * This class is used to make the Leviathan enemy
  * @author Carlos
  *
  */
-public class Chimpanzee extends CharEntities{
+public class Leviathan extends CharEntities{
       public static Random rand = new Random();
       /**
-  	 * This is a constructor to make the Chimpanzee class
-  	 * 
-  	 * @param pc is the user class
-  	 */
-      public Chimpanzee(Protag pc){
+    	 * This is a constructor to make the Leviathan class
+    	 * 
+    	 * @param pc is the user class
+    	 */
+      public Leviathan(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
           setAttack();
           setHealth();
       }
       /**
-       * This method prints out the ascii art for the Chimpanzee
+       * This method prints out the ascii art for the Leviathan
        * 
        */
       public void enemy(){
-    	  System.out.println("            __");
-          System.out.println("          (/00\\)");
-          System.out.println("           \\--/");
-          System.out.println("         \\/ [] \\/");
-          System.out.println("            []/");
-          System.out.println("          _|  |_");
+    	  System.out.println("                                   ____");
+          System.out.println("          ________________________/ O  \\___/");
+          System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
        }
       /**
        * This method sets the level for the enemy based off the User's level
@@ -36,21 +33,21 @@ public class Chimpanzee extends CharEntities{
        */
       public void setLevel(int enemy) {
     	  
-    	  level = (rand.nextInt(4)) + enemy;
+    	  level = rand.nextInt(4) + enemy;
       }
       /**
        * This method sets the attack using level
        */
       public void setAttack() {
     	  
-    	  attack = 4*level;
+    	  attack = 10*level;
       }
       /**
        * This method sets the health using level
        */
       public void setHealth() {
     	  
-    	  health = 5*level;
+    	  health = 12*level;
       }
       /**
        * This method randomly chooses a move to determine the damage to the User
@@ -62,39 +59,42 @@ public class Chimpanzee extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Chimpanzee uses Poop Throw");
+        	  System.out.println("Leviathan uses glare");
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(1);
+        	  pc.downgradeShield(3);
         	  System.out.print(pc.getShield()+ "\n");
-        	  
           }else if(move == 1) {
-        	  System.out.println("Chimpanzee uses both arms to smash against your body");
+        	  System.out.println("Leviathan uses crunch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Chimpanzee uses Tackle");
+        	  System.out.println("Leviathan uses tackle");
         	  dam = attack;
           }
           return dam;
     	  
       }
       /**
-       * This method prints out the introduction for the Chimpanzee
+       * This method prints out the introduction for the Leviathan
        */
       public void intro() throws InterruptedException {
             Main.sleep500();
             Thread.sleep(1000);
-            System.out.println("\n\nA Wild Chimpanzee appeared!");
+            System.out.println("\n\nA Leviathan appeared!");
             System.out.println("Level: " + getLevel());
             System.out.println("Health: " + getHealth());
       }
       /**
-       * This method prints out the kill message for the Chimpanzee
+       * This method prints out the kill message for the Leviathan
        */
       public void endMessage() throws InterruptedException{
-    	  System.out.println("You stab the Chimp against the tree and head back into the Jungle");
+    	  System.out.println("You split the Leviathan straight down the middle.");
+          Thread.sleep(2000);
+          System.out.println("You realize this wasn't the best place.");
+          Thread.sleep(2000);
+          System.out.println("You leave the Lost City and wonder where to next");
           Thread.sleep(2000);
       }
 }
