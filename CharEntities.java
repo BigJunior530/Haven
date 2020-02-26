@@ -8,6 +8,7 @@ public abstract class CharEntities{
       int health;
       int attack;
       int level;
+      String difficulty;
       /**
        * This method is a basic form of how to set the enemy's level
        * 
@@ -30,6 +31,10 @@ public abstract class CharEntities{
     	 health = 1;
       }
       /**
+       * This method sets the difficulty of the animal to either easy, normal, hard
+       */
+      public void setDifficulty() {}
+      /**
        * This method will be unchanged and increases the health of the enemy when called
        * 
        * @param boost
@@ -48,6 +53,14 @@ public abstract class CharEntities{
        */
       public int getAttack(){
             return this.attack;
+      }
+      /**
+       * This method is just used to get the difficulty of the enemy
+       * 
+       * @return global variable difficulty
+       */
+      public String getDifficulty(){
+            return difficulty;
       }
       /**
        * This method will be unchanged and increases the attack of the enemy when called
@@ -113,5 +126,21 @@ public abstract class CharEntities{
       public void endMessage() throws InterruptedException{
     	  System.out.println("Yeet");
           Thread.sleep(2000);
+      }
+      /**
+       * This method uses level of difficulty and the level of the animal to determine the exp
+       */
+      public int getEXP() {
+    	  switch(getDifficulty()) {
+    	  	case "Easy":
+    	  		return 3 + getLevel();
+    	  	case "Normal":
+    	  		return 6 + getLevel();
+    	  	case "Hard":
+    	  		return 9 + getLevel();
+    	  	default:
+    	  		return getLevel();
+    	
+    	  }
       }
 }
