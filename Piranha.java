@@ -16,6 +16,7 @@ public class Piranha extends CharEntities{
     	  setLevel(enemy);
           setAttack();
           setHealth();
+          setDifficulty();
       }
       /**
        * This method prints out the ascii art for the Piranha
@@ -53,6 +54,12 @@ public class Piranha extends CharEntities{
       public void setHealth() {
     	  
     	  health = 4*level;
+      }
+      /**
+       * This method sets the difficulty of the animal to Normal
+       */
+      public void setDifficulty() {
+    	  difficulty = "Normal";
       }
       /**
        * This method randomly chooses a move to determine the damage to the User

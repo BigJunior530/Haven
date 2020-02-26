@@ -16,6 +16,7 @@ public class Komodo extends CharEntities{
     	  setLevel(enemy);
           setAttack();
           setHealth();
+          setDifficulty();
       }
       /**
        * This method prints out the ascii art for the Komodo Dragon
@@ -52,6 +53,12 @@ public class Komodo extends CharEntities{
       public void setHealth() {
     	  
     	  health = 7*level;
+      }
+      /**
+       * This method sets the difficulty of the animal to Hard
+       */
+      public void setDifficulty() {
+    	  difficulty = "Hard";
       }
       /**
        * This method randomly chooses a move to determine the damage to the User

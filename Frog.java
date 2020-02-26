@@ -16,6 +16,7 @@ public class Frog extends CharEntities{
     	  setLevel(enemy);
           setAttack();
           setHealth();
+          setDifficulty();
       }
       /**
        * This method prints out the ascii art for the Frog
@@ -52,6 +53,12 @@ public class Frog extends CharEntities{
       public void setHealth() {
     	  
     	  health = 4*level;
+      }
+      /**
+       * This method sets the difficulty of the animal to Easy
+       */
+      public void setDifficulty() {
+    	  difficulty = "Easy";
       }
       /**
        * This method randomly chooses a move to determine the damage to the User
