@@ -678,10 +678,9 @@ public class Main {
       }else {
          pc.putItems("Luck Potion");
       }
-      int answer = console.nextInt();
       eastWest(pc);
       Story.choice();
-      answer = console.nextInt();
+      int answer = console.nextInt();
       if(answer == 1) {
          adventure = false;
          Story.homeLand();
