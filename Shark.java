@@ -14,9 +14,9 @@ public class Shark extends CharEntities{
       public Shark(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(7);
+          setHealth(9);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the Shark
@@ -105,6 +105,15 @@ public class Shark extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You stab your sword straight through the Shark's eye to the other.");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The shark having realized you tasted horrible decides to leave.");
           Thread.sleep(2000);
       }
 }

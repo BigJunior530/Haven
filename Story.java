@@ -1,12 +1,14 @@
 
 
 public class Story {
-	public static void intro() throws InterruptedException {
+	public static void intro(Protag pc) throws InterruptedException {
         System.out.println("You wake up in forest.");
         Thread.sleep(1000);
         System.out.println("You look around and see a sword and shield.");
         Thread.sleep(1500);
-        System.out.println("You pick them up and get back on your feet");
+        System.out.printf("You find a %s in your pocket.\n", pc.getItem(0));
+        Thread.sleep(1500);
+        System.out.println("You pick them all up and get back on your feet");
         Thread.sleep(1000);
         System.out.println("Objective: Find your way back to your homeland.");
         Thread.sleep(2000);

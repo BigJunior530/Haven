@@ -14,9 +14,9 @@ public class FlyingSquirrel extends CharEntities{
       public FlyingSquirrel(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(2);
+          setHealth(4);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Flying Squirrel
@@ -31,35 +31,6 @@ public class FlyingSquirrel extends CharEntities{
           System.out.println("             .(   _(   )_.'");
           System.out.println("            '---.~_ _ _&");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 2*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -104,6 +75,14 @@ public class FlyingSquirrel extends CharEntities{
     public void endMessage() throws InterruptedException{
   	  System.out.println("You rip off the extra skin making it into just a normal squirrel.");
         Thread.sleep(2000);
-        
+    }
+    /**
+     * The enemy's message when it decides to leave
+     * 
+     * @throws InterruptedException
+     */
+    public void leaveMessage() throws InterruptedException{
+  	  System.out.println("The flying Squirrel does what it does best, glides away.");
+        Thread.sleep(2000);
     }
 }

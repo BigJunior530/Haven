@@ -14,9 +14,9 @@ public class RattleSnake extends CharEntities{
       public RattleSnake(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(8);
+          setHealth(5);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the Rattle Snake
@@ -27,35 +27,6 @@ public class RattleSnake extends CharEntities{
           System.out.println("          ________________________/ O  \\___/");
           System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 8*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 5*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -99,6 +70,14 @@ public class RattleSnake extends CharEntities{
       public void endMessage() throws InterruptedException{
     	  System.out.println("You cut the snakes head off and watch its body squirm.");
           Thread.sleep(2000);
-
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The snake slithers away in dissapointment, realizing you're far too easy of prey.");
+          Thread.sleep(2000);
       }
 }

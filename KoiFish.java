@@ -14,9 +14,9 @@ public class KoiFish extends CharEntities{
       public KoiFish(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(1);
+          setHealth(6);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Koi Fish
@@ -28,35 +28,6 @@ public class KoiFish extends CharEntities{
           System.out.println("             < * ))     ,       ( ");
           System.out.println("              `*-._`._(__.--*\"`.\\");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) +  enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 1*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 6*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -99,7 +70,15 @@ public class KoiFish extends CharEntities{
      */
     public void endMessage() throws InterruptedException{
   	  System.out.println("You make yourself some sushi from the Koi.");
+        Thread.sleep(2000); 
+    }
+    /**
+     * The enemy's message when it decides to leave
+     * 
+     * @throws InterruptedException
+     */
+    public void leaveMessage() throws InterruptedException{
+  	  System.out.println("The koi fish, tired of winning, swims away proudly.");
         Thread.sleep(2000);
-        
     }
 }

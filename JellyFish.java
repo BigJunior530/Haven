@@ -15,9 +15,9 @@ public class JellyFish extends CharEntities{
       public JellyFish(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(5);
+          setHealth(3);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the JellyFish
@@ -37,35 +37,6 @@ public class JellyFish extends CharEntities{
           System.out.println("                        .'( .)'");
           System.out.println("                          .).'");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 3*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -108,6 +79,15 @@ public class JellyFish extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You slice the JellyFish up into bits and make your own 'Jelly'");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Jellyfish, unamused by your actions, floats back down as you see its glow slowly dissapate.");
           Thread.sleep(2000);
       }
 }

@@ -1,3 +1,4 @@
+import java.util.Random;
 /**
  * This is an abstract class or super class meant to be used by all enemies
  * 
@@ -6,34 +7,43 @@
  */
 public abstract class CharEntities{
       int health;
+      int totalHealth;
       int attack;
       int level;
       String difficulty;
+      public static Random rand = new Random();
       /**
-       * This method is a basic form of how to set the enemy's level
+       * This method is how every animal's level is set
        * 
        * @param enemy is the level of the User
        */
       public void setLevel(int enemy) {
-    	  
-    	  level = 1;
+    	  level = (rand.nextInt(4)) + enemy;
       }
       /**
-       * This method is a basic form of how to set the enemies attack
+       * This method uses whatever stat is passed by the animals constructor and multiplies it by the level to get attack
+       *
+       * @param stat is the number passed by constructor
        */
-      public void setAttack() {
-    	  attack = 1;
+      public void setAttack(int stat) {
+    	  attack = stat*level;
       }
       /**
-       * This method is a basic form of how to set the enemies health
+       * This method uses whatever stat is passed by the animals constructor and multiplies it by the level to get health
+       *
+       * @param stat is the number passed by constructor
        */
-      public void setHealth() {
-    	 health = 1;
+      public void setHealth(int stat) {
+    	 health = stat*level;
       }
       /**
-       * This method sets the difficulty of the animal to either easy, normal, hard
+       * This method sets the difficulty of the animal to either easy, normal, hard depending on what is sent by the constructor
+       *
+       * @param stat is the diffculty passsed by the constructor
        */
-      public void setDifficulty() {}
+      public void setDifficulty(String stat) {
+    	  difficulty = stat;
+      }
       /**
        * This method will be unchanged and increases the health of the enemy when called
        * 
@@ -41,7 +51,7 @@ public abstract class CharEntities{
        */
       public void upHealth(int boost) {
     	  if(boost + health > 10*level) {
-    		  setHealth();
+    		  health=totalHealth;
     	  }else {
     		  health = health + boost;
     	  }
@@ -111,6 +121,15 @@ public abstract class CharEntities{
             return health;
       }
       /**
+       * This method is just meant to return the total Health
+       * 
+       * @param <E> 
+       * @return totalHealth of the enemy
+       */
+      public <E> int getTotalHealth(){
+            return totalHealth;
+      }
+      /**
        * This method is meant to decrease the health of the enemy when attacked
        * 
        * @param hurt is how much damage was received
@@ -125,6 +144,15 @@ public abstract class CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("Yeet");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("F*** this sh*t I'm out ");
           Thread.sleep(2000);
       }
       /**

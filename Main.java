@@ -28,7 +28,17 @@ public class Main {
       enterGame();
       if(run == true) {
          Protag pc = new Protag(type);
-         Story.intro();
+         int item = rand.nextInt(4);
+         if(item == 0) {
+            pc.putItems("Health Potion");
+         }else if(item == 1) {
+            pc.putItems("Duct tape");
+         }else if(item == 2) {
+            pc.putItems("Strength Potion");
+         }else {
+            pc.putItems("Luck Potion");
+         }
+         Story.intro(pc);
          start(pc);
       }
             
@@ -51,7 +61,7 @@ public class Main {
       System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield/Mid-Luck)");
       System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield/High-Luck)");
       System.out.println("Press 3 to exit");
-      int start = console.nextInt();
+      int start = inputVerification(0, 3);
       if(start == 0 || start == 1 || start == 2) {
          run = true;
          type = start;
@@ -97,8 +107,7 @@ public class Main {
     */
    private static void rest(Protag pc) throws InterruptedException {
       Story.Check();
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,4);
             
             // Main character choice
       switch (choice){
@@ -119,8 +128,7 @@ public class Main {
                System.out.println("2. Defense");
                System.out.println("3. Health");
                System.out.println("4. Luck");
-               console.nextLine();
-               int answer = console.nextInt();
+               int answer = inputVerification(1,4);
                switch(answer) {
                   case 1:
                      System.out.print("Attack: " + pc.getAttack() + "-->");
@@ -177,17 +185,15 @@ public class Main {
       System.out.println("1: Items");
       System.out.println("2: Equipment");
       System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,3);
           
           // Main character choice
       switch (choice){
          case 1:
             boolean has = pc.getItems();
             if(has) {
-               console.nextLine();
                System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
+               int reply = inputVerification(1, pc.getItemCounter());
                String c = pc.getItem(reply - 1);
                if(c.equalsIgnoreCase("Health Potion")) {
                   Items.healthPotion();
@@ -195,7 +201,7 @@ public class Main {
                } else if(c.equalsIgnoreCase("Duct tape")) {
                   Items.ductTape();
                   pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Stregnth Potion")) {
+               }else if(c.equalsIgnoreCase("Strength Potion")) {
                   Items.strengthPotion();
                   pc.upgradeAttack(3);
                } else {
@@ -209,9 +215,8 @@ public class Main {
          case 2:
             boolean has1 = pc.getEquipment();
             if(has1) {
-               console.nextLine();
                System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
+               int reply = inputVerification(1, pc.getEquipCounter());
                String c = pc.getEquipment(reply - 1);
                if(c.equalsIgnoreCase("Helmet")) {
                   Equipment.helmet();
@@ -276,8 +281,7 @@ public class Main {
       System.out.println("1: Basic Attack");
       System.out.println("2: Toughen");
       System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,3);
           
           // Main character choice
       switch (choice){
@@ -312,8 +316,7 @@ public class Main {
       System.out.println("2: Toughen");
       System.out.println("3: Strong Attack");
       System.out.println("4: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,4);
           
           // Main character choice
       switch (choice){
@@ -353,8 +356,7 @@ public class Main {
       System.out.println("3: Strong Attack");
       System.out.println("4: Triple Attack");
       System.out.println("5: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,5);
           
           // Main character choice
       switch (choice){
@@ -398,8 +400,7 @@ public class Main {
       System.out.println("4: Triple Attack");
       System.out.println("5: Sharpen");
       System.out.println("6: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,6);
              
              // Main character choice
       switch (choice){
@@ -453,8 +454,7 @@ public class Main {
          System.out.println("6: Holy Heal");
       }
       System.out.println("7: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,7);
              
              // Main character choice
       switch (choice){
@@ -511,17 +511,15 @@ public class Main {
       System.out.println("1: Items");
       System.out.println("2: Equipment");
       System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,3);
           
           // Main character choice
       switch (choice){
          case 1:
             boolean has = pc.getItems();
             if(has) {
-               console.nextLine();
                System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
+               int reply = inputVerification(1, pc.getItemCounter());
                String c = pc.getItem(reply - 1);
                if(c.equalsIgnoreCase("Health Potion")) {
                   Items.healthPotion();
@@ -529,7 +527,7 @@ public class Main {
                } else if(c.equalsIgnoreCase("Duct tape")) {
                   Items.ductTape();
                   pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Stregnth Potion")) {
+               }else if(c.equalsIgnoreCase("Strength Potion")) {
                   Items.strengthPotion();
                   pc.upgradeAttack(3);
                } else {
@@ -542,9 +540,8 @@ public class Main {
          case 2:
             boolean has1 = pc.getEquipment();
             if(has1) {
-               console.nextLine();
                System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
+               int reply = inputVerification(1, pc.getEquipCounter());
                String c = pc.getEquipment(reply - 1);
                if(c.equalsIgnoreCase("Helmet")) {
                   Equipment.helmet();
@@ -668,19 +665,9 @@ public class Main {
     * @throws InterruptedException
     */
    private static void start(Protag pc) throws InterruptedException {
-      int item = rand.nextInt(4);
-      if(item == 0) {
-         pc.putItems("Health Potion");
-      }else if(item == 1) {
-         pc.putItems("Duct tape");
-      }else if(item == 2) {
-         pc.putItems("Stregnth Potion");
-      }else {
-         pc.putItems("Luck Potion");
-      }
       eastWest(pc);
       Story.choice();
-      int answer = console.nextInt();
+      int answer = inputVerification(1,2);
       if(answer == 1) {
          adventure = false;
          Story.homeLand();
@@ -697,7 +684,7 @@ public class Main {
     * @throws InterruptedException
     */
    public static void eastWest(Protag pc) throws InterruptedException{
-	   int response = console.nextInt();
+	   int response = inputVerification(1,2);
 	   switch(response) {
 	   case 1:
 		   Story.East();
@@ -747,7 +734,7 @@ public class Main {
     * @throws InterruptedException
     */
    public static void treePond(Protag pc) throws InterruptedException{
-	   int response = console.nextInt();
+	   int response = inputVerification(1,2);
 	   switch(response) {
 	   case 1:
 		   rest(pc);
@@ -782,7 +769,7 @@ public class Main {
     */
    private static void end(Protag pc) throws InterruptedException {
       //Save option will probably be placed here
-      int ans = console.nextInt();
+      int ans = inputVerification(1,3);
       switch (ans){
          case 1:
             North(pc);
@@ -808,7 +795,7 @@ public class Main {
     */
    private static void North(Protag pc) throws InterruptedException {
       Story.North();
-      int ans = console.nextInt();
+      int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  rest(pc);
@@ -902,7 +889,7 @@ public class Main {
     */
    private static void South(Protag pc) throws InterruptedException {
       Story.South();
-      int ans = console.nextInt();
+      int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  rest(pc);
@@ -995,7 +982,7 @@ public class Main {
     */
    private static void Ocean(Protag pc) throws InterruptedException {
       Story.Ocean();
-      int ans = console.nextInt();
+      int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  rest(pc);
@@ -1139,90 +1126,53 @@ public class Main {
             miss = true;
             useMiss++;
          }
-                  // CPU choice
-                  //Switch back to four when you want to add leaving again
-         int num = rand.nextInt(2) + 1;
+         int fear;
+         if((((CharEntities)ek).getTotalHealth()/4)> ((CharEntities)ek).getHealth()) { //health below 25% of total
+        	 fear = 4;
+         }else if((((CharEntities)ek).getTotalHealth()/2)> ((CharEntities)ek).getHealth()){//health below 50% of total
+        	 fear = 10;
+         }else {
+        	 fear = 20;
+         }
+         int num = rand.nextInt(fear);
+
          sleep500();
-         switch (num){
-             //Too common and makes the game uninteresting
-         	//almost no chance of returning
-             // case 1:
-         //                System.out.println(name + " does NOTHING.");
-                               //something regarding DEFENCE
-         //                break;
-            case 1:
-               CPUAttack = ((CharEntities) ek).getMove(pc);
-               if(CPUAttack - p1Defence > 0) {    		
-                  CPUAttack = CPUAttack - p1Defence;
-                  if(fullCounter == false && useMiss < 2) {
-                     Full(pc, ek, name, CPUAttack);
-                     fullCounter = true;
-                  }
-                  System.out.println("Damage taken " + CPUAttack);
-                  pc.damage(CPUAttack);
-               }else {
-                  if(CPUAttack > 0){
-                     System.out.println("It's attack was too weak to penetrate your shield.");
-                  }
-                  CPUAttack = 0;
-                  System.out.println("No damage taken.");
-                  if(fullCounter == false && useMiss == useFull) {
-                     System.out.println("Full Counter failed...");
-                     miss = false;
-                     
-                  }
-               }
-               if(pc.getHealth()>0) {
-                  System.out.println("Your health is " + pc.getHealth()); 
-               }else {
-                  System.out.println("You fainted...");
-                  System.out.println("You wake up again hours later");
-                  pc.setHealth(pc.getTotal());
-                  System.out.println("Your health is " + pc.getHealth());
-                  return;
-               }
-                              // something regarding ATTACK
-               break;
-            case 2:
-               CPUAttack = ((CharEntities) ek).getMove(pc);
-               if(CPUAttack - p1Defence > 0) {		
-                  CPUAttack = CPUAttack - p1Defence;
-                  if(fullCounter == false && useMiss < 2) {
-                     Full(pc, ek, name, CPUAttack);
-                     fullCounter = true;
-                  }
-                  System.out.println("Damage taken " + CPUAttack);
-                  pc.damage(CPUAttack);
-               }else {
-                  if(CPUAttack > 0){
-                     System.out.println("It's attack was too weak to penetrate your shield.");
-                  }
-                  CPUAttack = 0;
-                  System.out.println("No damage taken.");
-                  if(fullCounter == false && useMiss == useFull) {
-                     System.out.println("Full Counter failed...");
-                     miss = false;
-                     
-                  }
-               }
-               if(pc.getHealth()>0) {
-                  System.out.println("Your health is " + pc.getHealth()); 
-               }else {
-                  System.out.println("You fainted...");
-                  System.out.println("You wake up again hours later");
-                  pc.setHealth(50);
-                  System.out.println("Your health is " + pc.getHealth());
-                  return;
-               }
-                              // something ITEMS
-               break;
-               			//If added back, change to still gives exp but only half. and different end message
-                        //case 4:
-                        	//System.out.println(name + " LEAVES");	
-                        	//return;
-            default:
-                              // Doesn't need one
-               break;
+         if(num == 2) {
+        	 ((CharEntities)ek).leaveMessage();
+        	 pc.setExp(((CharEntities) ek).getEXP()/2);
+        	 System.out.println("You got nothing...");
+        	 return;
+         }else {
+        	 CPUAttack = ((CharEntities) ek).getMove(pc);
+             if(CPUAttack - p1Defence > 0) {    		
+                CPUAttack = CPUAttack - p1Defence;
+                if(fullCounter == false && useMiss < 2) {
+                   Full(pc, ek, name, CPUAttack);
+                   fullCounter = true;
+                }
+                System.out.println("Damage taken " + CPUAttack);
+                pc.damage(CPUAttack);
+             }else {
+                if(CPUAttack > 0){
+                   System.out.println("It's attack was too weak to penetrate your shield.");
+                }
+                CPUAttack = 0;
+                System.out.println("No damage taken.");
+                if(fullCounter == false && useMiss == useFull) {
+                   System.out.println("Full Counter failed...");
+                   miss = false;
+                   
+                }
+             }
+             if(pc.getHealth()>0) {
+                System.out.println("Your health is " + pc.getHealth()); 
+             }else {
+                System.out.println("You fainted...");
+                System.out.println("You wake up again hours later");
+                pc.setHealth(pc.getTotal());
+                System.out.println("Your health is " + pc.getHealth());
+                return;
+             }
          }
       }
    }
@@ -1317,8 +1267,8 @@ public class Main {
                System.out.println("You got Duct tape!");
                pc.putItems("Duct tape");
             }else if(item == 2) {
-               System.out.println("You got a Stregnth potion!");
-               pc.putItems("Stregnth Potion");
+               System.out.println("You got a Strength potion!");
+               pc.putItems("Strength Potion");
             }else {
                System.out.println("You got a luck potion");
                pc.putItems("Luck Potion");
@@ -1348,8 +1298,7 @@ public class Main {
    private static <E> void playerAttack(Protag pc, E ek, String name) throws InterruptedException{
       if (!(pc.getHealth() <= 0) && !(((CharEntities) ek).getHealth() <= 0)) {
          choice();
-         console.nextLine();
-         int choice = console.nextInt();
+         int choice = inputVerification(1,3);
        
        // Main character choice
          switch (choice){
@@ -1398,4 +1347,22 @@ public class Main {
          }
       }
    }
+   public static int inputVerification(int MIN, int MAX) {
+	   int answer = 0;
+	      boolean valid = false;
+	      while(!valid){
+	         while(!console.hasNextInt()){
+	            System.out.println("Input must be an integer, please try again");
+	            console.nextLine();
+	         }
+	         answer = console.nextInt();
+	         console.nextLine();
+	         valid = answer >= MIN && answer <= MAX;         
+	         if(!valid){
+	            System.out.printf("Must enter a value from %d to %d\n", MIN, MAX);
+	         }
+	      }
+	      return answer;
+   }
+   
 }
