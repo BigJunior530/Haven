@@ -14,9 +14,9 @@ public class Fox extends CharEntities{
       public Fox(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(6);
+          setHealth(4);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the Fox
@@ -28,35 +28,6 @@ public class Fox extends CharEntities{
           System.out.println("            `~--~\\ )___,)/'");
           System.out.println("                (/\\\\_  (/\\\\_");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 6*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -100,6 +71,15 @@ public class Fox extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You kill the fox and cut off its tail as a trophy.");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The fox jumps into one of its holes and doesn't come back out.");
           Thread.sleep(2000);
       }
 }

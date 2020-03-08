@@ -14,9 +14,9 @@ public class Hydra extends CharEntities{
       public Hydra(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(7);
+          setHealth(9);
+          setDifficulty("Hard");
       }
       /**
        * This method prints out the ascii art for the Hydra
@@ -33,35 +33,6 @@ public class Hydra extends CharEntities{
           System.out.println("                       (       )");
           System.out.println("                         W   W");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 7*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 9*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Hard
-       */
-      public void setDifficulty() {
-    	  difficulty = "Hard";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -110,6 +81,15 @@ public class Hydra extends CharEntities{
           System.out.println("You realize this wasn't the best place.");
           Thread.sleep(2000);
           System.out.println("You hope you never have to come back and sail back to land");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("Realizing you're insignificance, the hydra delves back into the ocean.");
           Thread.sleep(2000);
       }
 }

@@ -14,9 +14,9 @@ public class Vulture extends CharEntities{
       public Vulture(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(3);
+          setHealth(6);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Vulture
@@ -30,35 +30,6 @@ public class Vulture extends CharEntities{
           System.out.println("                 /_/ _/_/");
           System.out.println("                 `|/))))");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 3*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 6*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -102,6 +73,15 @@ public class Vulture extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You're able to slash the vulture's wings, never able to fly again.");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The vulture realizing you weren't dead, decided to stick to its natural prey.");
           Thread.sleep(2000);
       }
 }

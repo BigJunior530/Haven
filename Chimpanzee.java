@@ -14,9 +14,9 @@ public class Chimpanzee extends CharEntities{
       public Chimpanzee(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(4);
+          setHealth(5);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the Chimpanzee
@@ -30,35 +30,6 @@ public class Chimpanzee extends CharEntities{
           System.out.println("            []/");
           System.out.println("          _|  |_");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 4*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 5*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -102,6 +73,15 @@ public class Chimpanzee extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You stab the Chimp against the tree and head back into the Jungle");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Chimpanzee decided this isn't worth a banana.");
           Thread.sleep(2000);
       }
 }

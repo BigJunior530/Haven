@@ -14,9 +14,9 @@ public class Owl extends CharEntities{
       public Owl(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(5);
+          setHealth(4);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Owl
@@ -30,35 +30,6 @@ public class Owl extends CharEntities{
           System.out.println("          |\\\\'''//|");
           System.out.println("             \"\"\"");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -98,6 +69,15 @@ public class Owl extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You decapitated the Owl after it turned its head again");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Owl flies high in the air, minutes later you realize its not returning.");
           Thread.sleep(2000);
       }
 }

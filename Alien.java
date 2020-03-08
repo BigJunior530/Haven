@@ -14,9 +14,9 @@ public class Alien extends CharEntities{
       public Alien(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(4);
+          setHealth(4);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Alien
@@ -30,37 +30,6 @@ public class Alien extends CharEntities{
           System.out.println("                 `-=.=-.-=.=-'    \\ /\\");
           System.out.println("                    ^  ^  ^       _H_ \\");
        }
-      
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 4*level;
-      }
-      
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -101,6 +70,15 @@ public class Alien extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You slash the aliens into bits and jump out of the UFO back to the ocean");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The alien decides you were too boring of a subject and dump you out of the UFO");
           Thread.sleep(2000);
       }
 }

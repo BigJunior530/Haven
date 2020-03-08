@@ -14,9 +14,9 @@ public class Ram extends CharEntities{
       public Ram(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(5);
+          setHealth(4);
+          setDifficulty("Easy");
       }
       /**
        * This method prints out the ascii art for the Ram
@@ -32,35 +32,6 @@ public class Ram extends CharEntities{
           System.out.println("                       ]||    //\"");
           System.out.println("                       \"\"    \"\"");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to easy
-       */
-      public void setDifficulty() {
-    	  difficulty = "Easy";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -104,6 +75,14 @@ public class Ram extends CharEntities{
       public void endMessage() throws InterruptedException{
     	  System.out.println("You kill the Goat and watch its lifeless body fall down the side of the Moutain");
           Thread.sleep(2000);
-
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The ram starts to jump rock to rock, unable to keep up, it gets away.");
+          Thread.sleep(2000);
       }
 }

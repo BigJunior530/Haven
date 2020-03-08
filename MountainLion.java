@@ -14,9 +14,9 @@ public class MountainLion extends CharEntities{
       public MountainLion(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(8);
+          setHealth(8);
+          setDifficulty("Hard");
       }
       /**
        * This method prints out the ascii art for the Mountain Lion
@@ -29,35 +29,6 @@ public class MountainLion extends CharEntities{
           System.out.println("                _..`--'_..-_/  /--'_.' ,'");
           System.out.println("               (il),-''  (li),'  ((!.-' ");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 7*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 8*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Hard
-       */
-      public void setDifficulty() {
-    	  difficulty = "Hard";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -105,6 +76,15 @@ public class MountainLion extends CharEntities{
           System.out.println("You realize this wasn't the best place.");
           Thread.sleep(2000);
           System.out.println("You leave the Moutain and wonder where to next");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Mountain Lion seeing something far more interesting in the distance, leaves.");
           Thread.sleep(2000);
       }
 }

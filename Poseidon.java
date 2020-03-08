@@ -14,9 +14,9 @@ public class Poseidon extends CharEntities{
       public Poseidon(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
-          setDifficulty();
+          setAttack(5);
+          setHealth(7);
+          setDifficulty("Normal");
       }
       /**
        * This method prints out the ascii art for the Poseidon
@@ -32,35 +32,6 @@ public class Poseidon extends CharEntities{
           System.out.println("                     |     |`  '|`,;");
           System.out.println("                   ~~~~~~~~~~~~~~~~~~~~");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 7*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -103,6 +74,15 @@ public class Poseidon extends CharEntities{
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You use Poseidon's Trident to turn him into a Fish(Shish) Kebab");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("Poseidon doesn't understand why it bothered with such a weak mortal and dives back into the Ocean.");
           Thread.sleep(2000);
       }
 }
