@@ -12,6 +12,7 @@ public class Main {
    public static int helmet = 0;
    public static int chest = 0;
    public static int leg = 0;
+   public static int foot = 0;
    public static int ran = 0;
    public static boolean run = false;
    public static boolean adventure = true;
@@ -171,75 +172,25 @@ public class Main {
       }
    }
    /**
-    * This method prints out option for inventory and allows the player to access what's inside while in rest
+    * This method allows the player to access what's inside while in rest
     * 
     * @param <E>
     * @param pc is user class
     * @throws InterruptedException
     */
    private static <E> void Inventory(Protag pc) throws InterruptedException {
-      sleep500();
-      Thread.sleep(250);
-      System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-3");
-      System.out.println("1: Items");
-      System.out.println("2: Equipment");
-      System.out.println("3: Return");
+	   itemEquip();
       int choice = inputVerification(1,3);
-          
-          // Main character choice
-      switch (choice){
-         case 1:
-            boolean has = pc.getItems();
-            if(has) {
-               System.out.println("Which one do you want to use?");
-               int reply = inputVerification(1, pc.getItemCounter());
-               String c = pc.getItem(reply - 1);
-               if(c.equalsIgnoreCase("Health Potion")) {
-                  Items.healthPotion();
-                  pc.heal(25);
-               } else if(c.equalsIgnoreCase("Duct tape")) {
-                  Items.ductTape();
-                  pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Strength Potion")) {
-                  Items.strengthPotion();
-                  pc.upgradeAttack(3);
-               } else {
-                  Items.LuckPotion();
-                  pc.upgradeLuck(1);
-               }
-               pc.removeItem(c);
-            }
-            rest(pc);
-            return;
-         case 2:
-            boolean has1 = pc.getEquipment();
-            if(has1) {
-               System.out.println("Which one do you want to use?");
-               int reply = inputVerification(1, pc.getEquipCounter());
-               String c = pc.getEquipment(reply - 1);
-               if(c.equalsIgnoreCase("Helmet")) {
-                  Equipment.helmet();
-                  pc.upgradeShield(3);
-               }else if(c.equalsIgnoreCase("Chest Plate")) {
-                  Equipment.chestPlate();
-                  pc.upgradeShield(5);
-               }else if(c.equalsIgnoreCase("Leggings")) {
-                  Equipment.leggings();
-                  pc.upgradeShield(4);
-               }
-               pc.removeEquipment(c);
-            }
-            rest(pc);
-            return;
-         case 3:
-            rest(pc);
-            return;
-         default:
-        	 System.out.println("Bad input...");
-             Inventory(pc);
-            break;
-      }
+        if(choice == 3) {
+        	rest(pc);
+        }else {
+           boolean a = itemsEquipment(pc, choice);
+        	if(a) {
+        		rest(pc);
+        	}else {
+        		Inventory(pc);
+        	}
+        }
    }
   
 /**
@@ -504,65 +455,15 @@ public class Main {
     * @throws InterruptedException
     */
    private static <E> void Inventory(Protag pc, E ek, String name) throws InterruptedException {
-      sleep500();
-      Thread.sleep(250);
-      System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-3");
-      System.out.println("1: Items");
-      System.out.println("2: Equipment");
-      System.out.println("3: Return");
-      int choice = inputVerification(1,3);
-          
-          // Main character choice
-      switch (choice){
-         case 1:
-            boolean has = pc.getItems();
-            if(has) {
-               System.out.println("Which one do you want to use?");
-               int reply = inputVerification(1, pc.getItemCounter());
-               String c = pc.getItem(reply - 1);
-               if(c.equalsIgnoreCase("Health Potion")) {
-                  Items.healthPotion();
-                  pc.heal(25);
-               } else if(c.equalsIgnoreCase("Duct tape")) {
-                  Items.ductTape();
-                  pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Strength Potion")) {
-                  Items.strengthPotion();
-                  pc.upgradeAttack(3);
-               } else {
-                  Items.LuckPotion();
-                  pc.upgradeLuck(1);
-               }
-               pc.removeItem(c);
-            }
-            return;
-         case 2:
-            boolean has1 = pc.getEquipment();
-            if(has1) {
-               System.out.println("Which one do you want to use?");
-               int reply = inputVerification(1, pc.getEquipCounter());
-               String c = pc.getEquipment(reply - 1);
-               if(c.equalsIgnoreCase("Helmet")) {
-                  Equipment.helmet();
-                  pc.upgradeShield(3);
-               }else if(c.equalsIgnoreCase("Chest Plate")) {
-                  Equipment.chestPlate();
-                  pc.upgradeShield(5);
-               }else if(c.equalsIgnoreCase("Leggings")) {
-                  Equipment.leggings();
-                  pc.upgradeShield(4);
-               }
-               pc.removeEquipment(c);
-            }
-            return;
-         case 3:
-            playerAttack(pc, ek, name);
-            return;
-         default:
-            System.out.println("Bad input...");
-            Inventory(pc, ek, name);
-            break;
+      itemEquip();
+	   int choice = inputVerification(1,3);
+      if(choice ==3) {
+    	  playerAttack(pc,ek,name);
+      }else {
+    	  boolean a = itemsEquipment(pc,choice);
+    	  if(a == false) {
+    		  Inventory(pc,ek,name);
+    	  }
       }
    }
    /**
@@ -1260,21 +1161,54 @@ public class Main {
             System.out.println("You got nothing...");
          }else if(chance > 2) {
             int item = rand.nextInt(4);
+            int strength = rand.nextInt(2);
             if(item == 0) {
-               System.out.println("You got a Health potion!");
-               pc.putItems("Health Potion");
+               if(pc.getLevel() >= 10 && strength == 1) {
+            	   System.out.println("You got Adrenaline!");
+           			pc.putItems("Adrenaline");
+               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+            	   System.out.println("You got a Booster potion!");
+           			pc.putItems("Booster Potion");
+               }else {
+            	   System.out.println("You got a Health potion!");
+            		pc.putItems("Health Potion");
+               }
             }else if(item == 1) {
-               System.out.println("You got Duct tape!");
-               pc.putItems("Duct tape");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got Flex tape!");
+                    pc.putItems("Flex tape");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got Duct tape!");
+                    pc.putItems("Duct tape");
+                }else {
+                	System.out.println("You got Scotch tape!");
+                    pc.putItems("Scotch tape");
+                }
             }else if(item == 2) {
-               System.out.println("You got a Strength potion!");
-               pc.putItems("Strength Potion");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got Steroids!");
+                    pc.putItems("Steroids");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got a Strength potion!");
+                    pc.putItems("Strength Potion");
+                }else {
+                	System.out.println("You got an Attack potion!");
+                    pc.putItems("Attack Potion");
+                }
             }else {
-               System.out.println("You got a luck potion");
-               pc.putItems("Luck Potion");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got a Four Leaf Clover!");
+                    pc.putItems("Four Leaf Clover");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got a Fortune potion!");
+                    pc.putItems("Fortune Potion");
+                }else {
+                	System.out.println("You got a Luck potion!");
+                    pc.putItems("Luck Potion");
+                }
             }
          }else {
-            int item = rand.nextInt(3);
+            int item = rand.nextInt(4);
             if(helmet == 0 && item == 0) {
                System.out.println("You got a Helmet!");
                pc.putEquipment("Helmet");
@@ -1287,7 +1221,27 @@ public class Main {
                System.out.println("You got Leggings!");
                pc.putEquipment("Leggings");
                leg++;
-            }else {
+            }else if(helmet == 0 && item == 0) {
+                System.out.println("You got a Reinforced Helmet!");
+                pc.putEquipment("Reinforced Helmet");
+                helmet++;
+             }else if(chest == 0 && item == 1) {
+                System.out.println("You got a Reinforced Chest Plate!");
+                pc.putEquipment("Reinforced Chest Plate");
+                chest++;
+             }else if(leg == 0 && item == 2) {
+                System.out.println("You got Reinforced Leggings!");
+                pc.putEquipment("Reinforced Leggings");
+                leg++;
+             }else if(foot == 0 && item == 3) {
+                 System.out.println("You got a Boot!");
+                 pc.putEquipment("Boots");
+                 foot++;
+              }else if(foot == 0 && item == 3) {
+                 System.out.println("You got Reinforced Boot!");
+                 pc.putEquipment("Reinforced Boots");
+                 foot++;
+              }else {
                System.out.println("You got nothing...");
             }
             	  
@@ -1364,5 +1318,184 @@ public class Main {
 	      }
 	      return answer;
    }
-   
+   /**
+    * This method is meant to be used to access the items and equipments inside the player inventory.
+    * 
+    * @param pc is user class
+    * @param choice is the userInput either 1 or 2
+    * @throws InterruptedException
+    * @return boolean response is if the user wanted to use item or not
+    */
+   public static boolean itemsEquipment(Protag pc, int choice) throws InterruptedException {
+	   boolean response = false;
+	   if(choice==1) {
+		   boolean has = pc.getItems();
+           if(has) {
+              System.out.println("Which one do you want to use?");
+              int reply = inputVerification(1, pc.getItemCounter());
+              String c = pc.getItem(reply - 1);
+              if(c.equalsIgnoreCase("Health Potion")) {
+                 Items.healthPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.heal(25);
+                 }
+              } else if(c.equalsIgnoreCase("Scotch tape")) {
+                 Items.scotchTape();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(2);
+                 }
+              }else if(c.equalsIgnoreCase("Attack Potion")) {
+                 Items.attackPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeAttack(3);
+                 }
+              } else if(c.equalsIgnoreCase("Luck Potion")){
+                 Items.LuckPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeLuck(1);
+                 }
+              }else if(c.equalsIgnoreCase("Booster Potion")) {
+                  Items.boosterPotion();
+                  response = confirm();
+                  if(response) {
+                  pc.heal(50);
+                  }
+               } else if(c.equalsIgnoreCase("Duct tape")) {
+                  Items.ductTape();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(4);
+                  }
+               }else if(c.equalsIgnoreCase("Strength Potion")) {
+                  Items.strengthPotion();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeAttack(6);
+                  }
+               } else if(c.equalsIgnoreCase("Fortune Potion")) {
+                  Items.fortunePotion();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeLuck(2);
+                  }
+               }else if(c.equalsIgnoreCase("Adrenaline")) {
+                   Items.adrenaline();
+                   response = confirm();
+                   if(response) {
+                   pc.heal(100);
+                   }
+                } else if(c.equalsIgnoreCase("Flex tape")) {
+                   Items.flexTape();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(6);
+                   }
+                }else if(c.equalsIgnoreCase("Steroids")) {
+                   Items.steroids();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeAttack(10);
+                   }
+                } else if(c.equalsIgnoreCase("Four Leaf Clover")) {
+                   Items.clover();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeLuck(4);
+                   }
+                }
+              if(response == true) {
+            	  pc.removeItem(c);
+              }
+           }
+	   }else {
+		   boolean has1 = pc.getEquipment();
+           if(has1) {
+              System.out.println("Which one do you want to use?");
+              int reply1 = inputVerification(1, pc.getEquipCounter());
+              String c1 = pc.getEquipment(reply1 - 1);
+              if(c1.equalsIgnoreCase("Helmet")) {
+                 Equipment.helmet();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(3);
+                 }
+              }else if(c1.equalsIgnoreCase("Chest Plate")) {
+                 Equipment.chestPlate();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(5);
+                 }
+              }else if(c1.equalsIgnoreCase("Leggings")) {
+                 Equipment.leggings();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(4);
+                 }
+              }else if(c1.equalsIgnoreCase("Reinforced Helmet")) {
+                  Equipment.reinforcedHelmet();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Reinforced Chest Plate")) {
+                  Equipment.reinforcedChestPlate();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Reinforced Leggings")) {
+                  Equipment.reinforcedLeggings();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Boots")) {
+                   Equipment.boots();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(2);
+                   }
+                }else if(c1.equalsIgnoreCase("Reinforced Boots")) {
+                   Equipment.reinforcedBoots();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(2);
+                   }
+                }
+              if(response == true) {
+            	  pc.removeEquipment(c1);
+              }
+           }
+	   }
+	   return response;
+   }
+   /**
+    * This  method prints what the options the player has inside their inventory
+    * 
+    * @throws InterruptedException
+    */
+   public static void itemEquip() throws InterruptedException {
+	      sleep500();
+	      Thread.sleep(250);
+	      System.out.println("\nWhat do you want to do?");
+	      System.out.println("Enter in your choice using the numbers 1-3");
+	      System.out.println("1: Items");
+	      System.out.println("2: Equipment");
+	      System.out.println("3: Return");
+   }
+   public static boolean confirm() throws InterruptedException{
+	   System.out.println("\nAre you sure you want to use this?");
+	   System.out.println("1: Yes");
+	   System.out.println("2: No");
+	   int response = inputVerification(1,2);
+	   if(response ==1 ) {
+		   return true;
+	   }else {
+		   return false;   
+	   }
+   }
 }

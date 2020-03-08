@@ -23,9 +23,15 @@ public class Leviathan extends CharEntities{
        * 
        */
       public void enemy(){
-    	  System.out.println("                                   ____");
-          System.out.println("          ________________________/ O  \\___/");
-          System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
+          System.out.println("                                   (,,(,");                   
+          System.out.println("                                (,'     `(");                            
+          System.out.println("                            ,  ,'  ,--.  `,");                                     
+          System.out.println("                             `{D, {    \\  :");                                        
+          System.out.println("                               V,,'    /  /");                                        
+          System.out.println("                               j;;    /  ,' ,---.    ,---.      ,");                    
+          System.out.println("                               \\;'   /  ,' /  _  \\  /  _  \\   ,'/");                    
+          System.out.println("                                     \\   `'  / \\  `'  / \\  `.' / ");                    
+          System.out.println("                                      `.___,'   `.__,'   `.__,'  ");
        }
       /**
        * This method randomly chooses a move to determine the damage to the User
