@@ -17,6 +17,7 @@ public class Chimpanzee extends CharEntities{
           setAttack(4);
           setHealth(5);
           setDifficulty("Normal");
+          setName("Chimpanzee");
       }
       /**
        * This method prints out the ascii art for the Chimpanzee
@@ -57,16 +58,6 @@ public class Chimpanzee extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Chimpanzee
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Wild Chimpanzee appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Chimpanzee

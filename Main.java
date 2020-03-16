@@ -19,6 +19,7 @@ public class Main {
    public static int type = 1;
    public static boolean fullCounter = true;
    public static boolean miss = true;
+   public static String direction = "";
    /**
     * This is where the game starts
     * 
@@ -33,9 +34,9 @@ public class Main {
          if(item == 0) {
             pc.putItems("Health Potion");
          }else if(item == 1) {
-            pc.putItems("Duct tape");
+            pc.putItems("Scotch tape");
          }else if(item == 2) {
-            pc.putItems("Strength Potion");
+            pc.putItems("Attack Potion");
          }else {
             pc.putItems("Luck Potion");
          }
@@ -588,6 +589,7 @@ public class Main {
 	   int response = inputVerification(1,2);
 	   switch(response) {
 	   case 1:
+		   direction = "East";
 		   Story.East();
 	         WildBoar ek = new WildBoar(pc);
 	         System.out.println("Your health is " + pc.getHealth()); 
@@ -606,6 +608,7 @@ public class Main {
 	         Story.Encounter(pc);
 		   break;
 	   case 2:
+		   direction = "West";
 		   Story.West();
 	         System.out.println("Your health is " + pc.getHealth()); 
 	         Wolf w = new Wolf(pc);
@@ -670,7 +673,7 @@ public class Main {
     */
    private static void end(Protag pc) throws InterruptedException {
       //Save option will probably be placed here
-      int ans = inputVerification(1,3);
+      int ans = inputVerification(1,5);
       switch (ans){
          case 1:
             North(pc);
@@ -679,6 +682,12 @@ public class Main {
             South(pc);
             break;
          case 3:
+             West(pc);
+             break;
+         case 4:
+             East(pc);
+             break;
+         case 5:
             Ocean(pc);
             break;
          default:
@@ -874,6 +883,235 @@ public class Main {
       //possibly of repeating
       Story.next();
       end(pc);
+   }
+   /**
+    * This is the game structure for the two areas in the West
+    * 
+    * @param pc is the user class
+    * @throws InterruptedException
+    */
+   private static void West(Protag pc) throws InterruptedException {
+      Story.WestRegion();
+      if(direction == "East") {
+    	  System.out.println("2. Dark Forest");
+      }else {
+    	  System.out.println("2. Crystal Lake");
+      }
+      Thread.sleep(500);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Ancient();
+          Mummy m = new Mummy(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, m, m.getName());
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adRuins();
+             Golem g = new Golem(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, g, g.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civRuins();
+             Spider s = new Spider(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, s.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Ruins();
+          Dragon d = new Dragon(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, d, d.getName());
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  if(direction == "East"){
+    		  DarkForest(pc);
+    	  }else {
+    		  CrystalLake(pc);
+    	  }
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  North(pc);
+    	  return;
+      }
+      //this will possibly repeat
+      Story.next();
+      end(pc);
+          
+   }
+   private static void DarkForest(Protag pc) throws InterruptedException {
+	   rest(pc);
+       Story.Dark();
+       FlyingSquirrel fs = new FlyingSquirrel(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, fs, fs.getName());
+       Story.Encounter(pc);
+       rest(pc);
+       if(adventure) {
+          Story.adForest();
+          WildBoar wb = new WildBoar(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, wb, wb.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }else {
+          Story.civForest();
+          KoiFish kf = new KoiFish(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, kf, kf.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }
+       Story.Forest();
+       Wolf w = new Wolf(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, w, w.getName());
+       Story.Encounter(pc);
+   }
+   private static void CrystalLake(Protag pc) throws InterruptedException {
+	   rest(pc);
+       Story.Crystal();
+       Duck d = new Duck(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, d, d.getName());
+       Story.Encounter(pc);
+       rest(pc);
+       if(adventure) {
+          Story.adLake();
+          Turtle t = new Turtle(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, t, t.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }else {
+          Story.civLake();
+          Salmon s = new Salmon(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, s, s.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }
+       Story.Lake();
+       LochNess ln = new LochNess(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, ln, ln.getName());
+       Story.Encounter(pc);
+   }
+   /**
+    * This method tests the user luck to get a better chance of receiving an item during looting
+    * 
+    * @param <E>
+    * @param luck is the amount of luck the user has
+    * @return plus true if a bonus false if none
+    */
+   public static <E> boolean testLuck(int luck) {
+      boolean plus = false;
+      int lotto = rand.nextInt(101);
+      if(luck > lotto) {
+         plus = true;
+      }
+      return plus;
+   }
+/**
+    * This is the game structure for the two areas in the East
+    * 
+    * @param pc is the user class
+    * @throws InterruptedException
+    */
+   private static void East(Protag pc) throws InterruptedException {
+      Story.EastRegion();
+      if(direction == "West") {
+    	  System.out.println("2. Dark Forest");
+      }else {
+    	  System.out.println("2. Crystal Lake");
+      }
+      Thread.sleep(500);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Abandoned();
+          Chicken c = new Chicken(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, c, c.getName());
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adVillage();
+             Zombie z = new Zombie(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, z, z.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civVillage();
+             Skeleton s = new Skeleton(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, s.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Village();
+          Ogre o = new Ogre(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, o, o.getName());
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  if(direction == "West"){
+    		  DarkForest(pc);
+    	  }else {
+    		  CrystalLake(pc);
+    	  }
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  North(pc);
+    	  return;
+      }
+      //this will possibly repeat
+      Story.next();
+      end(pc);
+          
    }
    /**
     * This is the game structure for the two areas in the Oceean
@@ -1076,21 +1314,6 @@ public class Main {
              }
          }
       }
-   }
-   /**
-    * This method tests the user luck to get a better chance of receiving an item during looting
-    * 
-    * @param <E>
-    * @param luck is the amount of luck the user has
-    * @return plus true if a bonus false if none
-    */
-   public static <E> boolean testLuck(int luck) {
-      boolean plus = false;
-      int lotto = rand.nextInt(101);
-      if(luck > lotto) {
-         plus = true;
-      }
-      return plus;
    }
    /**
     * This method is used to test if the user has their passive ability on or not 

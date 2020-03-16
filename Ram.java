@@ -17,6 +17,7 @@ public class Ram extends CharEntities{
           setAttack(5);
           setHealth(4);
           setDifficulty("Easy");
+          setName("Ram");
       }
       /**
        * This method prints out the ascii art for the Ram
@@ -58,16 +59,6 @@ public class Ram extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Ram
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Ram appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Ram

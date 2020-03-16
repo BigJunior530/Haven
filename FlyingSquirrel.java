@@ -17,6 +17,7 @@ public class FlyingSquirrel extends CharEntities{
           setAttack(2);
           setHealth(4);
           setDifficulty("Easy");
+          setName("Flying Squirrel");
       }
       /**
        * This method prints out the ascii art for the Flying Squirrel
@@ -46,7 +47,7 @@ public class FlyingSquirrel extends CharEntities{
         	  System.out.println("You kind of don't want to hurt it now.");
         	  System.out.println("You lost some attack");
         	  System.out.println("Attack " + pc.getAttack() + "-->");
-        	  pc.downgradeAttack(1);
+        	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Squirrel uses Pierce");
@@ -59,16 +60,6 @@ public class FlyingSquirrel extends CharEntities{
           return dam;
     	  
       }
-      /**
-       * This method prints out the introduction for the Flying Squirrel
-       */
-    public void intro() throws InterruptedException {
-          Main.sleep500();
-          Thread.sleep(1000);
-          System.out.println("\nA Flying Squirrel appeared!");
-          System.out.println("Level: " + getLevel());
-          System.out.println("Health: " + getHealth());
-    }
     /**
      * This method prints out the kill message for the Flying Squirrel
      */

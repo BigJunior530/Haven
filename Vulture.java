@@ -17,6 +17,7 @@ public class Vulture extends CharEntities{
           setAttack(3);
           setHealth(6);
           setDifficulty("Easy");
+          setName("Vulture");
       }
       /**
        * This method prints out the ascii art for the Vulture
@@ -45,7 +46,7 @@ public class Vulture extends CharEntities{
         	  System.out.println("You cant't really reach it.");
         	  System.out.println("You lost some attack");
         	  System.out.println("Attack " + pc.getAttack() + "-->");
-        	  pc.downgradeAttack(1);
+        	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Vulture uses Scavenger");
@@ -57,16 +58,6 @@ public class Vulture extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Vulture
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Vulture appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Vulture

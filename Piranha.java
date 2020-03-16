@@ -17,6 +17,7 @@ public class Piranha extends CharEntities{
           setAttack(5);
           setHealth(4);
           setDifficulty("Normal");
+          setName("Piranha");
       }
       /**
        * This method prints out the ascii art for the Piranha
@@ -44,9 +45,9 @@ public class Piranha extends CharEntities{
           if(move == 0) {
         	  System.out.println("Piranha uses BloodLust");
         	  dam = 0;
-        	  System.out.println("It's attack doubled.");
+        	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Piranha uses Frenzy");
@@ -58,16 +59,6 @@ public class Piranha extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Piranha
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Piranha appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Piranha

@@ -17,6 +17,7 @@ public class Komodo extends CharEntities{
           setAttack(8);
           setHealth(7);
           setDifficulty("Hard");
+          setName("Komodo Dragon");
       }
       /**
        * This method prints out the ascii art for the Komodo Dragon
@@ -45,7 +46,7 @@ public class Komodo extends CharEntities{
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(2);
+        	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Komodo Dragon uses Acid Spit");
@@ -57,16 +58,6 @@ public class Komodo extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Komodo Dragon
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Komodo Dragon appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Komodo Dragon

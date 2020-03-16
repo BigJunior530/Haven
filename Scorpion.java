@@ -17,6 +17,7 @@ public class Scorpion extends CharEntities{
           setAttack(6);
           setHealth(3);
           setDifficulty("Normal");
+          setName("Scorpion");
       }
       /**
        * This method prints out the ascii art for the Scorpion
@@ -56,16 +57,6 @@ public class Scorpion extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Scorpion
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Scorpion appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Scorpion

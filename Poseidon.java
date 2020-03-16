@@ -17,6 +17,7 @@ public class Poseidon extends CharEntities{
           setAttack(5);
           setHealth(7);
           setDifficulty("Normal");
+          setName("Poseidon");
       }
       /**
        * This method prints out the ascii art for the Poseidon
@@ -44,9 +45,9 @@ public class Poseidon extends CharEntities{
           if(move == 0) {
         	  System.out.println("Poseidon used Wrath");
         	  dam = 0;
-        	  System.out.println("It's attack doubled.");
+        	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Poseidon used Tsunami");
@@ -58,16 +59,6 @@ public class Poseidon extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Poseidon
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nPoseidon appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Poseidon

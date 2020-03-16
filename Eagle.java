@@ -17,6 +17,7 @@ public class Eagle extends CharEntities{
           setAttack(6);
           setHealth(4);
           setDifficulty("Normal");
+          setName("Eagle");
       }
       /**
        * This method prints out the ascii art for the Eagle
@@ -46,7 +47,7 @@ public class Eagle extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's attack doubled.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Eagle uses its Talons");
@@ -58,16 +59,6 @@ public class Eagle extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Eagle
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nAn Eagle appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Eagle

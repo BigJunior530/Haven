@@ -17,6 +17,7 @@ public class Yak extends CharEntities{
           setAttack(5);
           setHealth(8);
           setDifficulty("Normal");
+          setName("Yak");
       }
       /**
        * This method prints out the ascii art for the Yak
@@ -45,7 +46,7 @@ public class Yak extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Yak uses Charge");
@@ -57,16 +58,6 @@ public class Yak extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Yak
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Yak appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Yak

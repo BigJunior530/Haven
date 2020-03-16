@@ -17,6 +17,7 @@ public class Mermaid extends CharEntities{
           setAttack(3);
           setHealth(5);
           setDifficulty("Easy");
+          setName("Mermaid");
       }
       /**
        * This method prints out the ascii art for the Mermaid
@@ -56,16 +57,6 @@ public class Mermaid extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Mermaid
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Mermaid appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Mermaid

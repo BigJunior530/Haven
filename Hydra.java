@@ -17,6 +17,7 @@ public class Hydra extends CharEntities{
           setAttack(7);
           setHealth(9);
           setDifficulty("Hard");
+          setName("Hydra");
       }
       /**
        * This method prints out the ascii art for the Hydra
@@ -59,16 +60,6 @@ public class Hydra extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Hydra
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Hydra appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Hydra

@@ -1,26 +1,26 @@
 import java.util.Random;
 /**
- * This class is used to make the Koi Fish enemy
+ * This class is used to make the Salmon enemy
  * @author Carlos
  *
  */
-public class KoiFish extends CharEntities{
-      public static Random rand = new Random();
-      /**
-  	 * This is a constructor to make the Koi Fish class
-  	 * 
-  	 * @param pc is the user class
-  	 */
-      public KoiFish(Protag pc){
+public class Salmon extends CharEntities{
+	public static Random rand = new Random();
+	/**
+	 * This is a constructor to make the Salmon class
+	 * 
+	 * @param pc is the user class
+	 */
+      public Salmon(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack(2);
-          setHealth(6);
+          setAttack(3);
+          setHealth(5);
           setDifficulty("Normal");
-          setName("Koi Fish");
+          setName("Salmon");
       }
       /**
-       * This method prints out the ascii art for the Koi Fish
+       * This method prints out the ascii art for the Salmon
        * 
        */
       public void enemy(){
@@ -39,37 +39,37 @@ public class KoiFish extends CharEntities{
           int move = rand.nextInt(4);
           int dam = 0;
           if(move == 0) {
-        	  System.out.println("Koi uses Glistening Scales");
+        	  System.out.println("Salmon uses Current");
         	  dam = 0;
-        	  System.out.println("It's attack increased.");
+        	  System.out.println("Its attack increased");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
-        	  System.out.println("Koi uses Razor Scales");
+        	  System.out.println("Salmon uses Razor Scale");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
           }else if(move == 2 || move == 3) {
-        	  System.out.println("Koi uses Tackle");
+        	  System.out.println("Salmon uses Tackle");
         	  dam = attack;
           }
           return dam;
     	  
       }
-    /**
-     * This method prints out the kill message for the Koi Fish
-     */
-    public void endMessage() throws InterruptedException{
-  	  System.out.println("You make yourself some sushi from the Koi.");
-        Thread.sleep(2000); 
-    }
-    /**
-     * The enemy's message when it decides to leave
-     * 
-     * @throws InterruptedException
-     */
-    public void leaveMessage() throws InterruptedException{
-  	  System.out.println("The koi fish, tired of winning, swims away proudly.");
-        Thread.sleep(2000);
-    }
+      /**
+       * This method prints out the kill message for the Salmon
+       */
+      public void endMessage() throws InterruptedException{
+    	  System.out.println("You can't wait to eat salmon sushi.");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Salmon swims back into the water.");
+          Thread.sleep(2000);
+      }
 }
