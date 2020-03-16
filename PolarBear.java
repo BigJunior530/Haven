@@ -17,6 +17,7 @@ public class PolarBear extends CharEntities{
           setAttack(8);
           setHealth(11);
           setDifficulty("Hard");
+          setName("Polar Bear");
       }
       /**
        * This method prints out the ascii art for the Polar Bear
@@ -44,7 +45,7 @@ public class PolarBear extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Polar Bear smashes its paws against the Ice to completely shatter the Ice under you");
@@ -56,16 +57,6 @@ public class PolarBear extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Polar Bear
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Polar Bear appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Polar Bear

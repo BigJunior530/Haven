@@ -17,6 +17,7 @@ public class Kraken extends CharEntities{
           setAttack(5);
           setHealth(7);
           setDifficulty("Normal");
+          setName("Kraken");
       }
       /**
        * This method prints out the ascii art for the Kraken
@@ -46,7 +47,7 @@ public class Kraken extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Kraken uses Tsunami");
@@ -58,16 +59,6 @@ public class Kraken extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Kraken
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Kraken appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Kraken

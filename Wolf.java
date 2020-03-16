@@ -14,15 +14,16 @@ public class Wolf extends CharEntities{
       public Wolf(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack(5);
+          setAttack(7);
           setHealth(7);
-          setDifficulty("Normal");
+          setDifficulty("Hard");
+          setName("Wolf");
       }
       /**
        * This method prints out the ascii art for the Wolf
        * 
        */
-      public void enemy(){
+      public void enemy() {
     	  System.out.println("                              .");
           System.out.println("                             / V\\");
           System.out.println("                            / ` /");
@@ -62,16 +63,6 @@ public class Wolf extends CharEntities{
           return dam;
     	  
       }
-      /**
-       * This method prints out the introduction for the Wolf
-       */
-    public void intro() throws InterruptedException {
-          Main.sleep500();
-          Thread.sleep(1000);
-          System.out.println("\nA rabid Wolf appeared!");
-          System.out.println("Level: " + getLevel());
-          System.out.println("Health: " + getHealth());
-    }
     /**
      * This method prints out the kill message for the Wolf
      */

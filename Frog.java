@@ -17,6 +17,7 @@ public class Frog extends CharEntities{
           setAttack(4);
           setHealth(4);
           setDifficulty("Easy");
+          setName("Frog");
       }
       /**
        * This method prints out the ascii art for the Frog
@@ -45,7 +46,7 @@ public class Frog extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Frog uses its Tongue");
@@ -57,16 +58,6 @@ public class Frog extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Frog
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Frog appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Frog

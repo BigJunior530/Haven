@@ -18,6 +18,7 @@ public class JellyFish extends CharEntities{
           setAttack(5);
           setHealth(3);
           setDifficulty("Normal");
+          setName("JellyFish");
       }
       /**
        * This method prints out the ascii art for the JellyFish
@@ -51,7 +52,7 @@ public class JellyFish extends CharEntities{
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(2);
+        	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
         	  System.out.println("JellyFish uses Poison Sting");
@@ -63,16 +64,6 @@ public class JellyFish extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the JellyFish
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA JellyFish appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the JellyFish

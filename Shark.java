@@ -17,6 +17,7 @@ public class Shark extends CharEntities{
           setAttack(7);
           setHealth(9);
           setDifficulty("Normal");
+          setName("Shark");
       }
       /**
        * This method prints out the ascii art for the Shark
@@ -35,35 +36,6 @@ public class Shark extends CharEntities{
           System.out.println("                                   \\________/");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 7*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 9*level;
-      }
-      /**
-       * This method sets the difficulty of the animal to Normal
-       */
-      public void setDifficulty() {
-    	  difficulty = "Normal";
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -75,9 +47,9 @@ public class Shark extends CharEntities{
           if(move == 0) {
         	  System.out.println("Shark smells Blood");
         	  dam = 0;
-        	  System.out.println("It's attack Doubled.");
+        	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Shark uses its rows of Razer Sharp teeth to shred you");
@@ -89,16 +61,6 @@ public class Shark extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Shark
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Great White Shark appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Shark

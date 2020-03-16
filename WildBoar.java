@@ -17,6 +17,7 @@ public class WildBoar extends CharEntities{
           setAttack(3);
           setHealth(6);
           setDifficulty("Normal");
+          setName("Wild Board");
       }
       /**
        * This method prints out the ascii art for the Wild Boar
@@ -47,7 +48,7 @@ public class WildBoar extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Boar uses Body Slam");
@@ -59,16 +60,6 @@ public class WildBoar extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Wild Boar
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA wild boar appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Wild Boar

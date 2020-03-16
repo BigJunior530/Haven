@@ -17,6 +17,7 @@ public class Owl extends CharEntities{
           setAttack(5);
           setHealth(4);
           setDifficulty("Easy");
+          setName("Owl");
       }
       /**
        * This method prints out the ascii art for the Owl
@@ -53,16 +54,6 @@ public class Owl extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Owl
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nAn Artic Owl appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Owl

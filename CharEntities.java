@@ -11,14 +11,29 @@ public abstract class CharEntities{
       int attack;
       int level;
       String difficulty;
+      String name;
       public static Random rand = new Random();
+      /**
+       * This method sets the name of the animal to whatever the constructor passes
+       *
+       * @param stat is the name passed by the constructor
+       */
+      public void setName(String stat) {
+    	  name = stat;
+      }
       /**
        * This method is how every animal's level is set
        * 
        * @param enemy is the level of the User
        */
       public void setLevel(int enemy) {
-    	  level = (rand.nextInt(4)) + enemy;
+    	  int bonus = 0;
+    	  if(difficulty == "Hard") {
+    		  bonus = 3;
+    	  }else if(difficulty == "Normal") {
+    		  bonus = 1;
+    	  }
+    	  level = (rand.nextInt(4)) + enemy + bonus;
       }
       /**
        * This method uses whatever stat is passed by the animals constructor and multiplies it by the level to get attack
@@ -39,7 +54,7 @@ public abstract class CharEntities{
       /**
        * This method sets the difficulty of the animal to either easy, normal, hard depending on what is sent by the constructor
        *
-       * @param stat is the diffculty passsed by the constructor
+       * @param stat is the difficulty passed by the constructor
        */
       public void setDifficulty(String stat) {
     	  difficulty = stat;
@@ -73,6 +88,14 @@ public abstract class CharEntities{
             return difficulty;
       }
       /**
+       * This method is just used to get the name of the enemy
+       * 
+       * @return global variable difficulty
+       */
+      public String getName(){
+            return name;
+      }
+      /**
        * This method will be unchanged and increases the attack of the enemy when called
        * 
        * @param boost
@@ -101,7 +124,11 @@ public abstract class CharEntities{
        * @throws InterruptedException
        */
       public void intro() throws InterruptedException{ 
-    	  System.out.println("An Enemy aproaches");
+    	  Main.sleep500();
+          Thread.sleep(1000);
+    	  System.out.printf("\nA(n) %s appeared!\n", name);
+    	  System.out.println("Level: " + getLevel());
+          System.out.println("Health: " + getHealth());
       }
       /**
        * This method is made just to return the level
@@ -161,9 +188,9 @@ public abstract class CharEntities{
       public int getEXP() {
     	  switch(getDifficulty()) {
     	  	case "Easy":
-    	  		return 3 + getLevel();
+    	  		return getLevel();
     	  	case "Normal":
-    	  		return 6 + getLevel();
+    	  		return 3 + getLevel();
     	  	case "Hard":
     	  		return 9 + getLevel();
     	  	default:

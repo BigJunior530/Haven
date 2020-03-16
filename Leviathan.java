@@ -17,6 +17,7 @@ public class Leviathan extends CharEntities{
           setAttack(10);
           setHealth(12);
           setDifficulty("Hard");
+          setName("Leviathan");
       }
       /**
        * This method prints out the ascii art for the Leviathan
@@ -47,7 +48,7 @@ public class Leviathan extends CharEntities{
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(3);
+        	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Leviathan uses crunch");
@@ -59,16 +60,6 @@ public class Leviathan extends CharEntities{
           }
           return dam;
     	  
-      }
-      /**
-       * This method prints out the introduction for the Leviathan
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Leviathan appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
       }
       /**
        * This method prints out the kill message for the Leviathan
