@@ -334,7 +334,8 @@ public class Main {
                             	System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
                             }else {
                           	  System.out.println("You beat the " + name);
-                          	  int b = ((CharEntities) ek).getAttack();
+                                // b is passed as Strength into Protag pc
+                                int b = ((CharEntities) ek).getAttack();
                           	  pc.setExp(b);
                           	  int item = rand.nextInt(4);
                           	  if(item == 0) {
@@ -393,7 +394,7 @@ public class Main {
                             		  pc.heal(25);
                             	  } else if(c.equalsIgnoreCase("Duct tape")) {
                             		  Items.ductTape();
-                            		  pc.upgradeShield(2);
+                            		  pc.(2);
                             	  }else if(c.equalsIgnoreCase("Stregnth Potion")) {
                             		  Items.strengthPotion();
                             		  pc.upgradeAttack(3);
