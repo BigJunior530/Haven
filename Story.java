@@ -1,12 +1,14 @@
 
 
 public class Story {
-	public static void intro() throws InterruptedException {
+	public static void intro(Protag pc) throws InterruptedException {
         System.out.println("You wake up in forest.");
         Thread.sleep(1000);
         System.out.println("You look around and see a sword and shield.");
         Thread.sleep(1500);
-        System.out.println("You pick them up and get back on your feet");
+        System.out.printf("You find a %s in your pocket.\n", pc.getItem(0));
+        Thread.sleep(1500);
+        System.out.println("You pick them all up and get back on your feet");
         Thread.sleep(1000);
         System.out.println("Objective: Find your way back to your homeland.");
         Thread.sleep(2000);
@@ -54,7 +56,9 @@ public class Story {
         Thread.sleep(1000);
         System.out.println("1: North");
         System.out.println("2: South");
-        System.out.println("3: Ocean");
+        System.out.println("3: West");
+        System.out.println("4: East");
+        System.out.println("5: Ocean");
 
         Thread.sleep(500);
 	}
@@ -499,6 +503,260 @@ public class Story {
         System.out.println("You hear a howl up ahead.");
         Thread.sleep(1000);
 	}
+	public static void EastRegion() throws InterruptedException{
+		System.out.println("You decide you want to head towards the East.");
+        Thread.sleep(1000);
+        System.out.println("It's a desolate and ancient place.");
+        Thread.sleep(1500);
+        System.out.println("You feel as if that's the best place.");
+        Thread.sleep(1000);
+        System.out.println("You collect your items and head off.");
+        Thread.sleep(1000);
+        System.out.println("You realize you haven't decided where East you should go.");
+        Thread.sleep(1000);
+        System.out.println("Where do you wanna go?\n");
+        Thread.sleep(1000);
+        System.out.println("1: Abandoned Village");
+	}
+	public static void Dark() throws InterruptedException{
+		System.out.println("You head back to the Dark Forest.");
+        Thread.sleep(1000);
+        System.out.println("Even though you just explored this area.");
+        Thread.sleep(1500);
+        System.out.println("You still love the forest.");
+        Thread.sleep(1000);
+        System.out.println("You feel a fimiliar presence.");
+        Thread.sleep(1000);
+        System.out.println("You always forget theres more than one of the same creature.");
+        Thread.sleep(2000);
+        System.out.println("A squirrel jumps off a branch and glides towards you.\n");
+        Thread.sleep(500);
+	}
+	public static void adForest() throws InterruptedException{
+		System.out.println("Exploring the same region twice, might not seem like an adventure.");
+        Thread.sleep(1000);
+        System.out.println("You just don't want to miss out on anything.");
+        Thread.sleep(1500);
+        System.out.println("This area could always lead to something better.");
+        Thread.sleep(1000);
+        System.out.println("For now, you continue exploring.");
+        Thread.sleep(1000);
+        System.out.println("Until you hear an all to fimiliar sound.");
+        Thread.sleep(2000);
+        System.out.println("A large beast comes charging at you.\n");
+        Thread.sleep(500);
+	}
+	public static void civForest() throws InterruptedException{
+		System.out.println("You know the forest does not contain any civilization.");
+        Thread.sleep(1000);
+        System.out.println("You're not hopeful for the second time around.");
+        Thread.sleep(1500);
+        System.out.println("You head to a pond for a drink.");
+        Thread.sleep(1000);
+        System.out.println("You completely forgot there's always dangers.");
+        Thread.sleep(1000);
+        System.out.println("As you drink from the water you notice something moving.");
+        Thread.sleep(2000);
+        System.out.println("A beatufilly colored fish jumps out.\n");
+        Thread.sleep(500);
+	}
+	public static void Forest() throws InterruptedException{
+		System.out.println("You reach the ends of the forest.");
+        Thread.sleep(1000);
+        System.out.println("You've gone away from what was once known home.");
+        Thread.sleep(1500);
+        System.out.println("You stay resilient.");
+        Thread.sleep(1000);
+        System.out.println("Suddenly, a dog like creature jumps in front of you.");
+        Thread.sleep(1000);
+        System.out.println("Anger in its eyes..");
+        Thread.sleep(2000);
+        System.out.println("It runs at you.\n");
+        Thread.sleep(500);
+	}
+	public static void Crystal() throws InterruptedException{
+		System.out.println("You head to Crystal Lake.");
+        Thread.sleep(1000);
+        System.out.println("The water shines like actual crystals.");
+        Thread.sleep(1500);
+        System.out.println("You reach down to taste the water..");
+        Thread.sleep(1000);
+        System.out.println("You see something fly down in front of you.");
+        Thread.sleep(1000);
+        System.out.println("It stares at you, so you throw a stone at it.");
+        Thread.sleep(2000);
+        System.out.println("It comes at you in revenge.\n");
+        Thread.sleep(500);
+	}
+	public static void adLake() throws InterruptedException{
+		System.out.println("You begin to swim across the lake.");
+        Thread.sleep(1000);
+        System.out.println("Swimming isn't your strongest stat but you can do it.");
+        Thread.sleep(1500);
+        System.out.println("You get tired easily and stop on a shallow part of the lake.");
+        Thread.sleep(1000);
+        System.out.println("There's a nice rock on the shallow water.");
+        Thread.sleep(1000);
+        System.out.println("You decide to sit.");
+        Thread.sleep(2000);
+        System.out.println("It begins to move.\n");
+        Thread.sleep(500);
+	}
+	public static void civLake() throws InterruptedException{
+		System.out.println("You begin to cross the lake.");
+        Thread.sleep(1000);
+        System.out.println("You don't doubt that there's no civilation here.");
+        Thread.sleep(1500);
+        System.out.println("You could never imagine living everyday by water.");
+        Thread.sleep(1000);
+        System.out.println("You go into what seems to be a deep end.");
+        Thread.sleep(1000);
+        System.out.println("You kick some thing beneath you.");
+        Thread.sleep(2000);
+        System.out.println("It comes back at you full speed.\n");
+        Thread.sleep(500);
+	}
+	public static void Lake() throws InterruptedException{
+		System.out.println("You're almost cross the lake.");
+        Thread.sleep(1000);
+        System.out.println("when you feel a log hit your body.");
+        Thread.sleep(1500);
+        System.out.println("You smash the log, trying to push it away.");
+        Thread.sleep(1000);
+        System.out.println("The log begins to swim away?");
+        Thread.sleep(1000);
+        System.out.println("Something huge is under the water.");
+        Thread.sleep(2000);
+        System.out.println("It's coming at you fast.\n");
+        Thread.sleep(500);
+	}
+	public static void WestRegion() throws InterruptedException{
+		System.out.println("You decide you want to head towards the West.");
+        Thread.sleep(1000);
+        System.out.println("It's an old and infectious place.");
+        Thread.sleep(1500);
+        System.out.println("You feel as if that's the best place.");
+        Thread.sleep(1000);
+        System.out.println("You collect your things and head off.");
+        Thread.sleep(1000);
+        System.out.println("You realize you haven't decided where West you should go.");
+        Thread.sleep(1000);
+        System.out.println("Where do you wanna go?\n");
+        Thread.sleep(1000);
+        System.out.println("1: Ancient Ruins");
+	}
+	public static void Abandoned() throws InterruptedException{
+		System.out.println("You head to an Abandoned Village.");
+        Thread.sleep(1000);
+        System.out.println("You've heard rumors of something really big starting here.");
+        Thread.sleep(1500);
+        System.out.println("Too bad you came after a distaster.");
+        Thread.sleep(1000);
+        System.out.println("It's a pretty big village, definitely worth exploring.");
+        Thread.sleep(1000);
+        System.out.println("You see the people here were definitely farmers.");
+        Thread.sleep(2000);
+        System.out.println("A small bird comes out pecking at you.\n");
+        Thread.sleep(500);
+	}
+	public static void adVillage() throws InterruptedException{
+		System.out.println("You hope your home is doing better than this.");
+        Thread.sleep(1000);
+        System.out.println("You're glad you're on this adventure.");
+        Thread.sleep(1500);
+        System.out.println("You look through maybe hoping to see someone else.");
+        Thread.sleep(1000);
+        System.out.println("In the distance you see someone in a house.");
+        Thread.sleep(1000);
+        System.out.println("You run towards them shouting \"hello\".");
+        Thread.sleep(2000);
+        System.out.println("They smell horrible and it looks like they're... decaying?\n");
+        Thread.sleep(500);
+	}
+	public static void civVillage() throws InterruptedException{
+		System.out.println("The village reminds you of home.");
+        Thread.sleep(1000);
+        System.out.println("Now sad, you begin to search the homes for life.");
+        Thread.sleep(1500);
+        System.out.println("The place looks completely deserted.");
+        Thread.sleep(1000);
+        System.out.println("You walk into one of the homes and find a pile of bones.");
+        Thread.sleep(1000);
+        System.out.println("Human bones?");
+        Thread.sleep(2000);
+        System.out.println("The bones start to rattle and put itself together.\n");
+        Thread.sleep(500);
+	}
+	public static void Village() throws InterruptedException{
+		System.out.println("You can definitely understand how this village didn't survive.");
+        Thread.sleep(1000);
+        System.out.println("You being to leave, knowing there's nothing left.");
+        Thread.sleep(1500);
+        System.out.println("You hear a giant creature start approaching.");
+        Thread.sleep(1000);
+        System.out.println("You begin to smell a horrible stench.");
+        Thread.sleep(1000);
+        System.out.println("You turn to see a giant like man approaching you.");
+        Thread.sleep(2000);
+        System.out.println("He is clearly not friendly.\n");
+        Thread.sleep(500);
+	}
+	public static void Ancient() throws InterruptedException{
+		System.out.println("You head to the Ancient Ruins.");
+        Thread.sleep(1000);
+        System.out.println("You've heard of ancient civilizations.");
+        Thread.sleep(1500);
+        System.out.println("You've always wanted to see them.");
+        Thread.sleep(1000);
+        System.out.println("You enter the area, surprised to see someone else.");
+        Thread.sleep(1000);
+        System.out.println("Excited to see a friendly face, you rush over.");
+        Thread.sleep(2000);
+        System.out.println("This man was covered in paper and wasn't so friendly.\n");
+        Thread.sleep(500);
+	}
+	public static void adRuins() throws InterruptedException{
+		System.out.println("You didn't expect this to be such an adventure.");
+        Thread.sleep(1000);
+        System.out.println("You feel even more excited and go deeper.");
+        Thread.sleep(1500);
+        System.out.println("You step on a trip wire and release a trap.");
+        Thread.sleep(1000);
+        System.out.println("Nothing happens.");
+        Thread.sleep(1000);
+        System.out.println("Suddenly a creature breaks free from the clay wall.");
+        Thread.sleep(2000);
+        System.out.println("The creature sees you as a threat to the ruins.\n");
+        Thread.sleep(500);
+	}
+	public static void civRuins() throws InterruptedException{
+		System.out.println("Now, not so sure this was the best idea to find life.");
+        Thread.sleep(1000);
+        System.out.println("You start to leave the ruins.");
+        Thread.sleep(1500);
+        System.out.println("This place is so ancient, the floors give out on you.");
+        Thread.sleep(1000);
+        System.out.println("You land in what most be the deepest part of the ruins.");
+        Thread.sleep(1000);
+        System.out.println("Covered in cob webs, you get back up.");
+        Thread.sleep(2000);
+        System.out.println("A ccreature begins to crawl from the webs to you.\n");
+        Thread.sleep(500);
+	}
+	public static void Ruins() throws InterruptedException{
+		System.out.println("In what is now the deepest part.");
+        Thread.sleep(1000);
+        System.out.println("The heat is excruciating down here.");
+        Thread.sleep(1500);
+        System.out.println("It's strange, since heat should rise.");
+        Thread.sleep(1000);
+        System.out.println("You walk into a gigantic room full of jews and gold.");
+        Thread.sleep(1000);
+        System.out.println("You run to the top of the pile so excited.");
+        Thread.sleep(2000);
+        System.out.println("Something large gets up beneath the gold, in a territorial kind of mood.\n");
+        Thread.sleep(500);
+	}
 	public static void Encounter(Protag pc) throws InterruptedException {
 		pc.reset();
 		System.out.println("Total Exp is now " + pc.getExp());
@@ -565,7 +823,7 @@ public class Story {
         Ad();
 	}
 	public static void clearScreen() throws InterruptedException {
-		  Thread.sleep(1000);
+		  Thread.sleep(2000);
 		  for(int i = 0; i < 64; i++) {
 			  System.out.println();
 		  }

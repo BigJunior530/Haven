@@ -14,8 +14,10 @@ public class Penguin extends CharEntities{
       public Penguin(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(2);
+          setHealth(6);
+          setDifficulty("Normal");
+          setName("Penguin");
       }
       /**
        * This method prints out the ascii art for the Penguin
@@ -34,29 +36,6 @@ public class Penguin extends CharEntities{
           System.out.println("               ~;/     \\;~");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 2*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 6*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -71,7 +50,7 @@ public class Penguin extends CharEntities{
         	  System.out.println("You kind of don't want to hurt it now.");
         	  System.out.println("You lost some attack");
         	  System.out.println("Attack " + pc.getAttack() + "-->");
-        	  pc.downgradeAttack(1);
+        	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Penguin uses Drill  Peck");
@@ -85,20 +64,19 @@ public class Penguin extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Penguin
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Penguin appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Penguin
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You slit open the Penguin and let it get covered by the now heavy snow");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The penguin slides towards you but misses and falls back into its hole.");
           Thread.sleep(2000);
       }
 }

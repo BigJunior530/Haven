@@ -312,6 +312,14 @@ public class Protag {
     	  health = health - hurt;
       }
       /**
+       * This method is made to return the number of items
+       * 
+       * @return itemCounter is global variable of how many items there are
+       */
+      public int getItemCounter() {
+    	  return itemCounter;
+      }
+      /**
        * This method is used to print out the items the User has or not
        * 
        * @return true if there are items and false if no items
@@ -323,7 +331,9 @@ public class Protag {
           }else {
         	  if(itemCounter > 1) {
         		  for(int i = 0; i< itemCounter; i++) {
-        			  System.out.println((i + 1) + ": " + getItem(i));
+        			  if(getItem(i) != " ") {
+        				  System.out.println((i + 1) + ": " + getItem(i));
+        			  }
         		  }
         	  }else if(itemCounter == 1) {
         		  System.out.println("1: " + getItem(0));
@@ -338,7 +348,12 @@ public class Protag {
        * @return string version of chosen item
        */
       public String getItem(int idx) {
-    	  return (String) items.toArray()[idx];
+    	  try {
+    		  return (String) items.toArray()[idx];
+    	  }catch(ArrayIndexOutOfBoundsException e) {
+    		  itemCounter--;
+    		  return " ";
+    	  }
       }
       /**
        * This method is used to remove an item from treeset and decrease the itemCounter
@@ -356,8 +371,15 @@ public class Protag {
        */
       public void putItems(String thing) {
     	  items.add(thing);
-    	  itemCounter++;
-    	  
+    	  itemCounter++;  
+      }
+      /**
+       * This method is made to return the number of equipments
+       * 
+       * @return equipCounter is global variable of how many equipments there are
+       */
+      public int getEquipCounter() {
+    	  return equipCounter;
       }
       /**
        * This method is used to print out all of the equipment the user has 
@@ -371,7 +393,9 @@ public class Protag {
           }else {
         	  if(equipCounter > 1) {
         		  for(int i = 0; i< equipCounter; i++) {
-        			  System.out.println((i + 1) + ": " + getEquipment(i));
+        			  if(getEquipment(i) != " ") {
+        				  System.out.println((i + 1) + ": " + getEquipment(i));
+        			  }
         		  }
         	  }else if(equipCounter == 1) {
         		  System.out.println("1: " + getEquipment(0));
@@ -385,7 +409,12 @@ public class Protag {
        * @return string type of equipment
        */
       public String getEquipment(int idx) {
+    	try {
     	  return (String) equip.toArray()[idx];
+      	}catch(ArrayIndexOutOfBoundsException e) {
+      		equipCounter--;
+      		return " ";
+	  }
       }
       /**
        * This method is used to remove an equipment in treeset and decrease equipCounter

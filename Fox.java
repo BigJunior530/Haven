@@ -14,8 +14,10 @@ public class Fox extends CharEntities{
       public Fox(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(6);
+          setHealth(4);
+          setDifficulty("Normal");
+          setName("Fox");
       }
       /**
        * This method prints out the ascii art for the Fox
@@ -27,29 +29,6 @@ public class Fox extends CharEntities{
           System.out.println("            `~--~\\ )___,)/'");
           System.out.println("                (/\\\\_  (/\\\\_");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 6*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -65,7 +44,7 @@ public class Fox extends CharEntities{
         	  System.out.println("You kind of don't want to hurt it now.");
         	  System.out.println("You lost some attack");
         	  System.out.println("Attack " + pc.getAttack() + "-->");
-        	  pc.downgradeAttack(1);
+        	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Fox uses Bite");
@@ -79,20 +58,19 @@ public class Fox extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Fox
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nAn Artic Fox appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Fox
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You kill the fox and cut off its tail as a trophy.");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The fox jumps into one of its holes and doesn't come back out.");
           Thread.sleep(2000);
       }
 }

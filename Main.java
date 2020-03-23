@@ -12,12 +12,14 @@ public class Main {
    public static int helmet = 0;
    public static int chest = 0;
    public static int leg = 0;
+   public static int foot = 0;
    public static int ran = 0;
    public static boolean run = false;
    public static boolean adventure = true;
    public static int type = 1;
    public static boolean fullCounter = true;
    public static boolean miss = true;
+   public static String direction = "";
    /**
     * This is where the game starts
     * 
@@ -28,7 +30,17 @@ public class Main {
       enterGame();
       if(run == true) {
          Protag pc = new Protag(type);
-         Story.intro();
+         int item = rand.nextInt(4);
+         if(item == 0) {
+            pc.putItems("Health Potion");
+         }else if(item == 1) {
+            pc.putItems("Scotch tape");
+         }else if(item == 2) {
+            pc.putItems("Attack Potion");
+         }else {
+            pc.putItems("Luck Potion");
+         }
+         Story.intro(pc);
          start(pc);
       }
             
@@ -51,7 +63,7 @@ public class Main {
       System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield/Mid-Luck)");
       System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield/High-Luck)");
       System.out.println("Press 3 to exit");
-      int start = console.nextInt();
+      int start = inputVerification(0, 3);
       if(start == 0 || start == 1 || start == 2) {
          run = true;
          type = start;
@@ -97,8 +109,7 @@ public class Main {
     */
    private static void rest(Protag pc) throws InterruptedException {
       Story.Check();
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,4);
             
             // Main character choice
       switch (choice){
@@ -119,8 +130,7 @@ public class Main {
                System.out.println("2. Defense");
                System.out.println("3. Health");
                System.out.println("4. Luck");
-               console.nextLine();
-               int answer = console.nextInt();
+               int answer = inputVerification(1,4);
                switch(answer) {
                   case 1:
                      System.out.print("Attack: " + pc.getAttack() + "-->");
@@ -157,82 +167,31 @@ public class Main {
          case 4:
             return;
          default:
-                        // DEFAULT
+        	 System.out.println("Bad input...");
+             rest(pc);
             break;
       }
    }
    /**
-    * This method prints out option for inventory and allows the player to access what's inside while in rest
+    * This method allows the player to access what's inside while in rest
     * 
     * @param <E>
     * @param pc is user class
     * @throws InterruptedException
     */
    private static <E> void Inventory(Protag pc) throws InterruptedException {
-      sleep500();
-      Thread.sleep(250);
-      System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-3");
-      System.out.println("1: Items");
-      System.out.println("2: Equipment");
-      System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
-          
-          // Main character choice
-      switch (choice){
-         case 1:
-            boolean has = pc.getItems();
-            if(has) {
-               console.nextLine();
-               System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
-               String c = pc.getItem(reply - 1);
-               if(c.equalsIgnoreCase("Health Potion")) {
-                  Items.healthPotion();
-                  pc.heal(25);
-               } else if(c.equalsIgnoreCase("Duct tape")) {
-                  Items.ductTape();
-                  pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Stregnth Potion")) {
-                  Items.strengthPotion();
-                  pc.upgradeAttack(3);
-               } else {
-                  Items.LuckPotion();
-                  pc.upgradeLuck(1);
-               }
-               pc.removeItem(c);
-            }
-            rest(pc);
-            return;
-         case 2:
-            boolean has1 = pc.getEquipment();
-            if(has1) {
-               console.nextLine();
-               System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
-               String c = pc.getEquipment(reply - 1);
-               if(c.equalsIgnoreCase("Helmet")) {
-                  Equipment.helmet();
-                  pc.upgradeShield(3);
-               }else if(c.equalsIgnoreCase("Chest Plate")) {
-                  Equipment.chestPlate();
-                  pc.upgradeShield(5);
-               }else if(c.equalsIgnoreCase("Leggings")) {
-                  Equipment.leggings();
-                  pc.upgradeShield(4);
-               }
-               pc.removeEquipment(c);
-            }
-            rest(pc);
-            return;
-         case 3:
-            rest(pc);
-            return;
-         default:
-                      // DEFAULT
-            break;
-      }
+	   itemEquip();
+      int choice = inputVerification(1,3);
+        if(choice == 3) {
+        	rest(pc);
+        }else {
+           boolean a = itemsEquipment(pc, choice);
+        	if(a) {
+        		rest(pc);
+        	}else {
+        		Inventory(pc);
+        	}
+        }
    }
   
 /**
@@ -274,8 +233,7 @@ public class Main {
       System.out.println("1: Basic Attack");
       System.out.println("2: Toughen");
       System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,3);
           
           // Main character choice
       switch (choice){
@@ -289,7 +247,8 @@ public class Main {
             playerAttack(pc, ek, name);
             return;
          default:
-                      // DEFAULT
+        	 System.out.println("Bad input...");
+             attacksStarter(pc,ek,name);
             break;
       }
    }
@@ -309,8 +268,7 @@ public class Main {
       System.out.println("2: Toughen");
       System.out.println("3: Strong Attack");
       System.out.println("4: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,4);
           
           // Main character choice
       switch (choice){
@@ -327,8 +285,8 @@ public class Main {
             playerAttack(pc, ek, name);
             return;
          default:
-            System.out.println("Bad input .... try again");
-            attacksStarter(pc,ek,name);
+            System.out.println("Bad input...");
+            attacksNovice(pc,ek,name);
                       // DEFAULT
             break;
       }
@@ -350,8 +308,7 @@ public class Main {
       System.out.println("3: Strong Attack");
       System.out.println("4: Triple Attack");
       System.out.println("5: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,5);
           
           // Main character choice
       switch (choice){
@@ -371,8 +328,8 @@ public class Main {
             playerAttack(pc, ek, name);
             return;
          default:
-            System.out.println("Bad input .... try again");
-            attacksNovice(pc,ek,name);
+            System.out.println("Bad input...");
+            attacksMid(pc,ek,name);
                       // DEFAULT
             break;
       }
@@ -395,8 +352,7 @@ public class Main {
       System.out.println("4: Triple Attack");
       System.out.println("5: Sharpen");
       System.out.println("6: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,6);
              
              // Main character choice
       switch (choice){
@@ -419,7 +375,7 @@ public class Main {
             playerAttack(pc, ek, name);
             return;
          default:
-            System.out.println("Bad input .... try again");
+            System.out.println("Bad input...");
             attacksMaster(pc,ek,name);
                          // DEFAULT
             break;
@@ -450,8 +406,7 @@ public class Main {
          System.out.println("6: Holy Heal");
       }
       System.out.println("7: Return");
-      console.nextLine();
-      int choice = console.nextInt();
+      int choice = inputVerification(1,7);
              
              // Main character choice
       switch (choice){
@@ -485,7 +440,7 @@ public class Main {
             return;
          default:
            	 //input validation
-            System.out.println("Bad input .... try again");
+            System.out.println("Bad input....");
             attacksGod(pc,ek,name);
                          // DEFAULT
             break;
@@ -501,67 +456,15 @@ public class Main {
     * @throws InterruptedException
     */
    private static <E> void Inventory(Protag pc, E ek, String name) throws InterruptedException {
-      sleep500();
-      Thread.sleep(250);
-      System.out.println("\nWhat do you want to do?");
-      System.out.println("Enter in your choice using the numbers 1-3");
-      System.out.println("1: Items");
-      System.out.println("2: Equipment");
-      System.out.println("3: Return");
-      console.nextLine();
-      int choice = console.nextInt();
-          
-          // Main character choice
-      switch (choice){
-         case 1:
-            boolean has = pc.getItems();
-            if(has) {
-               console.nextLine();
-               System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
-               String c = pc.getItem(reply - 1);
-               if(c.equalsIgnoreCase("Health Potion")) {
-                  Items.healthPotion();
-                  pc.heal(25);
-               } else if(c.equalsIgnoreCase("Duct tape")) {
-                  Items.ductTape();
-                  pc.upgradeShield(2);
-               }else if(c.equalsIgnoreCase("Stregnth Potion")) {
-                  Items.strengthPotion();
-                  pc.upgradeAttack(3);
-               } else {
-                  Items.LuckPotion();
-                  pc.upgradeLuck(1);
-               }
-               pc.removeItem(c);
-            }
-            return;
-         case 2:
-            boolean has1 = pc.getEquipment();
-            if(has1) {
-               console.nextLine();
-               System.out.println("Which one do you want to use?");
-               int reply = console.nextInt();
-               String c = pc.getEquipment(reply - 1);
-               if(c.equalsIgnoreCase("Helmet")) {
-                  Equipment.helmet();
-                  pc.upgradeShield(3);
-               }else if(c.equalsIgnoreCase("Chest Plate")) {
-                  Equipment.chestPlate();
-                  pc.upgradeShield(5);
-               }else if(c.equalsIgnoreCase("Leggings")) {
-                  Equipment.leggings();
-                  pc.upgradeShield(4);
-               }
-               pc.removeEquipment(c);
-            }
-            return;
-         case 3:
-            playerAttack(pc, ek, name);
-            return;
-         default:
-                      // DEFAULT
-            break;
+      itemEquip();
+	   int choice = inputVerification(1,3);
+      if(choice ==3) {
+    	  playerAttack(pc,ek,name);
+      }else {
+    	  boolean a = itemsEquipment(pc,choice);
+    	  if(a == false) {
+    		  Inventory(pc,ek,name);
+    	  }
       }
    }
    /**
@@ -664,93 +567,9 @@ public class Main {
     * @throws InterruptedException
     */
    private static void start(Protag pc) throws InterruptedException {
-      int item = rand.nextInt(4);
-      if(item == 0) {
-         pc.putItems("Health Potion");
-      }else if(item == 1) {
-         pc.putItems("Duct tape");
-      }else if(item == 2) {
-         pc.putItems("Stregnth Potion");
-      }else {
-         pc.putItems("Luck Potion");
-      }
-      int answer = console.nextInt();
-      if(answer == 1) {
-         Story.East();
-         WildBoar ek = new WildBoar(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-              
-         fightSequence(pc, ek, "Boar");
-         Story.Encounter(pc);
-         Story.Mid();
-         int response = console.nextInt();
-         if(response == 1) {
-            rest(pc);
-            Story.Tired();
-            FlyingSquirrel fs = new FlyingSquirrel(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-         
-                  
-            fightSequence(pc, fs, "Flying Squirrel");
-            Story.Encounter(pc);
-         }else {
-            rest(pc);
-            Story.Relax();
-            KoiFish kf = new KoiFish(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-         
-                  
-            fightSequence(pc, kf, "Koi Fish");
-            Story.Encounter(pc);
-         }
-         rest(pc);
-         Story.Close();
-         System.out.println("Your health is " + pc.getHealth()); 
-         Wolf ke = new Wolf(pc);
-         ke.intro();
-         fightSequence(pc, ke, "Wolf");
-         Story.Encounter(pc);
-      }else {
-         Story.West();
-         System.out.println("Your health is " + pc.getHealth()); 
-         Wolf ke = new Wolf(pc);
-          	
-         fightSequence(pc, ke, "Wolf");
-         Story.Encounter(pc);
-         Story.Mid();
-         int response = console.nextInt();
-         if(response == 1) {
-            rest(pc);
-            Story.Tired();
-            FlyingSquirrel fs = new FlyingSquirrel(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-         
-                  
-            fightSequence(pc, fs, "Flying Squirrel");
-            Story.Encounter(pc);
-         }else {
-            rest(pc);
-            Story.Relax();
-            KoiFish kf = new KoiFish(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-         
-                  
-            fightSequence(pc, kf, "Koi Fish");
-            Story.Encounter(pc);
-         }
-         rest(pc);
-         Story.Close();
-         WildBoar ek = new WildBoar(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-              
-         fightSequence(pc, ek, "Boar");
-         Story.Encounter(pc);
-          	
-      }
+      eastWest(pc);
       Story.choice();
-      answer = console.nextInt();
+      int answer = inputVerification(1,2);
       if(answer == 1) {
          adventure = false;
          Story.homeLand();
@@ -761,6 +580,92 @@ public class Main {
       }
    }
    /**
+    * This method is just to allow the user to choose between east or west
+    * 
+    * @param pc is user class
+    * @throws InterruptedException
+    */
+   public static void eastWest(Protag pc) throws InterruptedException{
+	   int response = inputVerification(1,2);
+	   switch(response) {
+	   case 1:
+		   direction = "East";
+		   Story.East();
+	         WildBoar ek = new WildBoar(pc);
+	         System.out.println("Your health is " + pc.getHealth()); 
+	      
+	              
+	         fightSequence(pc, ek, "Boar");
+	         Story.Encounter(pc);
+	         Story.Mid();
+	         treePond(pc);
+	         rest(pc);
+	         Story.Close();
+	         System.out.println("Your health is " + pc.getHealth()); 
+	         Wolf ke = new Wolf(pc);
+	         ke.intro();
+	         fightSequence(pc, ke, "Wolf");
+	         Story.Encounter(pc);
+		   break;
+	   case 2:
+		   direction = "West";
+		   Story.West();
+	         System.out.println("Your health is " + pc.getHealth()); 
+	         Wolf w = new Wolf(pc);
+	          	
+	         fightSequence(pc, w, "Wolf");
+	         Story.Encounter(pc);
+	         Story.Mid();
+	         treePond(pc);
+	         rest(pc);
+	         Story.Close();
+	         WildBoar wb = new WildBoar(pc);
+	         System.out.println("Your health is " + pc.getHealth()); 
+	      
+	              
+	         fightSequence(pc, wb, "Boar");
+	         Story.Encounter(pc);
+		   break;
+	   default:
+		   System.out.println("Bad input...");
+		   eastWest(pc);
+	   }
+   }
+   /**
+    * This method is just to allow the user to choose between tree or pond
+    * 
+    * @param pc is user class
+    * @throws InterruptedException
+    */
+   public static void treePond(Protag pc) throws InterruptedException{
+	   int response = inputVerification(1,2);
+	   switch(response) {
+	   case 1:
+		   rest(pc);
+	          Story.Tired();
+	          FlyingSquirrel fs = new FlyingSquirrel(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                
+	          fightSequence(pc, fs, "Flying Squirrel");
+	          Story.Encounter(pc);
+		   break;
+	   case 2:
+		   rest(pc);
+	          Story.Relax();
+	          KoiFish kf = new KoiFish(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                
+	          fightSequence(pc, kf, "Koi Fish");
+	          Story.Encounter(pc);
+		   break;
+	   default:
+		   System.out.println("Bad input...");
+		   treePond(pc);
+	   }
+   }
+   /**
     * This allows the user to go to the three regions
     * 
     * @param pc is user class
@@ -768,7 +673,7 @@ public class Main {
     */
    private static void end(Protag pc) throws InterruptedException {
       //Save option will probably be placed here
-      int ans = console.nextInt();
+      int ans = inputVerification(1,5);
       switch (ans){
          case 1:
             North(pc);
@@ -777,10 +682,17 @@ public class Main {
             South(pc);
             break;
          case 3:
+             West(pc);
+             break;
+         case 4:
+             East(pc);
+             break;
+         case 5:
             Ocean(pc);
             break;
          default:
-                // DEFAULT
+            System.out.println("Bad input...");
+            end(pc);
             break;
       }
           
@@ -793,81 +705,88 @@ public class Main {
     */
    private static void North(Protag pc) throws InterruptedException {
       Story.North();
-      int ans = console.nextInt();
-      if(ans == 1) {
-         rest(pc);
-         Story.Snowy();
-         Ram r = new Ram(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, r, "Ram");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adMoutain();
-            Eagle e = new Eagle(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, e, "Eagle");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civMoutain();
-            Yak y = new Yak(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, y, "Yak");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Moutain();
-         MountainLion ml = new MountainLion(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, ml, "Mountain Lion");
-         Story.Encounter(pc);
-      	  
-      }else {
-         rest(pc);
-         Story.Frozen();
-         Owl o = new Owl(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, o, "Owl");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adTundra();
-            Fox f = new Fox(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, f, "Fox");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civTundra();
-            Penguin p = new Penguin(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, p, "Penguin");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Tundra();
-         PolarBear pb = new PolarBear(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, pb, "Polar Bear");
-         Story.Encounter(pc);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Snowy();
+          Ram r = new Ram(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, r, "Ram");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adMoutain();
+             Eagle e = new Eagle(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, e, "Eagle");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civMoutain();
+             Yak y = new Yak(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, y, "Yak");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Moutain();
+          MountainLion ml = new MountainLion(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, ml, "Mountain Lion");
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  rest(pc);
+          Story.Frozen();
+          Owl o = new Owl(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, o, "Owl");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adTundra();
+             Fox f = new Fox(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, f, "Fox");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civTundra();
+             Penguin p = new Penguin(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, p, "Penguin");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Tundra();
+          PolarBear pb = new PolarBear(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, pb, "Polar Bear");
+          Story.Encounter(pc);
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  North(pc);
+    	  return;
       }
+      //this will possibly repeat
       Story.next();
       end(pc);
           
@@ -880,83 +799,319 @@ public class Main {
     */
    private static void South(Protag pc) throws InterruptedException {
       Story.South();
-      int ans = console.nextInt();
-      if(ans == 1) {
-         rest(pc);
-         Story.Scorching();
-         Vulture v = new Vulture(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, v, "Vulture");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adDesert();
-            RattleSnake rs = new RattleSnake(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, rs, "Rattle Snake");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civDesert();
-            Scorpion s = new Scorpion(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, s, "Scorpion");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Desert();
-         Komodo k = new Komodo(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, k, "Komodo Dragon");
-         Story.Encounter(pc);
-      	  
-      }else {
-         rest(pc);
-         Story.Green();
-         Frog f = new Frog(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, f, "Frog");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adJungle();
-            Piranha p = new Piranha(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, p, "Piranha");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civJungle();
-            Chimpanzee c = new Chimpanzee(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, c, "Chimpanzee");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Jungle();
-         Panther bp = new Panther(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, bp, "Panther");
-         Story.Encounter(pc);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Scorching();
+          Vulture v = new Vulture(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, v, "Vulture");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adDesert();
+             RattleSnake rs = new RattleSnake(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, rs, "Rattle Snake");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civDesert();
+             Scorpion s = new Scorpion(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, "Scorpion");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Desert();
+          Komodo k = new Komodo(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, k, "Komodo Dragon");
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  rest(pc);
+          Story.Green();
+          Frog f = new Frog(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, f, "Frog");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adJungle();
+             Piranha p = new Piranha(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, p, "Piranha");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civJungle();
+             Chimpanzee c = new Chimpanzee(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, c, "Chimpanzee");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Jungle();
+          Panther bp = new Panther(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, bp, "Panther");
+          Story.Encounter(pc);
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  South(pc);
+    	  return;
       }
+      //possibly of repeating
       Story.next();
       end(pc);
+   }
+   /**
+    * This is the game structure for the two areas in the West
+    * 
+    * @param pc is the user class
+    * @throws InterruptedException
+    */
+   private static void West(Protag pc) throws InterruptedException {
+      Story.WestRegion();
+      if(direction == "East") {
+    	  System.out.println("2. Dark Forest");
+      }else {
+    	  System.out.println("2. Crystal Lake");
+      }
+      Thread.sleep(500);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Ancient();
+          Mummy m = new Mummy(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, m, m.getName());
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adRuins();
+             Golem g = new Golem(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, g, g.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civRuins();
+             Spider s = new Spider(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, s.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Ruins();
+          Dragon d = new Dragon(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, d, d.getName());
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  if(direction == "East"){
+    		  DarkForest(pc);
+    	  }else {
+    		  CrystalLake(pc);
+    	  }
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  North(pc);
+    	  return;
+      }
+      //this will possibly repeat
+      Story.next();
+      end(pc);
+          
+   }
+   private static void DarkForest(Protag pc) throws InterruptedException {
+	   rest(pc);
+       Story.Dark();
+       FlyingSquirrel fs = new FlyingSquirrel(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, fs, fs.getName());
+       Story.Encounter(pc);
+       rest(pc);
+       if(adventure) {
+          Story.adForest();
+          WildBoar wb = new WildBoar(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, wb, wb.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }else {
+          Story.civForest();
+          KoiFish kf = new KoiFish(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, kf, kf.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }
+       Story.Forest();
+       Wolf w = new Wolf(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, w, w.getName());
+       Story.Encounter(pc);
+   }
+   private static void CrystalLake(Protag pc) throws InterruptedException {
+	   rest(pc);
+       Story.Crystal();
+       Duck d = new Duck(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, d, d.getName());
+       Story.Encounter(pc);
+       rest(pc);
+       if(adventure) {
+          Story.adLake();
+          Turtle t = new Turtle(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, t, t.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }else {
+          Story.civLake();
+          Salmon s = new Salmon(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+        
+                  
+          fightSequence(pc, s, s.getName());
+          Story.Encounter(pc);
+          rest(pc);
+       }
+       Story.Lake();
+       LochNess ln = new LochNess(pc);
+       System.out.println("Your health is " + pc.getHealth()); 
+    
+              
+       fightSequence(pc, ln, ln.getName());
+       Story.Encounter(pc);
+   }
+   /**
+    * This method tests the user luck to get a better chance of receiving an item during looting
+    * 
+    * @param <E>
+    * @param luck is the amount of luck the user has
+    * @return plus true if a bonus false if none
+    */
+   public static <E> boolean testLuck(int luck) {
+      boolean plus = false;
+      int lotto = rand.nextInt(101);
+      if(luck > lotto) {
+         plus = true;
+      }
+      return plus;
+   }
+/**
+    * This is the game structure for the two areas in the East
+    * 
+    * @param pc is the user class
+    * @throws InterruptedException
+    */
+   private static void East(Protag pc) throws InterruptedException {
+      Story.EastRegion();
+      if(direction == "West") {
+    	  System.out.println("2. Dark Forest");
+      }else {
+    	  System.out.println("2. Crystal Lake");
+      }
+      Thread.sleep(500);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Abandoned();
+          Chicken c = new Chicken(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, c, c.getName());
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adVillage();
+             Zombie z = new Zombie(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, z, z.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civVillage();
+             Skeleton s = new Skeleton(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, s.getName());
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Village();
+          Ogre o = new Ogre(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, o, o.getName());
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  if(direction == "West"){
+    		  DarkForest(pc);
+    	  }else {
+    		  CrystalLake(pc);
+    	  }
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  North(pc);
+    	  return;
+      }
+      //this will possibly repeat
+      Story.next();
+      end(pc);
+          
    }
    /**
     * This is the game structure for the two areas in the Oceean
@@ -966,80 +1121,86 @@ public class Main {
     */
    private static void Ocean(Protag pc) throws InterruptedException {
       Story.Ocean();
-      int ans = console.nextInt();
-      if(ans == 1) {
-         rest(pc);
-         Story.Bermuda();
-         Alien a = new Alien(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, a, "Alien");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adTriangle();
-            Kraken k = new Kraken(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, k, "Kraken");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civTriangle();
-            JellyFish jf = new JellyFish(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, jf, "JellyFish");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Triangle();
-         Hydra h = new Hydra(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, h, "Hydra");
-         Story.Encounter(pc);
-      	  
-      }else {
-         rest(pc);
-         Story.City();
-         Mermaid m = new Mermaid(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, m, "Mermaid");
-         Story.Encounter(pc);
-         rest(pc);
-         if(adventure) {
-            Story.adAlantis();
-            Poseidon p = new Poseidon(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, p, "Poseidon");
-            Story.Encounter(pc);
-            rest(pc);
-         }else {
-            Story.civAlantis();
-            Shark s = new Shark(pc);
-            System.out.println("Your health is " + pc.getHealth()); 
-          
-                    
-            fightSequence(pc, s, "Shark");
-            Story.Encounter(pc);
-            rest(pc);
-         }
-         Story.Alantis();
-         Leviathan l = new Leviathan(pc);
-         System.out.println("Your health is " + pc.getHealth()); 
-      
-                
-         fightSequence(pc, l, "Leviathan");
-         Story.Encounter(pc);
+      int ans = inputVerification(1,2);
+      switch(ans) {
+      case 1:
+    	  rest(pc);
+          Story.Bermuda();
+          Alien a = new Alien(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, a, "Alien");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adTriangle();
+             Kraken k = new Kraken(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, k, "Kraken");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civTriangle();
+             JellyFish jf = new JellyFish(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, jf, "JellyFish");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Triangle();
+          Hydra h = new Hydra(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, h, "Hydra");
+          Story.Encounter(pc);
+    	  break;
+      case 2:
+    	  rest(pc);
+          Story.City();
+          Mermaid m = new Mermaid(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, m, "Mermaid");
+          Story.Encounter(pc);
+          rest(pc);
+          if(adventure) {
+             Story.adAlantis();
+             Poseidon p = new Poseidon(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, p, "Poseidon");
+             Story.Encounter(pc);
+             rest(pc);
+          }else {
+             Story.civAlantis();
+             Shark s = new Shark(pc);
+             System.out.println("Your health is " + pc.getHealth()); 
+           
+                     
+             fightSequence(pc, s, "Shark");
+             Story.Encounter(pc);
+             rest(pc);
+          }
+          Story.Alantis();
+          Leviathan l = new Leviathan(pc);
+          System.out.println("Your health is " + pc.getHealth()); 
+       
+                 
+          fightSequence(pc, l, "Leviathan");
+          Story.Encounter(pc);
+    	  break;
+      default:
+    	  System.out.println("Bad input...");
+    	  Ocean(pc);
+    	  return;
       }
       Story.next();
       end(pc);
@@ -1104,105 +1265,55 @@ public class Main {
             miss = true;
             useMiss++;
          }
-                  // CPU choice
-                  //Switch back to four when you want to add leaving again
-         int num = rand.nextInt(2) + 1;
+         int fear;
+         if((((CharEntities)ek).getTotalHealth()/4)> ((CharEntities)ek).getHealth()) { //health below 25% of total
+        	 fear = 4;
+         }else if((((CharEntities)ek).getTotalHealth()/2)> ((CharEntities)ek).getHealth()){//health below 50% of total
+        	 fear = 10;
+         }else {
+        	 fear = 20;
+         }
+         int num = rand.nextInt(fear);
+
          sleep500();
-         switch (num){
-             //Too common and makes the game uninteresting
-             // case 1:
-         //                System.out.println(name + " does NOTHING.");
-                               //something regarding DEFENCE
-         //                break;
-            case 1:
-               CPUAttack = ((CharEntities) ek).getMove(pc);
-               if(CPUAttack - p1Defence > 0) {    		
-                  CPUAttack = CPUAttack - p1Defence;
-                  if(fullCounter == false && useMiss < 2) {
-                     Full(pc, ek, name, CPUAttack);
-                     fullCounter = true;
-                  }
-                  System.out.println("Damage taken " + CPUAttack);
-                  pc.damage(CPUAttack);
-               }else {
-                  if(CPUAttack > 0){
-                     System.out.println("It's attack was too weak to penetrate your shield.");
-                  }
-                  CPUAttack = 0;
-                  System.out.println("No damage taken.");
-                  if(fullCounter == false && useMiss == useFull) {
-                     System.out.println("Full Counter failed...");
-                     miss = false;
-                     
-                  }
-               }
-               if(pc.getHealth()>0) {
-                  System.out.println("Your health is " + pc.getHealth()); 
-               }else {
-                  System.out.println("You fainted...");
-                  System.out.println("You wake up again hours later");
-                  pc.setHealth(pc.getTotal());
-                  System.out.println("Your health is " + pc.getHealth());
-                  return;
-               }
-                              // something regarding ATTACK
-               break;
-            case 2:
-               CPUAttack = ((CharEntities) ek).getMove(pc);
-               if(CPUAttack - p1Defence > 0) {		
-                  CPUAttack = CPUAttack - p1Defence;
-                  if(fullCounter == false && useMiss < 2) {
-                     Full(pc, ek, name, CPUAttack);
-                     fullCounter = true;
-                  }
-                  System.out.println("Damage taken " + CPUAttack);
-                  pc.damage(CPUAttack);
-               }else {
-                  if(CPUAttack > 0){
-                     System.out.println("It's attack was too weak to penetrate your shield.");
-                  }
-                  CPUAttack = 0;
-                  System.out.println("No damage taken.");
-                  if(fullCounter == false && useMiss == useFull) {
-                     System.out.println("Full Counter failed...");
-                     miss = false;
-                     
-                  }
-               }
-               if(pc.getHealth()>0) {
-                  System.out.println("Your health is " + pc.getHealth()); 
-               }else {
-                  System.out.println("You fainted...");
-                  System.out.println("You wake up again hours later");
-                  pc.setHealth(50);
-                  System.out.println("Your health is " + pc.getHealth());
-                  return;
-               }
-                              // something ITEMS
-               break;
-                        //case 4:
-                        	//System.out.println(name + " LEAVES");	
-                        	//return;
-            default:
-                              // DEFAULT
-               break;
+         if(num == 2) {
+        	 ((CharEntities)ek).leaveMessage();
+        	 pc.setExp(((CharEntities) ek).getEXP()/2);
+        	 System.out.println("You got nothing...");
+        	 return;
+         }else {
+        	 CPUAttack = ((CharEntities) ek).getMove(pc);
+             if(CPUAttack - p1Defence > 0) {    		
+                CPUAttack = CPUAttack - p1Defence;
+                if(fullCounter == false && useMiss < 2) {
+                   Full(pc, ek, name, CPUAttack);
+                   fullCounter = true;
+                }
+                System.out.println("Damage taken " + CPUAttack);
+                pc.damage(CPUAttack);
+             }else {
+                if(CPUAttack > 0){
+                   System.out.println("It's attack was too weak to penetrate your shield.");
+                }
+                CPUAttack = 0;
+                System.out.println("No damage taken.");
+                if(fullCounter == false && useMiss == useFull) {
+                   System.out.println("Full Counter failed...");
+                   miss = false;
+                   
+                }
+             }
+             if(pc.getHealth()>0) {
+                System.out.println("Your health is " + pc.getHealth()); 
+             }else {
+                System.out.println("You fainted...");
+                System.out.println("You wake up again hours later");
+                pc.setHealth(pc.getTotal());
+                System.out.println("Your health is " + pc.getHealth());
+                return;
+             }
          }
       }
-   }
-   /**
-    * This method tests the user luck to get a better chance of receiving an item during looting
-    * 
-    * @param <E>
-    * @param luck is the amount of luck the user has
-    * @return plus true if a bonus false if none
-    */
-   public static <E> boolean testLuck(int luck) {
-      boolean plus = false;
-      int lotto = rand.nextInt(101);
-      if(luck > lotto) {
-         plus = true;
-      }
-      return plus;
    }
    /**
     * This method is used to test if the user has their passive ability on or not 
@@ -1243,7 +1354,7 @@ public class Main {
    /**
     * This method test if the enemy is still alive or not
     * if alive will print how much health is left
-    * if dead will choose what kind of loot the user will recieve if any
+    * if dead will choose what kind of loot the user will receive if any
     * 
     * @param <E>
     * @param pc is user class
@@ -1256,8 +1367,7 @@ public class Main {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
       }else {
          ((CharEntities) ek).endMessage();
-         int b = ((CharEntities) ek).getAttack();
-         pc.setExp(b);
+         pc.setExp(((CharEntities) ek).getEXP());
          int chance = rand.nextInt(6);
          int luck = pc.getLuck();
          boolean help = testLuck(luck);
@@ -1274,21 +1384,54 @@ public class Main {
             System.out.println("You got nothing...");
          }else if(chance > 2) {
             int item = rand.nextInt(4);
+            int strength = rand.nextInt(2);
             if(item == 0) {
-               System.out.println("You got a Health potion!");
-               pc.putItems("Health Potion");
+               if(pc.getLevel() >= 10 && strength == 1) {
+            	   System.out.println("You got Adrenaline!");
+           			pc.putItems("Adrenaline");
+               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+            	   System.out.println("You got a Booster potion!");
+           			pc.putItems("Booster Potion");
+               }else {
+            	   System.out.println("You got a Health potion!");
+            		pc.putItems("Health Potion");
+               }
             }else if(item == 1) {
-               System.out.println("You got Duct tape!");
-               pc.putItems("Duct tape");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got Flex tape!");
+                    pc.putItems("Flex tape");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got Duct tape!");
+                    pc.putItems("Duct tape");
+                }else {
+                	System.out.println("You got Scotch tape!");
+                    pc.putItems("Scotch tape");
+                }
             }else if(item == 2) {
-               System.out.println("You got a Stregnth potion!");
-               pc.putItems("Stregnth Potion");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got Steroids!");
+                    pc.putItems("Steroids");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got a Strength potion!");
+                    pc.putItems("Strength Potion");
+                }else {
+                	System.out.println("You got an Attack potion!");
+                    pc.putItems("Attack Potion");
+                }
             }else {
-               System.out.println("You got a luck potion");
-               pc.putItems("Luck Potion");
+            	if(pc.getLevel() >= 10 && strength == 1) {
+            		System.out.println("You got a Four Leaf Clover!");
+                    pc.putItems("Four Leaf Clover");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                	System.out.println("You got a Fortune potion!");
+                    pc.putItems("Fortune Potion");
+                }else {
+                	System.out.println("You got a Luck potion!");
+                    pc.putItems("Luck Potion");
+                }
             }
          }else {
-            int item = rand.nextInt(3);
+            int item = rand.nextInt(4);
             if(helmet == 0 && item == 0) {
                System.out.println("You got a Helmet!");
                pc.putEquipment("Helmet");
@@ -1301,7 +1444,27 @@ public class Main {
                System.out.println("You got Leggings!");
                pc.putEquipment("Leggings");
                leg++;
-            }else {
+            }else if(helmet == 0 && item == 0) {
+                System.out.println("You got a Reinforced Helmet!");
+                pc.putEquipment("Reinforced Helmet");
+                helmet++;
+             }else if(chest == 0 && item == 1) {
+                System.out.println("You got a Reinforced Chest Plate!");
+                pc.putEquipment("Reinforced Chest Plate");
+                chest++;
+             }else if(leg == 0 && item == 2) {
+                System.out.println("You got Reinforced Leggings!");
+                pc.putEquipment("Reinforced Leggings");
+                leg++;
+             }else if(foot == 0 && item == 3) {
+                 System.out.println("You got a Boot!");
+                 pc.putEquipment("Boots");
+                 foot++;
+              }else if(foot == 0 && item == 3) {
+                 System.out.println("You got Reinforced Boot!");
+                 pc.putEquipment("Reinforced Boots");
+                 foot++;
+              }else {
                System.out.println("You got nothing...");
             }
             	  
@@ -1312,8 +1475,7 @@ public class Main {
    private static <E> void playerAttack(Protag pc, E ek, String name) throws InterruptedException{
       if (!(pc.getHealth() <= 0) && !(((CharEntities) ek).getHealth() <= 0)) {
          choice();
-         console.nextLine();
-         int choice = console.nextInt();
+         int choice = inputVerification(1,3);
        
        // Main character choice
          switch (choice){
@@ -1356,9 +1518,207 @@ public class Main {
                System.out.println("You couldn't run away...");
                break;
             default:
-                   // DEFAULT
+                   System.out.println("Bad input...");
+                   playerAttack(pc, ek, name);
                break;
          }
       }
+   }
+   public static int inputVerification(int MIN, int MAX) {
+	   int answer = 0;
+	      boolean valid = false;
+	      while(!valid){
+	         while(!console.hasNextInt()){
+	            System.out.println("Input must be an integer, please try again");
+	            console.nextLine();
+	         }
+	         answer = console.nextInt();
+	         console.nextLine();
+	         valid = answer >= MIN && answer <= MAX;         
+	         if(!valid){
+	            System.out.printf("Must enter a value from %d to %d\n", MIN, MAX);
+	         }
+	      }
+	      return answer;
+   }
+   /**
+    * This method is meant to be used to access the items and equipments inside the player inventory.
+    * 
+    * @param pc is user class
+    * @param choice is the userInput either 1 or 2
+    * @throws InterruptedException
+    * @return boolean response is if the user wanted to use item or not
+    */
+   public static boolean itemsEquipment(Protag pc, int choice) throws InterruptedException {
+	   boolean response = false;
+	   if(choice==1) {
+		   boolean has = pc.getItems();
+           if(has) {
+              System.out.println("Which one do you want to use?");
+              int reply = inputVerification(1, pc.getItemCounter());
+              String c = pc.getItem(reply - 1);
+              if(c.equalsIgnoreCase("Health Potion")) {
+                 Items.healthPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.heal(25);
+                 }
+              } else if(c.equalsIgnoreCase("Scotch tape")) {
+                 Items.scotchTape();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(2);
+                 }
+              }else if(c.equalsIgnoreCase("Attack Potion")) {
+                 Items.attackPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeAttack(3);
+                 }
+              } else if(c.equalsIgnoreCase("Luck Potion")){
+                 Items.LuckPotion();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeLuck(1);
+                 }
+              }else if(c.equalsIgnoreCase("Booster Potion")) {
+                  Items.boosterPotion();
+                  response = confirm();
+                  if(response) {
+                  pc.heal(50);
+                  }
+               } else if(c.equalsIgnoreCase("Duct tape")) {
+                  Items.ductTape();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(4);
+                  }
+               }else if(c.equalsIgnoreCase("Strength Potion")) {
+                  Items.strengthPotion();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeAttack(6);
+                  }
+               } else if(c.equalsIgnoreCase("Fortune Potion")) {
+                  Items.fortunePotion();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeLuck(2);
+                  }
+               }else if(c.equalsIgnoreCase("Adrenaline")) {
+                   Items.adrenaline();
+                   response = confirm();
+                   if(response) {
+                   pc.heal(100);
+                   }
+                } else if(c.equalsIgnoreCase("Flex tape")) {
+                   Items.flexTape();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(6);
+                   }
+                }else if(c.equalsIgnoreCase("Steroids")) {
+                   Items.steroids();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeAttack(10);
+                   }
+                } else if(c.equalsIgnoreCase("Four Leaf Clover")) {
+                   Items.clover();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeLuck(4);
+                   }
+                }
+              if(response == true) {
+            	  pc.removeItem(c);
+              }
+           }
+	   }else {
+		   boolean has1 = pc.getEquipment();
+           if(has1) {
+              System.out.println("Which one do you want to use?");
+              int reply1 = inputVerification(1, pc.getEquipCounter());
+              String c1 = pc.getEquipment(reply1 - 1);
+              if(c1.equalsIgnoreCase("Helmet")) {
+                 Equipment.helmet();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(3);
+                 }
+              }else if(c1.equalsIgnoreCase("Chest Plate")) {
+                 Equipment.chestPlate();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(5);
+                 }
+              }else if(c1.equalsIgnoreCase("Leggings")) {
+                 Equipment.leggings();
+                 response = confirm();
+                 if(response) {
+                 pc.upgradeShield(4);
+                 }
+              }else if(c1.equalsIgnoreCase("Reinforced Helmet")) {
+                  Equipment.reinforcedHelmet();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Reinforced Chest Plate")) {
+                  Equipment.reinforcedChestPlate();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Reinforced Leggings")) {
+                  Equipment.reinforcedLeggings();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeShield(2);
+                  }
+               }else if(c1.equalsIgnoreCase("Boots")) {
+                   Equipment.boots();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(2);
+                   }
+                }else if(c1.equalsIgnoreCase("Reinforced Boots")) {
+                   Equipment.reinforcedBoots();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeShield(2);
+                   }
+                }
+              if(response == true) {
+            	  pc.removeEquipment(c1);
+              }
+           }
+	   }
+	   return response;
+   }
+   /**
+    * This  method prints what the options the player has inside their inventory
+    * 
+    * @throws InterruptedException
+    */
+   public static void itemEquip() throws InterruptedException {
+	      sleep500();
+	      Thread.sleep(250);
+	      System.out.println("\nWhat do you want to do?");
+	      System.out.println("Enter in your choice using the numbers 1-3");
+	      System.out.println("1: Items");
+	      System.out.println("2: Equipment");
+	      System.out.println("3: Return");
+   }
+   public static boolean confirm() throws InterruptedException{
+	   System.out.println("\nAre you sure you want to use this?");
+	   System.out.println("1: Yes");
+	   System.out.println("2: No");
+	   int response = inputVerification(1,2);
+	   if(response ==1 ) {
+		   return true;
+	   }else {
+		   return false;   
+	   }
    }
 }

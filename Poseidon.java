@@ -14,8 +14,10 @@ public class Poseidon extends CharEntities{
       public Poseidon(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(5);
+          setHealth(7);
+          setDifficulty("Normal");
+          setName("Poseidon");
       }
       /**
        * This method prints out the ascii art for the Poseidon
@@ -32,29 +34,6 @@ public class Poseidon extends CharEntities{
           System.out.println("                   ~~~~~~~~~~~~~~~~~~~~");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 7*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -66,9 +45,9 @@ public class Poseidon extends CharEntities{
           if(move == 0) {
         	  System.out.println("Poseidon used Wrath");
         	  dam = 0;
-        	  System.out.println("It's attack doubled.");
+        	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Poseidon used Tsunami");
@@ -82,20 +61,19 @@ public class Poseidon extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Poseidon
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nPoseidon appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Poseidon
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You use Poseidon's Trident to turn him into a Fish(Shish) Kebab");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("Poseidon doesn't understand why it bothered with such a weak mortal and dives back into the Ocean.");
           Thread.sleep(2000);
       }
 }

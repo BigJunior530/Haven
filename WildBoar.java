@@ -14,8 +14,10 @@ public class WildBoar extends CharEntities{
       public WildBoar(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(3);
+          setHealth(6);
+          setDifficulty("Normal");
+          setName("Wild Board");
       }
       /**
        * This method prints out the ascii art for the Wild Boar
@@ -33,29 +35,6 @@ public class WildBoar extends CharEntities{
           System.out.println("                    w'W   W'w");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 3*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 6*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -69,7 +48,7 @@ public class WildBoar extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Boar uses Body Slam");
@@ -83,21 +62,19 @@ public class WildBoar extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Wild Boar
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA wild boar appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Wild Boar
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You slice up the Boar and eat some good pork.");
           Thread.sleep(2000);
-          
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The boar decides to look for its meerkat friend.");
+          Thread.sleep(2000);
       }
 }

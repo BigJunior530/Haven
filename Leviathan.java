@@ -14,41 +14,26 @@ public class Leviathan extends CharEntities{
       public Leviathan(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(10);
+          setHealth(12);
+          setDifficulty("Hard");
+          setName("Leviathan");
       }
       /**
        * This method prints out the ascii art for the Leviathan
        * 
        */
       public void enemy(){
-    	  System.out.println("                                   ____");
-          System.out.println("          ________________________/ O  \\___/");
-          System.out.println("         <_/_\\_/_\\_/_\\_/_\\_/_\\_/_______/   \\");
+          System.out.println("                                   (,,(,");                   
+          System.out.println("                                (,'     `(");                            
+          System.out.println("                            ,  ,'  ,--.  `,");                                     
+          System.out.println("                             `{D, {    \\  :");                                        
+          System.out.println("                               V,,'    /  /");                                        
+          System.out.println("                               j;;    /  ,' ,---.    ,---.      ,");                    
+          System.out.println("                               \\;'   /  ,' /  _  \\  /  _  \\   ,'/");                    
+          System.out.println("                                     \\   `'  / \\  `'  / \\  `.' / ");                    
+          System.out.println("                                      `.___,'   `.__,'   `.__,'  ");
        }
-      /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 10*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 12*level;
-      }
       /**
        * This method randomly chooses a move to determine the damage to the User
        * 
@@ -63,7 +48,7 @@ public class Leviathan extends CharEntities{
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(3);
+        	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Leviathan uses crunch");
@@ -77,16 +62,6 @@ public class Leviathan extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Leviathan
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\n\nA Leviathan appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Leviathan
        */
       public void endMessage() throws InterruptedException{
@@ -95,6 +70,15 @@ public class Leviathan extends CharEntities{
           System.out.println("You realize this wasn't the best place.");
           Thread.sleep(2000);
           System.out.println("You leave the Lost City and wonder where to next");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Leviathan ashamed of wasting its time, leaves in embarassment.");
           Thread.sleep(2000);
       }
 }

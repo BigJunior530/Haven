@@ -14,8 +14,10 @@ public class Komodo extends CharEntities{
       public Komodo(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(8);
+          setHealth(7);
+          setDifficulty("Hard");
+          setName("Komodo Dragon");
       }
       /**
        * This method prints out the ascii art for the Komodo Dragon
@@ -31,29 +33,6 @@ public class Komodo extends CharEntities{
           System.out.println("                            ')");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 8*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 7*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -67,7 +46,7 @@ public class Komodo extends CharEntities{
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
-        	  pc.downgradeShield(2);
+        	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Komodo Dragon uses Acid Spit");
@@ -81,16 +60,6 @@ public class Komodo extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Komodo Dragon
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Komodo Dragon appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Komodo Dragon
        */
       public void endMessage() throws InterruptedException{
@@ -99,6 +68,15 @@ public class Komodo extends CharEntities{
           System.out.println("You realize this wasn't the best place.");
           Thread.sleep(2000);
           System.out.println("You leave the desert and wonder where to next");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The komodo dragon hoping you die of its poison, leaves to finish your corpse later.");
           Thread.sleep(2000);
       }
 }

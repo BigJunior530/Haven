@@ -14,8 +14,10 @@ public class Eagle extends CharEntities{
       public Eagle(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(6);
+          setHealth(4);
+          setDifficulty("Normal");
+          setName("Eagle");
       }
       /**
        * This method prints out the ascii art for the Eagle
@@ -32,29 +34,6 @@ public class Eagle extends CharEntities{
           System.out.println("            \"\"`  |_\\  ");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = (rand.nextInt(4)) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 6*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 4*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -68,7 +47,7 @@ public class Eagle extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's attack doubled.");
         	  System.out.println("Attack " + getAttack() + "-->");
-        	  upAttack(getAttack());
+        	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Eagle uses its Talons");
@@ -82,20 +61,19 @@ public class Eagle extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Eagle
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nAn Eagle appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Eagle
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You rip the Eagle's heart out and are finally able to taste Freedom");
+          Thread.sleep(2000);
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("The Eagle believes in freedom, so it leaves to find some.");
           Thread.sleep(2000);
       }
 }

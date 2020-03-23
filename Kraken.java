@@ -14,8 +14,10 @@ public class Kraken extends CharEntities{
       public Kraken(Protag pc){
     	  int enemy = pc.getLevel();
     	  setLevel(enemy);
-          setAttack();
-          setHealth();
+          setAttack(5);
+          setHealth(7);
+          setDifficulty("Normal");
+          setName("Kraken");
       }
       /**
        * This method prints out the ascii art for the Kraken
@@ -32,29 +34,6 @@ public class Kraken extends CharEntities{
           System.out.println("                      ._/");
        }
       /**
-       * This method sets the level for the enemy based off the User's level
-       * 
-       *  @param enemy is the level of the User
-       */
-      public void setLevel(int enemy) {
-    	  
-    	  level = rand.nextInt(4) + enemy;
-      }
-      /**
-       * This method sets the attack using level
-       */
-      public void setAttack() {
-    	  
-    	  attack = 5*level;
-      }
-      /**
-       * This method sets the health using level
-       */
-      public void setHealth() {
-    	  
-    	  health = 7*level;
-      }
-      /**
        * This method randomly chooses a move to determine the damage to the User
        * 
        * @param pc is the user class
@@ -68,7 +47,7 @@ public class Kraken extends CharEntities{
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
-        	  upHealth(1*level);
+        	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
           }else if(move == 1) {
         	  System.out.println("Kraken uses Tsunami");
@@ -82,21 +61,19 @@ public class Kraken extends CharEntities{
     	  
       }
       /**
-       * This method prints out the introduction for the Kraken
-       */
-      public void intro() throws InterruptedException {
-            Main.sleep500();
-            Thread.sleep(1000);
-            System.out.println("\nA Kraken appeared!");
-            System.out.println("Level: " + getLevel());
-            System.out.println("Health: " + getHealth());
-      }
-      /**
        * This method prints out the kill message for the Kraken
        */
       public void endMessage() throws InterruptedException{
     	  System.out.println("You cut the last tentacle of the kraken and let it sink back into the ocean");
           Thread.sleep(2000);
-          
+      }
+      /**
+       * The enemy's message when it decides to leave
+       * 
+       * @throws InterruptedException
+       */
+      public void leaveMessage() throws InterruptedException{
+    	  System.out.println("Kraken lets go of your boat, inks away from you.");
+          Thread.sleep(2000);
       }
 }
