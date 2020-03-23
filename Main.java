@@ -394,7 +394,7 @@ public class Main {
                             		  pc.heal(25);
                             	  } else if(c.equalsIgnoreCase("Duct tape")) {
                             		  Items.ductTape();
-                            		  pc.(2);
+                            		  pc.upgradeShield(2);
                             	  }else if(c.equalsIgnoreCase("Stregnth Potion")) {
                             		  Items.strengthPotion();
                             		  pc.upgradeAttack(3);
@@ -467,4 +467,3 @@ public class Main {
             }
       }
 }
-

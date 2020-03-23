@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Penguin extends CharEntities{
@@ -12,6 +13,18 @@ public class Penguin extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("                  .___.");
+          System.out.println("                 /     \\");
+          System.out.println("                | O _ O |");
+          System.out.println("                /  \\_/  \\ ");
+          System.out.println("              .' /     \\ `.");
+          System.out.println("             / _|       |_ \\");
+          System.out.println("            (_/ |       | \\_)");
+          System.out.println("                \\       /");
+          System.out.println("               __\\_>-<_/__");
+          System.out.println("               ~;/     \\;~");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -28,7 +41,28 @@ public class Penguin extends CharEntities{
       public int getLevel() {
     	  return level;
       }
-
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Penguin uses Happy Feet");
+        	  dam = 0;
+        	  System.out.println("You kind of don't want to hurt it now.");
+        	  System.out.println("You lost some attack");
+        	  System.out.println("Attack " + pc.getAttack() + "-->");
+        	  pc.downgradeAttack(1);
+        	  System.out.print(pc.getAttack()+ "\n");
+          }else if(move == 1) {
+        	  System.out.println("Penguin uses Drill  Peck");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Penguin uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
+      }
       public int getAttack(){
             return this.attack;
       }

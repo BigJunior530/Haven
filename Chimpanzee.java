@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class Chimpanzee extends CharEntities{
@@ -12,6 +13,14 @@ public class Chimpanzee extends CharEntities{
           setAttack();
           setHealth();
       }
+      public void enemy(){
+    	  System.out.println("            __");
+          System.out.println("          (/00\\)");
+          System.out.println("           \\--/");
+          System.out.println("         \\/ [] \\/");
+          System.out.println("            []/");
+          System.out.println("          _|  |_");
+       }
       public void setLevel(int enemy) {
     	  
     	  level = (rand.nextInt(4) + 1) * enemy;
@@ -31,6 +40,28 @@ public class Chimpanzee extends CharEntities{
 
       public int getAttack(){
             return this.attack;
+      }
+      public int getMove(Protag pc){
+          int move = rand.nextInt(4);
+          int dam = 0;
+          if(move == 0) {
+        	  System.out.println("Chimpanzee uses Poop Throw");
+        	  dam = 0;
+        	  System.out.println("You lost some shield");
+        	  System.out.println("Shield " + pc.getShield() + "-->");
+        	  pc.downgradeShield(1);
+        	  System.out.print(pc.getShield()+ "\n");
+        	  
+          }else if(move == 1) {
+        	  System.out.println("Chimpanzee uses both arms to smash against your body");
+        	  dam = attack*2;
+        	  System.out.println("It's a critical");
+          }else if(move == 2 || move == 3) {
+        	  System.out.println("Chimpanzee uses Tackle");
+        	  dam = attack;
+          }
+          return dam;
+    	  
       }
 
       public void intro() throws InterruptedException {
