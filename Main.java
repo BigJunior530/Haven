@@ -1,12 +1,14 @@
+import java.io.*;
 import java.util.*;
+import java.util.logging.*;
 /**
  * This is the main for the game
  * 
  * @author Carlos
- *
+ * @author Jaime Ramirez
  */
 public class Main {
-
+   private static final Logger logr = Logger.getLogger(Main.class.getName());
    public static Scanner console = new Scanner(System.in);
    public static Random rand = new Random();
    public static int helmet = 0;
@@ -26,24 +28,43 @@ public class Main {
     * @param args
     * @throws InterruptedException
     */
-   public static void main(String[] args) throws InterruptedException {
-      enterGame();
-      if(run == true) {
-         Protag pc = new Protag(type);
-         int item = rand.nextInt(4);
-         if(item == 0) {
-            pc.putItems("Health Potion");
-         }else if(item == 1) {
-            pc.putItems("Scotch tape");
-         }else if(item == 2) {
-            pc.putItems("Attack Potion");
-         }else {
-            pc.putItems("Luck Potion");
+   public static void main(String[] args) throws InterruptedException, IOException {
+      try{
+         enterGame();
+         if(run) {
+            Protag pc = new Protag(type);
+            int item = rand.nextInt(4);
+            if(item == 0) {
+               pc.putItems("Health Potion");
+            }else if(item == 1) {
+               pc.putItems("Scotch tape");
+            }else if(item == 2) {
+               pc.putItems("Attack Potion");
+            }else {
+               pc.putItems("Luck Potion");
+            }
+            Story.intro(pc);
+            start(pc);
+            }
+      } catch (Exception e) {
+         logr.log(Level.SEVERE, "There was an exception. We are working to patch this in a later upddate.", e);
+         try {
+            File f = new File("ErrorLog.txt");
+            if(f.exists()){
+               FileWriter log = new FileWriter(f, true);
+               e.printStackTrace();
+               log.write("\n\nException at: \n" + e);
+               log.close();
+            } else {
+               FileWriter log = new FileWriter(new File("ErrorLog.txt"));
+               log.write("File has encountered an exception: \n" + e);
+               log.close();
+               }
+            } catch (Exception ex) {
+               System.out.println("Something went wrong with the game. Now exiting...");
+            }
          }
-         Story.intro(pc);
-         start(pc);
-      }
-            
+      } 
    }
      /**
       * This is the starting menu
