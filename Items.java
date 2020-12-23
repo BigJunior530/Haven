@@ -32,7 +32,7 @@ public class Items {
 	 * @throws InterruptedException
 	 */
 	public static void boosterPotion() throws InterruptedException{
-		System.out.println("Health Potion.");
+		System.out.println("Booster Potion.");
         Thread.sleep(1000);
 		System.out.println("Adds 50 health.");
         Thread.sleep(1000);
