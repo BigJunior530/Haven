@@ -68,13 +68,26 @@ public class Protag {
        * This method prints out the sprite for the player
        */
       public void sprite(){
-    	  System.out.println("\\");
-          System.out.println(" \\    ");
-          System.out.println(" _\\|  O  }");
-          System.out.println("   M_/|\\_|}");
-          System.out.println("      |  }");
-          System.out.println("     / \\");
-          System.out.println("   _/   \\_");
+    	  System.out.println("      _,.");
+          System.out.println("    ,` -.)");
+          System.out.println("   ( _/-\\\\-._");
+          System.out.println("  /,|`--._,-^|            ,");
+          System.out.println("  \\_| |`-._/||          ,'|");
+          System.out.println("    |  `-, / |         /  /");
+          System.out.println("    |     || |        /  /");
+          System.out.println("     `r-._||/   __   /  /");
+          System.out.println(" __,-<_     )`-/  `./  /");
+          System.out.println("'  \\   `---'   \\   /  /");
+          System.out.println("    |           |./  /");
+          System.out.println("    /           //  /");
+          System.out.println("\\_/' \\         |/  /");
+          System.out.println(" |    |   _,^-'/  /");
+          System.out.println(" |    , ``  (\\/  /_");
+          System.out.println("  \\,.->._    \\X-=/^");
+          System.out.println("  (  /   `-._//^`");
+          System.out.println("   `Y-.____(__}");
+          System.out.println("    |     {__)");
+          System.out.println("          ()");
        }
       /**
        * This method increasingly adds exp to the total exp
@@ -253,7 +266,7 @@ public class Protag {
        * This method shows the user what increases when they level up and if they unlock a new move
        */
       public void levelUp() {
-    	  
+    	  System.out.println("\nCongrats you just Leveled Up!\n");
     	  System.out.print("Total Health: " + getTotal() + "-->");
     	  if(type == 0) {
     		  upgradeHealth(7); 

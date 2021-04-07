@@ -101,6 +101,7 @@ public class Main {
       System.out.println("_________________________________________________________________");
       ((CharEntities) ek).enemy();
       pc.sprite();
+      System.out.println("Health: "+ pc.getHealth() + "/" + pc.getTotal());
       System.out.println("_________________________________________________________________");
    }
    /**
@@ -593,8 +594,7 @@ public class Main {
 		   direction = "East";
 		   Story.East();
 	         WildBoar ek = new WildBoar(pc);
-	         System.out.println("Your health is " + pc.getHealth()); 
-	      
+      
 	              
 	         fightSequence(pc, ek, "Boar");
 	         Story.Encounter(pc);
@@ -602,7 +602,7 @@ public class Main {
 	         treePond(pc);
 	         rest(pc);
 	         Story.Close();
-	         System.out.println("Your health is " + pc.getHealth()); 
+	         // 
 	         Wolf ke = new Wolf(pc);
 	         ke.intro();
 	         fightSequence(pc, ke, "Wolf");
@@ -611,7 +611,6 @@ public class Main {
 	   case 2:
 		   direction = "West";
 		   Story.West();
-	         System.out.println("Your health is " + pc.getHealth()); 
 	         Wolf w = new Wolf(pc);
 	          	
 	         fightSequence(pc, w, "Wolf");
@@ -621,7 +620,7 @@ public class Main {
 	         rest(pc);
 	         Story.Close();
 	         WildBoar wb = new WildBoar(pc);
-	         System.out.println("Your health is " + pc.getHealth()); 
+	         // 
 	      
 	              
 	         fightSequence(pc, wb, "Boar");
@@ -645,7 +644,6 @@ public class Main {
 		   rest(pc);
 	          Story.Tired();
 	          FlyingSquirrel fs = new FlyingSquirrel(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                
 	          fightSequence(pc, fs, "Flying Squirrel");
@@ -655,7 +653,6 @@ public class Main {
 		   rest(pc);
 	          Story.Relax();
 	          KoiFish kf = new KoiFish(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                
 	          fightSequence(pc, kf, "Koi Fish");
@@ -728,7 +725,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Snowy();
 	          Ram r = new Ram(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, r, "Ram");
@@ -743,7 +739,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adMoutain();
 	             Eagle e = new Eagle(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, e, "Eagle");
@@ -756,7 +751,6 @@ public class Main {
 	          }else {
 	             Story.civMoutain();
 	             Yak y = new Yak(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, y, "Yak");
@@ -771,7 +765,6 @@ public class Main {
     	  if(CheckPoint.SM() == 2) {
 	          Story.Moutain();
 	          MountainLion ml = new MountainLion(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, ml, "Mountain Lion");
@@ -790,7 +783,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Frozen();
 	          Owl o = new Owl(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, o, "Owl");
@@ -805,7 +797,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adTundra();
 	             Fox f = new Fox(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, f, "Fox");
@@ -818,7 +809,6 @@ public class Main {
 	          }else {
 	             Story.civTundra();
 	             Penguin p = new Penguin(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, p, "Penguin");
@@ -833,7 +823,6 @@ public class Main {
     	  if(CheckPoint.FT() == 2) {
 	          Story.Tundra();
 	          PolarBear pb = new PolarBear(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, pb, "Polar Bear");
@@ -872,7 +861,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Scorching();
 	          Vulture v = new Vulture(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, v, "Vulture");
@@ -887,7 +875,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adDesert();
 	             RattleSnake rs = new RattleSnake(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, rs, "Rattle Snake");
@@ -900,7 +887,6 @@ public class Main {
 	          }else {
 	             Story.civDesert();
 	             Scorpion s = new Scorpion(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, s, "Scorpion");
@@ -915,7 +901,6 @@ public class Main {
     	  if(CheckPoint.SD() == 2) {
 	          Story.Desert();
 	          Komodo k = new Komodo(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, k, "Komodo Dragon");
@@ -934,7 +919,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Green();
 	          Frog f = new Frog(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, f, "Frog");
@@ -949,7 +933,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adJungle();
 	             Piranha p = new Piranha(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, p, "Piranha");
@@ -962,7 +945,6 @@ public class Main {
 	          }else {
 	             Story.civJungle();
 	             Chimpanzee c = new Chimpanzee(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, c, "Chimpanzee");
@@ -977,7 +959,6 @@ public class Main {
           if(CheckPoint.GJ() == 2) {
 	          Story.Jungle();
 	          Panther bp = new Panther(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, bp, "Panther");
@@ -1021,7 +1002,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Ancient();
 	          Mummy m = new Mummy(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, m, m.getName());
@@ -1036,7 +1016,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adRuins();
 	             Golem g = new Golem(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, g, g.getName());
@@ -1049,7 +1028,6 @@ public class Main {
 	          }else {
 	             Story.civRuins();
 	             Spider s = new Spider(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, s, s.getName());
@@ -1064,7 +1042,6 @@ public class Main {
           if(CheckPoint.AR() == 2) {
 	          Story.Ruins();
 	          Dragon d = new Dragon(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, d, d.getName());
@@ -1100,7 +1077,6 @@ public class Main {
 		   rest(pc);
 	       Story.Dark();
 	       FlyingSquirrel fs = new FlyingSquirrel(pc);
-	       System.out.println("Your health is " + pc.getHealth()); 
 	    
 	              
 	       fightSequence(pc, fs, fs.getName());
@@ -1115,7 +1091,6 @@ public class Main {
 	       if(adventure) {
 	          Story.adForest();
 	          WildBoar wb = new WildBoar(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	        
 	                  
 	          fightSequence(pc, wb, wb.getName());
@@ -1128,7 +1103,6 @@ public class Main {
 	       }else {
 	          Story.civForest();
 	          KoiFish kf = new KoiFish(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	        
 	                  
 	          fightSequence(pc, kf, kf.getName());
@@ -1143,7 +1117,6 @@ public class Main {
        if(CheckPoint.DF() == 2) {
 	       Story.Forest();
 	       Wolf w = new Wolf(pc);
-	       System.out.println("Your health is " + pc.getHealth()); 
 	    
 	              
 	       fightSequence(pc, w, w.getName());
@@ -1162,7 +1135,6 @@ public class Main {
 		   rest(pc);
 	       Story.Crystal();
 	       Duck d = new Duck(pc);
-	       System.out.println("Your health is " + pc.getHealth()); 
 	    
 	              
 	       fightSequence(pc, d, d.getName());
@@ -1177,7 +1149,6 @@ public class Main {
 	       if(adventure) {
 	          Story.adLake();
 	          Turtle t = new Turtle(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	        
 	                  
 	          fightSequence(pc, t, t.getName());
@@ -1190,7 +1161,6 @@ public class Main {
 	       }else {
 	          Story.civLake();
 	          Salmon s = new Salmon(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	        
 	                  
 	          fightSequence(pc, s, s.getName());
@@ -1205,7 +1175,6 @@ public class Main {
        if(CheckPoint.CL() == 2) {
 	       Story.Lake();
 	       LochNess ln = new LochNess(pc);
-	       System.out.println("Your health is " + pc.getHealth()); 
 	    
 	              
 	       fightSequence(pc, ln, ln.getName());
@@ -1255,7 +1224,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Abandoned();
 	          Chicken c = new Chicken(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, c, c.getName());
@@ -1270,7 +1238,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adVillage();
 	             Zombie z = new Zombie(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, z, z.getName());
@@ -1283,7 +1250,6 @@ public class Main {
 	          }else {
 	             Story.civVillage();
 	             Skeleton s = new Skeleton(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, s, s.getName());
@@ -1298,7 +1264,6 @@ public class Main {
           if(CheckPoint.AV() == 2) {
 	          Story.Village();
 	          Ogre o = new Ogre(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, o, o.getName());
@@ -1344,7 +1309,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.Bermuda();
 	          Alien a = new Alien(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, a, "Alien");
@@ -1359,7 +1323,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adTriangle();
 	             Kraken k = new Kraken(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, k, "Kraken");
@@ -1372,7 +1335,6 @@ public class Main {
 	          }else {
 	             Story.civTriangle();
 	             JellyFish jf = new JellyFish(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, jf, "JellyFish");
@@ -1387,7 +1349,6 @@ public class Main {
 	      if(CheckPoint.BT() == 2) {
 	          Story.Triangle();
 	          Hydra h = new Hydra(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, h, "Hydra");
@@ -1406,7 +1367,6 @@ public class Main {
 	    	  rest(pc);
 	          Story.City();
 	          Mermaid m = new Mermaid(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, m, "Mermaid");
@@ -1421,7 +1381,6 @@ public class Main {
 	          if(adventure) {
 	             Story.adAlantis();
 	             Poseidon p = new Poseidon(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, p, "Poseidon");
@@ -1434,7 +1393,6 @@ public class Main {
 	          }else {
 	             Story.civAlantis();
 	             Shark s = new Shark(pc);
-	             System.out.println("Your health is " + pc.getHealth()); 
 	           
 	                     
 	             fightSequence(pc, s, "Shark");
@@ -1449,7 +1407,6 @@ public class Main {
           if(CheckPoint.CA() == 2) {
 	          Story.Alantis();
 	          Leviathan l = new Leviathan(pc);
-	          System.out.println("Your health is " + pc.getHealth()); 
 	       
 	                 
 	          fightSequence(pc, l, "Leviathan");
@@ -1570,7 +1527,7 @@ public class Main {
                 }
              }
              if(pc.getHealth()>0) {
-                System.out.println("Your health is " + pc.getHealth()); 
+            	 System.out.println("Your health is " + pc.getHealth());
              }else {
             	 System.out.println("You fainted...");
                  System.out.println("You wake up again hours later");
