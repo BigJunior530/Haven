@@ -58,8 +58,9 @@ public class Story {
         System.out.println("2: South");
         System.out.println("3: West");
         System.out.println("4: East");
-        System.out.println("5: Ocean");
-
+        if(CheckPoint.checkAllLand() == true) {
+        	System.out.println("5: Ocean");
+        }
         Thread.sleep(500);
 	}
 	public static void North() throws InterruptedException{
@@ -92,8 +93,8 @@ public class Story {
         Thread.sleep(1000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(1000);
-        System.out.println("1: Desert");
-        System.out.println("2: Jungle");
+        System.out.println("1: Scorching Desert");
+        System.out.println("2: Green Jungle");
         Thread.sleep(1500);
 	}
 	public static void Ocean() throws InterruptedException{

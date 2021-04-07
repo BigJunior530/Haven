@@ -20,6 +20,7 @@ public class Main {
    public static boolean fullCounter = true;
    public static boolean miss = true;
    public static String direction = "";
+   public static boolean won = true;
    /**
     * This is where the game starts
     * 
@@ -666,35 +667,50 @@ public class Main {
 	   }
    }
    /**
-    * This allows the user to go to the three regions
+    * This allows the user to go to the land regions regions
     * 
     * @param pc is user class
     * @throws InterruptedException
     */
    private static void end(Protag pc) throws InterruptedException {
       //Save option will probably be placed here
-      int ans = inputVerification(1,5);
-      switch (ans){
-         case 1:
-            North(pc);
-            break;
-         case 2:
-            South(pc);
-            break;
-         case 3:
-             West(pc);
-             break;
-         case 4:
-             East(pc);
-             break;
-         case 5:
-            Ocean(pc);
-            break;
-         default:
-            System.out.println("Bad input...");
-            end(pc);
-            break;
-      }
+	  if(CheckPoint.checkAll()!= true) {
+		  won = true;
+	      int ans = inputVerification(1,5);
+	      switch (ans){
+	         case 1:
+	            North(pc);
+	            break;
+	         case 2:
+	            South(pc);
+	            break;
+	         case 3:
+	             West(pc);
+	             break;
+	         case 4:
+	             East(pc);
+	             break;
+	         case 5:
+	        	if(CheckPoint.checkAllLand()) {
+	        		Ocean(pc);
+	        	}else {
+	        		System.out.println("You're not yet ready...");
+	        		end(pc);
+	        	}
+	            break;
+	         default:
+	            System.out.println("Bad input...");
+	            end(pc);
+	            break;
+	      }
+	  }else {
+		  if(adventure) {
+			  System.out.println("You adventured everywhere you could.");
+		  }else {
+			  System.out.println("You couldn't find a suitable home anywhere.");
+		  }
+		  System.out.println("What now?");
+	  }
           
    }
    /**
@@ -708,78 +724,128 @@ public class Main {
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
-    	  rest(pc);
-          Story.Snowy();
-          Ram r = new Ram(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, r, "Ram");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adMoutain();
-             Eagle e = new Eagle(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, e, "Eagle");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civMoutain();
-             Yak y = new Yak(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, y, "Yak");
-             Story.Encounter(pc);
-             rest(pc);
-          }
-          Story.Moutain();
-          MountainLion ml = new MountainLion(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, ml, "Mountain Lion");
-          Story.Encounter(pc);
+    	  if(CheckPoint.SM() == 0) {
+	    	  rest(pc);
+	          Story.Snowy();
+	          Ram r = new Ram(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, r, "Ram");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseSMV();
+    	  }
+    	  if(CheckPoint.SM() == 1) {
+	          if(adventure) {
+	             Story.adMoutain();
+	             Eagle e = new Eagle(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, e, "Eagle");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseSMV();
+	          }else {
+	             Story.civMoutain();
+	             Yak y = new Yak(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, y, "Yak");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseSMV();
+	          }
+    	  }
+    	  if(CheckPoint.SM() == 2) {
+	          Story.Moutain();
+	          MountainLion ml = new MountainLion(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, ml, "Mountain Lion");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseSMV();
+    	  }
+    	  if(CheckPoint.SM() >= 3) {
+    		  System.out.println("You've already done this path, no need to do it again");
+    	  }
     	  break;
       case 2:
-    	  rest(pc);
-          Story.Frozen();
-          Owl o = new Owl(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, o, "Owl");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adTundra();
-             Fox f = new Fox(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, f, "Fox");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civTundra();
-             Penguin p = new Penguin(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, p, "Penguin");
-             Story.Encounter(pc);
-             rest(pc);
-          }
-          Story.Tundra();
-          PolarBear pb = new PolarBear(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, pb, "Polar Bear");
-          Story.Encounter(pc);
+    	  if(CheckPoint.FT() == 0) {
+	    	  rest(pc);
+	          Story.Frozen();
+	          Owl o = new Owl(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, o, "Owl");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseFTV();
+    	  }
+    	  if(CheckPoint.FT() == 1) {
+	          if(adventure) {
+	             Story.adTundra();
+	             Fox f = new Fox(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, f, "Fox");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseFTV();
+	          }else {
+	             Story.civTundra();
+	             Penguin p = new Penguin(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, p, "Penguin");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseFTV();
+	          }
+    	  }
+    	  if(CheckPoint.FT() == 2) {
+	          Story.Tundra();
+	          PolarBear pb = new PolarBear(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, pb, "Polar Bear");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseFTV();
+    	  }
+    	  if(CheckPoint.FT() >= 3) {
+    		  System.out.println("You've already done this path, no need to do it again");
+    	  }
     	  break;
       default:
     	  System.out.println("Bad input...");
@@ -787,7 +853,7 @@ public class Main {
     	  return;
       }
       //this will possibly repeat
-      Story.next();
+      //Story.next();
       end(pc);
           
    }
@@ -802,78 +868,128 @@ public class Main {
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
-    	  rest(pc);
-          Story.Scorching();
-          Vulture v = new Vulture(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, v, "Vulture");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adDesert();
-             RattleSnake rs = new RattleSnake(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, rs, "Rattle Snake");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civDesert();
-             Scorpion s = new Scorpion(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, s, "Scorpion");
-             Story.Encounter(pc);
-             rest(pc);
-          }
-          Story.Desert();
-          Komodo k = new Komodo(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, k, "Komodo Dragon");
-          Story.Encounter(pc);
+    	  if(CheckPoint.SD() == 0) {
+	    	  rest(pc);
+	          Story.Scorching();
+	          Vulture v = new Vulture(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, v, "Vulture");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseSDV();
+    	  }
+    	  if(CheckPoint.SD() == 1) {
+	          if(adventure) {
+	             Story.adDesert();
+	             RattleSnake rs = new RattleSnake(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, rs, "Rattle Snake");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseSDV();
+	          }else {
+	             Story.civDesert();
+	             Scorpion s = new Scorpion(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, s, "Scorpion");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseSDV();
+	          }
+    	  }
+    	  if(CheckPoint.SD() == 2) {
+	          Story.Desert();
+	          Komodo k = new Komodo(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, k, "Komodo Dragon");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseSDV();
+    	  }
+    	  if(CheckPoint.SD() >= 3) {
+    		  System.out.println("You've already done this path, no need to do it again");
+    	  }
     	  break;
       case 2:
-    	  rest(pc);
-          Story.Green();
-          Frog f = new Frog(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, f, "Frog");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adJungle();
-             Piranha p = new Piranha(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, p, "Piranha");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civJungle();
-             Chimpanzee c = new Chimpanzee(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, c, "Chimpanzee");
-             Story.Encounter(pc);
-             rest(pc);
+    	  if(CheckPoint.GJ() == 0) {
+	    	  rest(pc);
+	          Story.Green();
+	          Frog f = new Frog(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, f, "Frog");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseGJV();
+    	  }
+          if(CheckPoint.GJ() == 1) {
+	          if(adventure) {
+	             Story.adJungle();
+	             Piranha p = new Piranha(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, p, "Piranha");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseGJV();
+	          }else {
+	             Story.civJungle();
+	             Chimpanzee c = new Chimpanzee(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, c, "Chimpanzee");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseGJV();
+	          }
           }
-          Story.Jungle();
-          Panther bp = new Panther(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, bp, "Panther");
-          Story.Encounter(pc);
+          if(CheckPoint.GJ() == 2) {
+	          Story.Jungle();
+	          Panther bp = new Panther(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, bp, "Panther");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseGJV();
+          }
+          if(CheckPoint.GJ() >= 3) {
+    		  System.out.println("You've already done this path, no need to do it again");
+    	  }
     	  break;
       default:
     	  System.out.println("Bad input...");
@@ -881,7 +997,7 @@ public class Main {
     	  return;
       }
       //possibly of repeating
-      Story.next();
+      //Story.next();
       end(pc);
    }
    /**
@@ -901,41 +1017,66 @@ public class Main {
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
-    	  rest(pc);
-          Story.Ancient();
-          Mummy m = new Mummy(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, m, m.getName());
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adRuins();
-             Golem g = new Golem(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, g, g.getName());
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civRuins();
-             Spider s = new Spider(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, s, s.getName());
-             Story.Encounter(pc);
-             rest(pc);
+    	  if(CheckPoint.AR() == 0) {
+	    	  rest(pc);
+	          Story.Ancient();
+	          Mummy m = new Mummy(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, m, m.getName());
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseARV();
+    	  }
+          if(CheckPoint.AR() == 1) {
+	          if(adventure) {
+	             Story.adRuins();
+	             Golem g = new Golem(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, g, g.getName());
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseARV();
+	          }else {
+	             Story.civRuins();
+	             Spider s = new Spider(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, s, s.getName());
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseARV();
+	          }
           }
-          Story.Ruins();
-          Dragon d = new Dragon(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, d, d.getName());
-          Story.Encounter(pc);
+          if(CheckPoint.AR() == 2) {
+	          Story.Ruins();
+	          Dragon d = new Dragon(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, d, d.getName());
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseARV();
+          }
+          if(CheckPoint.AR() >= 3) {
+    		  System.out.println("You've already done this path, no need to do it again");
+    	  }
     	  break;
       case 2:
     	  if(direction == "East"){
@@ -950,83 +1091,133 @@ public class Main {
     	  return;
       }
       //this will possibly repeat
-      Story.next();
+      //Story.next();
       end(pc);
           
    }
    private static void DarkForest(Protag pc) throws InterruptedException {
-	   rest(pc);
-       Story.Dark();
-       FlyingSquirrel fs = new FlyingSquirrel(pc);
-       System.out.println("Your health is " + pc.getHealth()); 
-    
-              
-       fightSequence(pc, fs, fs.getName());
-       Story.Encounter(pc);
-       rest(pc);
-       if(adventure) {
-          Story.adForest();
-          WildBoar wb = new WildBoar(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-        
-                  
-          fightSequence(pc, wb, wb.getName());
-          Story.Encounter(pc);
-          rest(pc);
-       }else {
-          Story.civForest();
-          KoiFish kf = new KoiFish(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-        
-                  
-          fightSequence(pc, kf, kf.getName());
-          Story.Encounter(pc);
-          rest(pc);
+	   if(CheckPoint.DF() == 0) {
+		   rest(pc);
+	       Story.Dark();
+	       FlyingSquirrel fs = new FlyingSquirrel(pc);
+	       System.out.println("Your health is " + pc.getHealth()); 
+	    
+	              
+	       fightSequence(pc, fs, fs.getName());
+	       if(!won) {
+	        	  return;
+	          }
+	       Story.Encounter(pc);
+	       rest(pc);
+	       CheckPoint.increaseDFV();
+	   }
+       if(CheckPoint.DF() == 1) {
+	       if(adventure) {
+	          Story.adForest();
+	          WildBoar wb = new WildBoar(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	        
+	                  
+	          fightSequence(pc, wb, wb.getName());
+	          if(!won) {
+	        	  return;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseDFV();
+	       }else {
+	          Story.civForest();
+	          KoiFish kf = new KoiFish(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	        
+	                  
+	          fightSequence(pc, kf, kf.getName());
+	          if(!won) {
+	        	  return;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseDFV();
+	       }
        }
-       Story.Forest();
-       Wolf w = new Wolf(pc);
-       System.out.println("Your health is " + pc.getHealth()); 
-    
-              
-       fightSequence(pc, w, w.getName());
-       Story.Encounter(pc);
+       if(CheckPoint.DF() == 2) {
+	       Story.Forest();
+	       Wolf w = new Wolf(pc);
+	       System.out.println("Your health is " + pc.getHealth()); 
+	    
+	              
+	       fightSequence(pc, w, w.getName());
+	       if(!won) {
+	        	  return;
+	          }
+	       Story.Encounter(pc);
+	       CheckPoint.increaseDFV();
+       }
+       if(CheckPoint.DF() >= 3) {
+ 		  System.out.println("You've already done this path, no need to do it again");
+ 	  }
    }
    private static void CrystalLake(Protag pc) throws InterruptedException {
-	   rest(pc);
-       Story.Crystal();
-       Duck d = new Duck(pc);
-       System.out.println("Your health is " + pc.getHealth()); 
-    
-              
-       fightSequence(pc, d, d.getName());
-       Story.Encounter(pc);
-       rest(pc);
-       if(adventure) {
-          Story.adLake();
-          Turtle t = new Turtle(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-        
-                  
-          fightSequence(pc, t, t.getName());
-          Story.Encounter(pc);
-          rest(pc);
-       }else {
-          Story.civLake();
-          Salmon s = new Salmon(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-        
-                  
-          fightSequence(pc, s, s.getName());
-          Story.Encounter(pc);
-          rest(pc);
+	   if(CheckPoint.CL() == 0) {
+		   rest(pc);
+	       Story.Crystal();
+	       Duck d = new Duck(pc);
+	       System.out.println("Your health is " + pc.getHealth()); 
+	    
+	              
+	       fightSequence(pc, d, d.getName());
+	       if(!won) {
+	        	  return;
+	          }
+	       Story.Encounter(pc);
+	       rest(pc);
+	       CheckPoint.increaseCLV();
+	   }
+       if(CheckPoint.CL() == 1) {
+	       if(adventure) {
+	          Story.adLake();
+	          Turtle t = new Turtle(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	        
+	                  
+	          fightSequence(pc, t, t.getName());
+	          if(!won) {
+	        	  return;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseCLV();
+	       }else {
+	          Story.civLake();
+	          Salmon s = new Salmon(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	        
+	                  
+	          fightSequence(pc, s, s.getName());
+	          if(!won) {
+	        	  return;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseCLV();
+	       }
        }
-       Story.Lake();
-       LochNess ln = new LochNess(pc);
-       System.out.println("Your health is " + pc.getHealth()); 
-    
-              
-       fightSequence(pc, ln, ln.getName());
-       Story.Encounter(pc);
+       if(CheckPoint.CL() == 2) {
+	       Story.Lake();
+	       LochNess ln = new LochNess(pc);
+	       System.out.println("Your health is " + pc.getHealth()); 
+	    
+	              
+	       fightSequence(pc, ln, ln.getName());
+	       if(!won) {
+	        	  return;
+	          }
+	       Story.Encounter(pc);
+	       CheckPoint.increaseCLV();
+       }
+       if(CheckPoint.CL() >= 3) {
+  		  System.out.println("You've already done this path, no need to do it again");
+  	  }
    }
    /**
     * This method tests the user luck to get a better chance of receiving an item during looting
@@ -1060,41 +1251,66 @@ public class Main {
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
-    	  rest(pc);
-          Story.Abandoned();
-          Chicken c = new Chicken(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, c, c.getName());
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adVillage();
-             Zombie z = new Zombie(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, z, z.getName());
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civVillage();
-             Skeleton s = new Skeleton(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, s, s.getName());
-             Story.Encounter(pc);
-             rest(pc);
+    	  if(CheckPoint.AV() == 0) {
+	    	  rest(pc);
+	          Story.Abandoned();
+	          Chicken c = new Chicken(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, c, c.getName());
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseAVV();
+    	  }
+          if(CheckPoint.AV() == 1) {
+	          if(adventure) {
+	             Story.adVillage();
+	             Zombie z = new Zombie(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, z, z.getName());
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseAVV();
+	          }else {
+	             Story.civVillage();
+	             Skeleton s = new Skeleton(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, s, s.getName());
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseAVV();
+	          }
           }
-          Story.Village();
-          Ogre o = new Ogre(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, o, o.getName());
-          Story.Encounter(pc);
+          if(CheckPoint.AV() == 2) {
+	          Story.Village();
+	          Ogre o = new Ogre(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, o, o.getName());
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseAVV();
+          }
+          if(CheckPoint.AV() >= 3) {
+      		  System.out.println("You've already done this path, no need to do it again");
+      	  }
     	  break;
       case 2:
     	  if(direction == "West"){
@@ -1109,7 +1325,7 @@ public class Main {
     	  return;
       }
       //this will possibly repeat
-      Story.next();
+      //Story.next();
       end(pc);
           
    }
@@ -1124,85 +1340,135 @@ public class Main {
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
-    	  rest(pc);
-          Story.Bermuda();
-          Alien a = new Alien(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, a, "Alien");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adTriangle();
-             Kraken k = new Kraken(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, k, "Kraken");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civTriangle();
-             JellyFish jf = new JellyFish(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, jf, "JellyFish");
-             Story.Encounter(pc);
-             rest(pc);
+    	  if(CheckPoint.BT() == 0) {
+	    	  rest(pc);
+	          Story.Bermuda();
+	          Alien a = new Alien(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, a, "Alien");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseBTV();
+    	  }
+          if(CheckPoint.BT() == 1) {
+	          if(adventure) {
+	             Story.adTriangle();
+	             Kraken k = new Kraken(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, k, "Kraken");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseBTV();
+	          }else {
+	             Story.civTriangle();
+	             JellyFish jf = new JellyFish(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, jf, "JellyFish");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseBTV();
+	          }
           }
-          Story.Triangle();
-          Hydra h = new Hydra(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, h, "Hydra");
-          Story.Encounter(pc);
+	      if(CheckPoint.BT() == 2) {
+	          Story.Triangle();
+	          Hydra h = new Hydra(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, h, "Hydra");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseBTV();
+          }
+	      if(CheckPoint.BT() >= 3) {
+	      	System.out.println("You've already done this path, no need to do it again");
+	      }
     	  break;
       case 2:
-    	  rest(pc);
-          Story.City();
-          Mermaid m = new Mermaid(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, m, "Mermaid");
-          Story.Encounter(pc);
-          rest(pc);
-          if(adventure) {
-             Story.adAlantis();
-             Poseidon p = new Poseidon(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, p, "Poseidon");
-             Story.Encounter(pc);
-             rest(pc);
-          }else {
-             Story.civAlantis();
-             Shark s = new Shark(pc);
-             System.out.println("Your health is " + pc.getHealth()); 
-           
-                     
-             fightSequence(pc, s, "Shark");
-             Story.Encounter(pc);
-             rest(pc);
+    	  if(CheckPoint.CA() == 0) {
+	    	  rest(pc);
+	          Story.City();
+	          Mermaid m = new Mermaid(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, m, "Mermaid");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          rest(pc);
+	          CheckPoint.increaseCAV();
+    	  }
+          if(CheckPoint.CA() == 1) {
+	          if(adventure) {
+	             Story.adAlantis();
+	             Poseidon p = new Poseidon(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, p, "Poseidon");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseCAV();
+	          }else {
+	             Story.civAlantis();
+	             Shark s = new Shark(pc);
+	             System.out.println("Your health is " + pc.getHealth()); 
+	           
+	                     
+	             fightSequence(pc, s, "Shark");
+	             if(!won) {
+		        	  break;
+		          }
+	             Story.Encounter(pc);
+	             rest(pc);
+	             CheckPoint.increaseCAV();
+	          }
           }
-          Story.Alantis();
-          Leviathan l = new Leviathan(pc);
-          System.out.println("Your health is " + pc.getHealth()); 
-       
-                 
-          fightSequence(pc, l, "Leviathan");
-          Story.Encounter(pc);
+          if(CheckPoint.CA() == 2) {
+	          Story.Alantis();
+	          Leviathan l = new Leviathan(pc);
+	          System.out.println("Your health is " + pc.getHealth()); 
+	       
+	                 
+	          fightSequence(pc, l, "Leviathan");
+	          if(!won) {
+	        	  break;
+	          }
+	          Story.Encounter(pc);
+	          CheckPoint.increaseCAV();
+          }
+          if(CheckPoint.CA() >= 3) {
+  	      	System.out.println("You've already done this path, no need to do it again");
+  	      }
     	  break;
       default:
     	  System.out.println("Bad input...");
     	  Ocean(pc);
     	  return;
       }
-      Story.next();
+      //Story.next();
       end(pc);
    }
    //Possible method to use for choosing mood of monster
@@ -1306,10 +1572,12 @@ public class Main {
              if(pc.getHealth()>0) {
                 System.out.println("Your health is " + pc.getHealth()); 
              }else {
-                System.out.println("You fainted...");
-                System.out.println("You wake up again hours later");
-                pc.setHealth(pc.getTotal());
-                System.out.println("Your health is " + pc.getHealth());
+            	 System.out.println("You fainted...");
+                 System.out.println("You wake up again hours later");
+                 System.out.println("You'll come back when you're stronger");
+                 pc.setHealth(pc.getTotal());
+                 System.out.println("Your health is " + pc.getHealth());
+                 won = false;
                 return;
              }
          }
@@ -1388,45 +1656,57 @@ public class Main {
             if(item == 0) {
                if(pc.getLevel() >= 10 && strength == 1) {
             	   System.out.println("You got Adrenaline!");
+            	   System.out.println("You can heal yourself with this.");
            			pc.putItems("Adrenaline");
-               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
             	   System.out.println("You got a Booster potion!");
+            	   System.out.println("You can heal yourself with this.");
            			pc.putItems("Booster Potion");
                }else {
             	   System.out.println("You got a Health potion!");
+            	   System.out.println("You can heal yourself with this.");
             		pc.putItems("Health Potion");
                }
             }else if(item == 1) {
             	if(pc.getLevel() >= 10 && strength == 1) {
             		System.out.println("You got Flex tape!");
+            		System.out.println("You can increase your shield with this.");
                     pc.putItems("Flex tape");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
                 	System.out.println("You got Duct tape!");
+                	System.out.println("You can increase your shield with this.");
                     pc.putItems("Duct tape");
                 }else {
                 	System.out.println("You got Scotch tape!");
+                	System.out.println("You can increase your shield with this.");
                     pc.putItems("Scotch tape");
                 }
             }else if(item == 2) {
             	if(pc.getLevel() >= 10 && strength == 1) {
             		System.out.println("You got Steroids!");
+            		System.out.println("You can increase your attack with this.");
                     pc.putItems("Steroids");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
                 	System.out.println("You got a Strength potion!");
+                	System.out.println("You can increase your attack with this.");
                     pc.putItems("Strength Potion");
                 }else {
                 	System.out.println("You got an Attack potion!");
+                	System.out.println("You can increase your attack with this.");
                     pc.putItems("Attack Potion");
                 }
             }else {
             	if(pc.getLevel() >= 10 && strength == 1) {
             		System.out.println("You got a Four Leaf Clover!");
+            		System.out.println("You can increase your luck with this.");
                     pc.putItems("Four Leaf Clover");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength == 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
                 	System.out.println("You got a Fortune potion!");
+                	System.out.println("You can increase your luck with this.");
                     pc.putItems("Fortune Potion");
                 }else {
                 	System.out.println("You got a Luck potion!");
+                	System.out.println("You can increase your luck with this.");
                     pc.putItems("Luck Potion");
                 }
             }
@@ -1444,15 +1724,15 @@ public class Main {
                System.out.println("You got Leggings!");
                pc.putEquipment("Leggings");
                leg++;
-            }else if(helmet == 0 && item == 0) {
+            }else if(helmet == 1 && item == 0) {
                 System.out.println("You got a Reinforced Helmet!");
                 pc.putEquipment("Reinforced Helmet");
                 helmet++;
-             }else if(chest == 0 && item == 1) {
+             }else if(chest == 1 && item == 1) {
                 System.out.println("You got a Reinforced Chest Plate!");
                 pc.putEquipment("Reinforced Chest Plate");
                 chest++;
-             }else if(leg == 0 && item == 2) {
+             }else if(leg == 1 && item == 2) {
                 System.out.println("You got Reinforced Leggings!");
                 pc.putEquipment("Reinforced Leggings");
                 leg++;
@@ -1460,7 +1740,7 @@ public class Main {
                  System.out.println("You got a Boot!");
                  pc.putEquipment("Boots");
                  foot++;
-              }else if(foot == 0 && item == 3) {
+              }else if(foot == 1 && item == 3) {
                  System.out.println("You got Reinforced Boot!");
                  pc.putEquipment("Reinforced Boots");
                  foot++;
@@ -1492,13 +1772,6 @@ public class Main {
                }else {
                   attacksGod(pc,ek,name);
                }
-               if(pc.getHealth()<0){
-                  System.out.println("You fainted...");
-                  System.out.println("You wake up again hours later");
-                  pc.setHealth(pc.getTotal());
-                  System.out.println("Your health is " + pc.getHealth());
-                  return;
-               }
                    // something regarding ATTACK
                break;
             case 2:
@@ -1513,6 +1786,7 @@ public class Main {
                if(chance >= 3) {
                   System.out.println("You ran away!!");
                   ran++;
+                  won = false;
                   return;
                }
                System.out.println("You couldn't run away...");
