@@ -812,7 +812,8 @@ public class Story {
         System.out.println("1: Inventory");
         System.out.println("2: Check Stats");
         System.out.println("3: Upgrade Stats");
-        System.out.println("4: Continue");
+        System.out.println("4: Store");
+        System.out.println("5: Continue");
 	}
 	public static void adventure() throws InterruptedException { 
 		System.out.println("You say bye to home and any safety");

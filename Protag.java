@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.TreeSet;
 /**
  * This creates the User class
@@ -14,9 +15,8 @@ public class Protag {
       private int level;
       private int needed;
       private int lvlPoint;
-      private static TreeSet<String> items = new TreeSet<String>();
+      private static ArrayList<String> items = new ArrayList<>(100);
       private static TreeSet<String> equip = new TreeSet<String>();
-      private int itemCounter;
       private int equipCounter;
       public int attackTemp;
       public int shieldTemp;
@@ -56,7 +56,6 @@ public class Protag {
             lvlPoint = 0;
             exp = 0;
             needed = 10;
-            itemCounter = 0;
             equipCounter = 0;
             attackTemp = 0;
             shieldTemp = 0;
@@ -329,8 +328,8 @@ public class Protag {
        * 
        * @return itemCounter is global variable of how many items there are
        */
-      public int getItemCounter() {
-    	  return itemCounter;
+      public int getItemsSize() {
+    	  return items.size();
       }
       /**
        * This method is used to print out the items the User has or not
@@ -338,19 +337,13 @@ public class Protag {
        * @return true if there are items and false if no items
        */
       public boolean getItems(){
-          if(itemCounter == 0) {  
-        	  System.out.println("No Items");
+    	  if(items.isEmpty()){
+    	      System.out.println("No items");
         	  return false;
           }else {
-        	  if(itemCounter > 1) {
-        		  for(int i = 0; i< itemCounter; i++) {
-        			  if(getItem(i) != " ") {
-        				  System.out.println((i + 1) + ": " + getItem(i));
-        			  }
-        		  }
-        	  }else if(itemCounter == 1) {
-        		  System.out.println("1: " + getItem(0));
-        	  }
+        	  for(int i = 0; i < items.size(); i++){
+                  System.out.println((i + 1) + ": " + items.get(i));
+               }
         	  return true;
           }
       }
@@ -362,9 +355,8 @@ public class Protag {
        */
       public String getItem(int idx) {
     	  try {
-    		  return (String) items.toArray()[idx];
+    		  return (String) items.get(idx);
     	  }catch(ArrayIndexOutOfBoundsException e) {
-    		  itemCounter--;
     		  return " ";
     	  }
       }
@@ -373,9 +365,8 @@ public class Protag {
        * 
        * @param word is the item we need to remove
        */
-      public void removeItem(String word) {
-    	  items.remove(word);
-    	  itemCounter--;
+      public void removeItem(int idx) {
+    	  items.remove(idx);
       }
       /**
        * This method is used to put an item to treeset and increase the itemCounter
@@ -383,8 +374,7 @@ public class Protag {
        * @param thing is the item we are adding
        */
       public void putItems(String thing) {
-    	  items.add(thing);
-    	  itemCounter++;  
+    	  items.add(thing); 
       }
       /**
        * This method is made to return the number of equipments

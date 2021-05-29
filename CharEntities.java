@@ -213,11 +213,11 @@ class WildBoar extends CharEntities{
     	 */
       public WildBoar(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(3);
-          setHealth(6);
           setDifficulty("Normal");
           setName("Wild Board");
+          setLevel(enemy);
+          setAttack(3);
+          setHealth(6);
       }
       /**
        * This method prints out the ascii art for the Wild Boar
@@ -292,11 +292,11 @@ class Alien extends CharEntities{
 	 */
       public Alien(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(4);
           setDifficulty("Easy");
           setName("Alien");
+          setLevel(enemy);
+          setAttack(4);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Alien
@@ -365,11 +365,11 @@ class Chicken extends CharEntities{
 	 */
       public Chicken(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(2);
-          setHealth(2);
           setDifficulty("Easy");
           setName("Chicken");
+          setLevel(enemy);
+          setAttack(2);
+          setHealth(2);
       }
       /**
        * This method prints out the ascii art for the Chicken
@@ -440,11 +440,11 @@ class Chimpanzee extends CharEntities{
   	 */
       public Chimpanzee(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(5);
           setDifficulty("Normal");
           setName("Chimpanzee");
+          setLevel(enemy);
+          setAttack(4);
+          setHealth(5);
       }
       /**
        * This method prints out the ascii art for the Chimpanzee
@@ -517,11 +517,11 @@ class Dragon extends CharEntities{
 	 */
       public Dragon(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(10);
-          setHealth(10);
           setDifficulty("Hard");
           setName("Dragon");
+          setLevel(enemy);
+          setAttack(10);
+          setHealth(10);
       }
       /**
        * This method prints out the ascii art for the Dragon
@@ -598,11 +598,11 @@ class Duck extends CharEntities{
 	 */
       public Duck(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(3);
-          setHealth(3);
           setDifficulty("Easy");
           setName("Duck");
+          setLevel(enemy);
+          setAttack(3);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the Duck
@@ -674,11 +674,11 @@ class Eagle extends CharEntities{
     	 */
       public Eagle(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(6);
-          setHealth(4);
           setDifficulty("Normal");
           setName("Eagle");
+          setLevel(enemy);
+          setAttack(6);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Eagle
@@ -752,11 +752,11 @@ class FlyingSquirrel extends CharEntities{
   	 */
       public FlyingSquirrel(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(2);
-          setHealth(4);
           setDifficulty("Easy");
           setName("Flying Squirrel");
+          setLevel(enemy);
+          setAttack(2);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Flying Squirrel
@@ -830,11 +830,11 @@ class Fox extends CharEntities{
   	 */
       public Fox(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(6);
-          setHealth(4);
           setDifficulty("Normal");
           setName("Fox");
+          setLevel(enemy);
+          setAttack(6);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Fox
@@ -906,11 +906,11 @@ class Frog extends CharEntities{
   	 */
       public Frog(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(4);
           setDifficulty("Easy");
           setName("Frog");
+          setLevel(enemy);
+          setAttack(6);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Frog
@@ -983,11 +983,11 @@ class Golem extends CharEntities{
 	 */
       public Golem(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(7);
           setDifficulty("Normal");
           setName("Golem");
+          setLevel(enemy);
+          setAttack(4);
+          setHealth(7);
       }
       /**
        * This method prints out the ascii art for the Golem
@@ -1059,11 +1059,11 @@ class Hydra extends CharEntities{
   	 */
       public Hydra(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(7);
-          setHealth(9);
           setDifficulty("Hard");
           setName("Hydra");
+          setLevel(enemy);
+          setAttack(7);
+          setHealth(9);
       }
       /**
        * This method prints out the ascii art for the Hydra
@@ -1145,11 +1145,11 @@ class JellyFish extends CharEntities{
   	 */
       public JellyFish(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(3);
           setDifficulty("Normal");
           setName("JellyFish");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the JellyFish
@@ -1227,11 +1227,11 @@ class KoiFish extends CharEntities{
   	 */
       public KoiFish(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(2);
-          setHealth(6);
           setDifficulty("Normal");
           setName("Koi Fish");
+          setLevel(enemy);
+          setAttack(2);
+          setHealth(6);
       }
       /**
        * This method prints out the ascii art for the Koi Fish
@@ -1301,11 +1301,11 @@ class Komodo extends CharEntities{
   	 */
       public Komodo(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(8);
-          setHealth(7);
           setDifficulty("Hard");
           setName("Komodo Dragon");
+          setLevel(enemy);
+          setAttack(8);
+          setHealth(7);
       }
       /**
        * This method prints out the ascii art for the Komodo Dragon
@@ -1382,11 +1382,11 @@ class Kraken extends CharEntities{
   	 */
       public Kraken(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(7);
           setDifficulty("Normal");
           setName("Kraken");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(7);
       }
       /**
        * This method prints out the ascii art for the Kraken
@@ -1460,11 +1460,11 @@ class Leviathan extends CharEntities{
     	 */
       public Leviathan(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(10);
-          setHealth(12);
           setDifficulty("Hard");
           setName("Leviathan");
+          setLevel(enemy);
+          setAttack(10);
+          setHealth(12);
       }
       /**
        * This method prints out the ascii art for the Leviathan
@@ -1543,11 +1543,11 @@ class LochNess extends CharEntities{
 	 */
       public LochNess(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(8);
-          setHealth(10);
           setDifficulty("Hard");
           setName("Loch Ness Monster");
+          setLevel(enemy);
+          setAttack(8);
+          setHealth(10);
       }
       /**
        * This method prints out the ascii art for the Loch Ness Monster
@@ -1615,11 +1615,11 @@ class Mermaid extends CharEntities{
     	 */
       public Mermaid(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(3);
-          setHealth(5);
           setDifficulty("Easy");
           setName("Mermaid");
+          setLevel(enemy);
+          setAttack(3);
+          setHealth(5);
       }
       /**
        * This method prints out the ascii art for the Mermaid
@@ -1691,11 +1691,11 @@ class MountainLion extends CharEntities{
     	 */
       public MountainLion(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(8);
-          setHealth(8);
           setDifficulty("Hard");
           setName("Mountain Lion");
+          setLevel(enemy);
+          setAttack(8);
+          setHealth(8);
       }
       /**
        * This method prints out the ascii art for the Mountain Lion
@@ -1770,11 +1770,11 @@ class Mummy extends CharEntities{
 	 */
       public Mummy(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(3);
           setDifficulty("Easy");
           setName("Mummy");
+          setLevel(enemy);
+          setAttack(4);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the Mummy
@@ -1850,11 +1850,11 @@ class Ogre extends CharEntities{
 	 */
       public Ogre(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(9);
-          setHealth(9);
           setDifficulty("Hard");
           setName("Ogre");
+          setLevel(enemy);
+          setAttack(9);
+          setHealth(9);
       }
       /**
        * This method prints out the ascii art for the Ogre
@@ -1926,11 +1926,11 @@ class Owl extends CharEntities{
     	 */
       public Owl(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(4);
           setDifficulty("Easy");
           setName("Owl");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Owl
@@ -1999,11 +1999,11 @@ class Panther extends CharEntities{
     	 */
       public Panther(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(7);
-          setHealth(9);
           setDifficulty("Hard");
           setName("Panther");
+          setLevel(enemy);
+          setAttack(7);
+          setHealth(9);
       }
       /**
        * This method prints out the ascii art for the Panther
@@ -2080,11 +2080,11 @@ class Penguin extends CharEntities{
     	 */
       public Penguin(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(2);
-          setHealth(6);
           setDifficulty("Normal");
           setName("Penguin");
+          setLevel(enemy);
+          setAttack(2);
+          setHealth(6);
       }
       /**
        * This method prints out the ascii art for the Penguin
@@ -2161,11 +2161,11 @@ class Piranha extends CharEntities{
     	 */
       public Piranha(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(4);
           setDifficulty("Normal");
           setName("Piranha");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Piranha
@@ -2239,11 +2239,11 @@ class PolarBear extends CharEntities{
   	 */
       public PolarBear(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(8);
-          setHealth(11);
           setDifficulty("Hard");
           setName("Polar Bear");
+          setLevel(enemy);
+          setAttack(8);
+          setHealth(11);
       }
       /**
        * This method prints out the ascii art for the Polar Bear
@@ -2321,11 +2321,11 @@ class Poseidon extends CharEntities{
   	 */
       public Poseidon(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(7);
           setDifficulty("Normal");
           setName("Poseidon");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(7);
       }
       /**
        * This method prints out the ascii art for the Poseidon
@@ -2399,11 +2399,11 @@ class Ram extends CharEntities{
   	 */
       public Ram(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(4);
           setDifficulty("Easy");
           setName("Ram");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Ram
@@ -2477,11 +2477,11 @@ class RattleSnake extends CharEntities{
   	 */
       public RattleSnake(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(8);
-          setHealth(5);
           setDifficulty("Normal");
           setName("Rattle Snake");
+          setLevel(enemy);
+          setAttack(8);
+          setHealth(5);
       }
       /**
        * This method prints out the ascii art for the Rattle Snake
@@ -2550,11 +2550,11 @@ class Salmon extends CharEntities{
 	 */
       public Salmon(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(3);
-          setHealth(5);
           setDifficulty("Normal");
           setName("Salmon");
+          setLevel(enemy);
+          setAttack(3);
+          setHealth(5);
       }
       /**
        * This method prints out the ascii art for the Salmon
@@ -2624,11 +2624,11 @@ class Scorpion extends CharEntities{
   	 */
       public Scorpion(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(6);
-          setHealth(3);
           setDifficulty("Normal");
           setName("Scorpion");
+          setLevel(enemy);
+          setAttack(6);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the Scorpion
@@ -2700,11 +2700,11 @@ class Shark extends CharEntities{
   	 */
       public Shark(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(7);
-          setHealth(9);
           setDifficulty("Normal");
           setName("Shark");
+          setLevel(enemy);
+          setAttack(7);
+          setHealth(9);
       }
       /**
        * This method prints out the ascii art for the Shark
@@ -2780,11 +2780,11 @@ class Skeleton extends CharEntities{
 	 */
       public Skeleton(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(4);
           setDifficulty("Normal");
           setName("Skeleton");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Skeleton
@@ -2864,11 +2864,11 @@ class Spider extends CharEntities{
 	 */
       public Spider(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(7);
-          setHealth(3);
           setDifficulty("Normal");
           setName("Spider");
+          setLevel(enemy);
+          setAttack(7);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the Spider
@@ -2942,11 +2942,11 @@ class Turtle extends CharEntities{
 	 */
       public Turtle(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(4);
-          setHealth(4);
           setDifficulty("Normal");
           setName("Turtle");
+          setLevel(enemy);
+          setAttack(4);
+          setHealth(4);
       }
       /**
        * This method prints out the ascii art for the Turtle
@@ -3017,11 +3017,11 @@ class Vulture extends CharEntities{
   	 */
       public Vulture(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(3);
-          setHealth(6);
           setDifficulty("Easy");
           setName("Vulture");
+          setLevel(enemy);
+          setAttack(3);
+          setHealth(6);
       }
       /**
        * This method prints out the ascii art for the Vulture
@@ -3094,11 +3094,11 @@ class Wolf extends CharEntities{
     	 */
       public Wolf(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(7);
-          setHealth(7);
           setDifficulty("Hard");
           setName("Wolf");
+          setLevel(enemy);
+          setAttack(7);
+          setHealth(7);
       }
       /**
        * This method prints out the ascii art for the Wolf
@@ -3175,11 +3175,11 @@ class Yak extends CharEntities{
     	 */
       public Yak(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(5);
-          setHealth(8);
           setDifficulty("Normal");
           setName("Yak");
+          setLevel(enemy);
+          setAttack(5);
+          setHealth(8);
       }
       /**
        * This method prints out the ascii art for the Yak
@@ -3252,11 +3252,11 @@ class Zombie extends CharEntities{
 	 */
       public Zombie(Protag pc){
     	  int enemy = pc.getLevel();
-    	  setLevel(enemy);
-          setAttack(6);
-          setHealth(3);
           setDifficulty("Normal");
           setName("Zombie");
+          setLevel(enemy);
+          setAttack(6);
+          setHealth(3);
       }
       /**
        * This method prints out the ascii art for the Zombie

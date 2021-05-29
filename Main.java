@@ -21,6 +21,12 @@ public class Main {
    public static boolean miss = true;
    public static String direction = "";
    public static boolean won = true;
+   public static int copper = 0;
+   public static int silver = 0;
+   public static int gold = 0;
+   public static int platinum = 0;
+   public static boolean boat = false;
+   
    /**
     * This is where the game starts
     * 
@@ -99,6 +105,7 @@ public class Main {
     */
    private static <E> void battle(Protag pc, E ek) throws InterruptedException {
       System.out.println("_________________________________________________________________");
+      System.out.println("                                          Health: "+ ((CharEntities) ek).getHealth());
       ((CharEntities) ek).enemy();
       pc.sprite();
       System.out.println("Health: "+ pc.getHealth() + "/" + pc.getTotal());
@@ -111,7 +118,7 @@ public class Main {
     */
    private static void rest(Protag pc) throws InterruptedException {
       Story.Check();
-      int choice = inputVerification(1,4);
+      int choice = inputVerification(1,5);
             
             // Main character choice
       switch (choice){
@@ -167,6 +174,10 @@ public class Main {
             rest(pc);
             break;
          case 4:
+        	 store(pc);
+        	 rest(pc);
+        	 break;
+         case 5:
             return;
          default:
         	 System.out.println("Bad input...");
@@ -688,10 +699,13 @@ public class Main {
 	             East(pc);
 	             break;
 	         case 5:
-	        	if(CheckPoint.checkAllLand()) {
+	        	if(CheckPoint.checkAllLand() && boat) {
 	        		Ocean(pc);
-	        	}else {
+	        	}else if(!CheckPoint.checkAllLand()) {
 	        		System.out.println("You're not yet ready...");
+	        		end(pc);
+	        	}else {
+	        		System.out.println("You need a boat...");
 	        		end(pc);
 	        	}
 	            break;
@@ -1706,6 +1720,7 @@ public class Main {
             }
             	  
          }
+         moneyReward(pc, ek);
          return;
       }
    }
@@ -1786,7 +1801,7 @@ public class Main {
 		   boolean has = pc.getItems();
            if(has) {
               System.out.println("Which one do you want to use?");
-              int reply = inputVerification(1, pc.getItemCounter());
+              int reply = inputVerification(1, pc.getItemsSize());
               String c = pc.getItem(reply - 1);
               if(c.equalsIgnoreCase("Health Potion")) {
                  Items.healthPotion();
@@ -1862,7 +1877,7 @@ public class Main {
                    }
                 }
               if(response == true) {
-            	  pc.removeItem(c);
+            	  pc.removeItem(reply - 1);
               }
            }
 	   }else {
@@ -1941,6 +1956,12 @@ public class Main {
 	      System.out.println("2: Equipment");
 	      System.out.println("3: Return");
    }
+   /**
+    * Allows the user to back out of an action
+    * 
+    * @return
+    * @throws InterruptedException
+    */
    public static boolean confirm() throws InterruptedException{
 	   System.out.println("\nAre you sure you want to use this?");
 	   System.out.println("1: Yes");
@@ -1951,5 +1972,260 @@ public class Main {
 	   }else {
 		   return false;   
 	   }
+   }
+   /**
+    * This makes sure that the players money is in correct amounts
+    * 
+    * @throws InterruptedException
+    */
+   public static void moneyConversion() throws InterruptedException{
+	   int temp = 0;
+	   while(copper >100) {
+		   copper -= 100;
+		   temp++;
+	   }
+	   silver += temp;
+	   temp = 0;
+	   while(silver >100) {
+		   silver -= 100;
+		   temp++;  
+	   }
+	   gold += temp;
+	   temp = 0;
+	   while(gold >100) {
+		   gold -= 100;
+		   temp++;
+	   }
+	   platinum += temp;
+	   temp = 0;
+   }
+   /**
+    * This method prints all of the players money.
+    * 
+    * @throws InterruptedException
+    */
+   public static void printMoney() throws InterruptedException{
+	   System.out.println("Copper pieces: " + copper + "c");
+	   System.out.println("Silver pieces: " + silver + "s");
+	   System.out.println("Gold pieces: " + gold + "g");
+	   System.out.println("Platinum pieces: " + platinum + "p");
+   }
+   
+   public static <E> void moneyReward(Protag pc, E ek) throws InterruptedException {
+	   String n = ((CharEntities) ek).difficulty;
+	   int temp;
+	   switch(n) {
+	   case "Easy": 
+		   temp = rand.nextInt(50) + ((CharEntities) ek).level;
+		   copper += temp;
+		   System.out.println("You got " + temp + "c" );
+		   break;
+	   case "Normal": 
+		   temp = rand.nextInt(100) + ((CharEntities) ek).level;
+		   copper += temp;
+		   System.out.println("You got " + temp + "c" );
+		   break;
+	   case "Hard": 
+		   temp = rand.nextInt(26) + ((CharEntities) ek).level;
+		   silver += temp;
+		   System.out.println("You got " + temp + "s" );
+		   break;
+	   default: 
+		   System.out.println("The moneyReward method is broken.");
+		   break;
+	   }
+	   
+   }
+   
+   public static void store(Protag pc) throws InterruptedException {
+	   Story.clearScreen();
+	   boolean leave = false;
+	   while(!leave) {
+		   System.out.println("Welcome to the Store");
+		   System.out.println();
+		   moneyConversion();
+		   printMoney();
+		   System.out.println("What would you like to browse?");
+		   System.out.println();
+		   System.out.println("1: Stats Boosters");
+		   System.out.println("2: Misc");
+		   //This is for a future update when I add different armor types and weapons
+		   //System.out.println("3: Weapons and Shields");
+		   //System.out.println("4: Armor");
+		   System.out.println("3: Leave");
+		   System.out.println();
+		   int category = inputVerification(1, 3);
+		   int choice;
+		   switch(category) {
+		   case 1:
+			   System.out.println("What would you like to buy?");
+			   System.out.println();
+			   System.out.println("1: Attack Potion - 10s");
+			   System.out.println("2: Health Potion - 80c");
+			   System.out.println("3: Scotch Tape - 5s");
+			   System.out.println("4: Luck Potion - 70s");
+			   System.out.println("5: Return");
+			   System.out.println();
+			   choice = inputVerification(1, 5);
+			   switch(choice) {
+			   case 1:
+				   if(spend(1000)) {
+					   System.out.println("You got an Attack potion!");
+	               	   System.out.println("You can increase your attack with this.");
+	                   pc.putItems("Attack Potion");
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 2:
+				   if(spend(80)) {
+					   System.out.println("You got a Health potion!");
+	            	   System.out.println("You can heal yourself with this.");
+	            	   pc.putItems("Health Potion");
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 3:
+				   if(spend(500)) {
+					   System.out.println("You got Scotch tape!");
+	               	   System.out.println("You can increase your shield with this.");
+	                   pc.putItems("Scotch tape");
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 4:
+				   if(spend(7000)) {
+					   System.out.println("You got a Luck potion!");
+	               	   System.out.println("You can increase your luck with this.");
+	                   pc.putItems("Luck Potion");
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 5:
+				   break;
+			   default:
+					break;
+			   }
+			   break;
+		   case 2:
+			   System.out.println("What would you like to buy?");
+			   System.out.println();
+			   System.out.println("1: Boat - 5g");
+			   System.out.println("2: Return");
+			   System.out.println();
+			   choice = inputVerification(1, 2);
+			   switch(choice) {
+			   case 1:
+				   if(spend(50000)) {
+					   if(!boat) {
+						   System.out.println("You've obtained a boat.");
+						   Items.boat();
+						   boat = true;
+						   System.out.println();
+						   Thread.sleep(250);
+					   }else {
+						   System.out.println("You already have a boat.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 2:
+				   break;
+				default:
+					break;
+			   }
+			   break;
+		   case 3:
+			   leave = true;
+			   break;
+			default:
+				System.out.println("Bad Input... try again");
+		   }
+	   }
+	   
+   }
+   public static boolean spend(int cost) {
+	   boolean spent = false;
+	   if(cost < 100) {
+		   if(cost > copper) {
+			   if(silver > 1) {
+				   silver--;
+				   copper += 100;
+				   copper -= cost;
+				   spent = true;
+			   }else if(gold > 1){
+				   gold--;
+				   silver += 99;
+				   copper += 100;
+				   copper -= cost;
+				   spent = true;
+			   }else if(platinum > 1) {
+				   platinum--;
+				   gold += 99;
+				   silver += 99;
+				   copper += 100;
+				   copper -= cost;
+				   spent = true;
+			   }
+		   }else {
+			   copper -= cost;
+			   spent = true;
+		   }
+	   }else if(cost < 10000) {
+		   cost = cost/100;
+		   if(cost > silver) {
+			   if(gold > 1){
+				   gold--;
+				   silver += 100;
+				   silver -= cost;
+				   spent = true;
+			   }else if(platinum > 1) {
+				   platinum--;
+				   gold += 99;
+				   silver += 100;
+				   silver -= cost;
+				   spent = true;
+			   }
+		   }else {
+			   silver -= cost;
+			   spent = true;
+		   }
+	   }else if(cost < 1000000) {
+		   cost = cost/10000;
+		   if(cost > gold) {
+			   if(platinum > 1) {
+				   platinum--;
+				   gold += 100;
+				   gold -= cost;
+				   spent = true;
+			   }
+		   }else {
+			   gold -= cost;
+			   spent = true;
+		   }
+	   }else {
+		   cost = cost/1000000;
+		   if(cost < platinum) {
+			   platinum -= cost;
+			   spent = true;
+		   }
+	   }
+	   return spent;
    }
 }
