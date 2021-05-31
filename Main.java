@@ -492,8 +492,8 @@ public class Main {
    private static <E> void Basic(Protag pc, E ek, String name) throws InterruptedException {
       int p1Attack;
       p1Attack = pc.getAttack();
+      p1Attack = damageCrit(pc, ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
-      ((CharEntities) ek).damage(p1Attack);
       Looting(pc, ek, name);
    }
    /**
@@ -510,9 +510,9 @@ public class Main {
       int p1Attack; 
       p1Attack = pc.getAttack() + (pc.getAttack()/2);
       pc.damage(4*pc.getLevel());
+      p1Attack = damageCrit(pc, ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
       System.out.println("Recoil " + (4*pc.getLevel()) + " damage");
-      ((CharEntities) ek).damage(p1Attack);
       Looting(pc, ek, name);
    }
    /**
@@ -530,9 +530,11 @@ public class Main {
       int count;
       count = 0;
       p1Attack = rand.nextInt(pc.getAttack());
+      int temp = p1Attack;
       while(count < 3 && ((CharEntities) ek).getHealth() > 0) {
+    	  p1Attack = damageCrit(pc, ek,p1Attack);
          System.out.println("You dealt " + p1Attack + " damage");
-         ((CharEntities) ek).damage(p1Attack);
+         p1Attack = temp;
          count++;
       }
       Looting(pc, ek, name);
@@ -550,8 +552,8 @@ public class Main {
    private static <E> void wildSwing(Protag pc, E ek, String name) throws InterruptedException {
       int p1Attack;
       p1Attack = pc.getAttack() * 2;
+      p1Attack = damageCrit(pc, ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
-      ((CharEntities) ek).damage(p1Attack);
       pc.decreaseShieldTemp(5);
       System.out.println("Shield dropped by 5.");
       Looting(pc, ek, name);
@@ -569,8 +571,8 @@ public class Main {
    private static <E> void Full(Protag pc, E ek, String name, int CPUAttack) throws InterruptedException {
       int p1Attack;
       p1Attack = CPUAttack + CPUAttack/2;
+      p1Attack = damageCrit(pc, ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
-      ((CharEntities) ek).damage(p1Attack);
       Looting(pc, ek, name);
    }
    /**
@@ -2036,7 +2038,12 @@ public class Main {
 	   }
 	   
    }
-   
+   /**
+    * This method is to create the store filled with itmes
+    * 
+    * @param pc
+    * @throws InterruptedException
+    */
    public static void store(Protag pc) throws InterruptedException {
 	   Story.clearScreen();
 	   boolean leave = false;
@@ -2160,6 +2167,12 @@ public class Main {
 	   }
 	   
    }
+   /**
+    * This method is used calculate if the player can buy an item, and if they can is spend
+    * 
+    * @param cost
+    * @return spent if true than item was bought, if false than not bought
+    */
    public static boolean spend(int cost) {
 	   boolean spent = false;
 	   if(cost < 100) {
@@ -2227,5 +2240,27 @@ public class Main {
 		   }
 	   }
 	   return spent;
+   }
+   /**
+    * This method is to see if the move dealt would be a critical, base is 1% critical rate, raises 1% per luck
+    * 
+    * @param pc
+    * @param <E>
+    * @param ek
+    * @param attack
+    * @return attack in case it changed
+    * @throws InterruptedException
+    */
+   public static <E> int damageCrit(Protag pc, E ek, int attack) throws InterruptedException{
+	   int chance = rand.nextInt(100 - pc.getLuck());
+	   if(chance < 0) {
+		   chance = 0;
+	   }
+	   if(chance == 0) {
+		   attack = attack + (attack/2);
+		   System.out.println("That was a critical.");
+	   }
+	   ((CharEntities) ek).damage(attack);
+	   return attack;
    }
 }

@@ -2,16 +2,26 @@
 
 public class Story {
 	public static void intro(Protag pc) throws InterruptedException {
-        System.out.println("You wake up in forest.");
+        System.out.println("The morning sun leaks through the branches above.");
+        Thread.sleep(1000);
+        System.out.println("You wake up and only see huge trees all around.");
+        Thread.sleep(1000);
+        System.out.println("You don't remember going to the Dark Forest.");
         Thread.sleep(1000);
         System.out.println("You look around and see a sword and shield.");
         Thread.sleep(1500);
         System.out.printf("You find a %s in your pocket.\n", pc.getItem(0));
         Thread.sleep(1500);
-        System.out.println("You pick them all up and get back on your feet");
+        System.out.println("You pick them all up and get on your feet.");
+        Thread.sleep(1000);
+        System.out.println("This forest is notoriouisly dangerous for animals attacking humans.");
+        Thread.sleep(1000);
+        System.out.println("Luckily you've had some basic combat training.");
         Thread.sleep(1000);
         System.out.println("Objective: Find your way back to your homeland.");
         Thread.sleep(2000);
+        System.out.println("You see only two paths in front of you.");
+        Thread.sleep(1000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(1000);
         System.out.println("1: East");
@@ -19,15 +29,17 @@ public class Story {
         Thread.sleep(500);
   }
 	public static void Close() throws InterruptedException{
-		System.out.println("Hours have passed by.");
+		System.out.println("It's been hours since you first woke.");
         Thread.sleep(1000);
-        System.out.println("It's dark now.");
+        System.out.println("The sun has set and the moon shines brightly on you.");
         Thread.sleep(1000);
-        System.out.println("You've grown stronger since you started the day.");
+        System.out.println("You feel stronger somehow.");
         Thread.sleep(1500);
-        System.out.println("You wonder... how strong you can be.");
+        System.out.println("You wonder...");
         Thread.sleep(1000);
-        System.out.println("You've wanted to explore your whole life.");
+        System.out.println("How much stronger can you get if you continued adventuring.");
+        Thread.sleep(1000);
+        System.out.println("You've always wanted venture beyond your small village.");
         Thread.sleep(1000);
         System.out.println("The clearing ahead is home, you've almost reached it.");
         Thread.sleep(2000);
@@ -35,16 +47,22 @@ public class Story {
         Thread.sleep(500);
 	}
 	public static void Mid() throws InterruptedException{
-		System.out.println("The day is going by fast.");
+		System.out.println("Daybreak has quickly turned to noon.");
         Thread.sleep(1000);
-        System.out.println("You see the sun get ever and ever closer to the other side of the sky.");
+        System.out.println("The sun has already crossed most of the sky.");
         Thread.sleep(1500);
-        System.out.println("You feel great after that last battle.");
+        System.out.println("You're legs feel tired.");
         Thread.sleep(1000);
-        System.out.println("You start to think about home and feel sad.");
+        System.out.println("How did you get so deep into this forest.");
         Thread.sleep(1000);
-        System.out.println("You need a distraction.");
+        System.out.println("You start to think of home in order to distract yourself.");
+        Thread.sleep(1000);
+        System.out.println("You miss your loving home.");
+        Thread.sleep(1000);
+        System.out.println("You need a break.");
         Thread.sleep(2000);
+        System.out.println("What's better some shade under a tree or sitting by a refreshing pond.");
+        Thread.sleep(1000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(1000);
         System.out.println("1: Tree");
@@ -52,7 +70,9 @@ public class Story {
         Thread.sleep(500);
 	}
 	public static void Ad() throws InterruptedException{
-        System.out.println("Where do you wanna go?\n");
+		System.out.println("So many regions to explore.");
+        Thread.sleep(1000);
+		System.out.println("Where do you wanna go?\n");
         Thread.sleep(1000);
         System.out.println("1: North");
         System.out.println("2: South");
@@ -117,15 +137,17 @@ public class Story {
 	public static void Relax() throws InterruptedException{
 		System.out.println("You stumble upon a pond.");
         Thread.sleep(1000);
-        System.out.println("You look into the clear water and you see a Koi Fish.");
+        System.out.println("The pond is beautiful and clear.");
         Thread.sleep(1500);
+        System.out.println("You spot a majestic koi fish.");
+        Thread.sleep(1000);
         System.out.println("You see the entrancing colors of its scales as it swims.");
         Thread.sleep(1000);
-        System.out.println("You start to feel calm and relaxed.");
+        System.out.println("It starts to relax and calm you.");
         Thread.sleep(1000);
         System.out.println("You start leaning closer and closer to the fish.");
         Thread.sleep(2000);
-        System.out.println("Then it JUMPS onto your face.\n");
+        System.out.println("It jumps out of the water towards you.\n");
         Thread.sleep(500);
 	}
 	public static void Snowy() throws InterruptedException{
@@ -471,13 +493,17 @@ public class Story {
 	}
 	
 	public static void Tired() throws InterruptedException{
-		System.out.println("You feel like you've been walking for ages.");
+		System.out.println("You feel like you're gonna faint due to exhuastion.");
         Thread.sleep(1000);
-        System.out.println("You sit down next to the big oak tree.");
+        System.out.println("You see a large tree with plenty of shade from the sun.");
+        Thread.sleep(1000);
+        System.out.println("You sit down at the base of the tree.");
         Thread.sleep(1500);
         System.out.println("You slowly start to drift off to sleep.");
         Thread.sleep(1000);
-        System.out.println("You suddenly see a small animal.");
+        System.out.println("You hear a rusting in the leaves above.");
+        Thread.sleep(1000);
+        System.out.println("There's an animal on the branch above you.");
         Thread.sleep(1000);
         System.out.println("It's a squirrel... with wings?");
         Thread.sleep(2000);
