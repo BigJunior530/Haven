@@ -8,7 +8,7 @@ public class Story {
         Thread.sleep(1000);
         System.out.println("You don't remember going to the Dark Forest.");
         Thread.sleep(1000);
-        System.out.println("You look around and see a sword and shield.");
+        System.out.println("You look around and see a Rusty Sword and shield.");
         Thread.sleep(1500);
         System.out.printf("You find a %s in your pocket.\n", pc.getItem(0));
         Thread.sleep(1500);
@@ -20,8 +20,6 @@ public class Story {
         Thread.sleep(1000);
         System.out.println("Objective: Find your way back to your homeland.");
         Thread.sleep(2000);
-        System.out.println("You see only two paths in front of you.");
-        Thread.sleep(1000);
         System.out.println("Where do you wanna go?\n");
         Thread.sleep(1000);
         System.out.println("1: East");
@@ -70,6 +68,19 @@ public class Story {
         Thread.sleep(500);
 	}
 	public static void Ad() throws InterruptedException{
+		System.out.println("             N ");
+		System.out.println("             | ");
+		System.out.println("             | ");
+		System.out.println("             | ");
+		System.out.println("             | ");
+		System.out.println("             |");
+		System.out.println("W<-----------O----------->E ");
+		System.out.println("             |    ");
+		System.out.println("             |  ");
+		System.out.println("             |  ");
+		System.out.println("             |");
+		System.out.println("             |");
+		System.out.println("             S");
 		System.out.println("So many regions to explore.");
         Thread.sleep(1000);
 		System.out.println("Where do you wanna go?\n");
@@ -836,10 +847,11 @@ public class Story {
         System.out.println("What do you want to do?");
         Thread.sleep(1000);
         System.out.println("1: Inventory");
-        System.out.println("2: Check Stats");
-        System.out.println("3: Upgrade Stats");
-        System.out.println("4: Store");
-        System.out.println("5: Continue");
+        System.out.println("2: Character Sheet");
+        System.out.println("3: Check Stats");
+        System.out.println("4: Upgrade Stats");
+        System.out.println("5: Store");
+        System.out.println("6: Continue");
 	}
 	public static void adventure() throws InterruptedException { 
 		System.out.println("You say bye to home and any safety");

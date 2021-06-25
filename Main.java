@@ -9,10 +9,6 @@ public class Main {
 
    public static Scanner console = new Scanner(System.in);
    public static Random rand = new Random();
-   public static int helmet = 0;
-   public static int chest = 0;
-   public static int leg = 0;
-   public static int foot = 0;
    public static int ran = 0;
    public static boolean run = false;
    public static boolean adventure = true;
@@ -26,6 +22,14 @@ public class Main {
    public static int gold = 0;
    public static int platinum = 0;
    public static boolean boat = false;
+   public static Protag pc;
+   public static headArmor ha = new headArmor();
+   public static torsoArmor ta = new torsoArmor();
+   public static armArmor aa = new armArmor();
+   public static legArmor la = new legArmor();
+   public static feetArmor fa = new feetArmor();
+   public static weapons w = new weapons();
+   public static characterSheet cs;
    
    /**
     * This is where the game starts
@@ -36,7 +40,8 @@ public class Main {
    public static void main(String[] args) throws InterruptedException {
       enterGame();
       if(run == true) {
-         Protag pc = new Protag(type);
+         pc = new Protag(type);
+         cs = new characterSheet(ha, ta, aa, la, fa, w, pc);
          int item = rand.nextInt(4);
          if(item == 0) {
             pc.putItems("Health Potion");
@@ -48,7 +53,7 @@ public class Main {
             pc.putItems("Luck Potion");
          }
          Story.intro(pc);
-         start(pc);
+         start();
       }
             
    }
@@ -99,11 +104,10 @@ public class Main {
     * This method prints out the sprites for the user and enemy
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @throws InterruptedException
     */
-   private static <E> void battle(Protag pc, E ek) throws InterruptedException {
+   private static <E> void battle(E ek) throws InterruptedException {
       System.out.println("_________________________________________________________________");
       System.out.println("                                          Health: "+ ((CharEntities) ek).getHealth());
       ((CharEntities) ek).enemy();
@@ -114,22 +118,25 @@ public class Main {
    /**
     * This method is a switch case method to get what you choose during the resting period
     * 
-    * @param pc is user class
     */
-   private static void rest(Protag pc) throws InterruptedException {
+   private static void rest() throws InterruptedException {
       Story.Check();
       int choice = inputVerification(1,5);
             
             // Main character choice
       switch (choice){
          case 1:
-            Inventory(pc);
+            Inventory();
             break;
-         case 2: 
-            checkStats(pc);
-            rest(pc);
+         case 2:
+        	 cs.printSheet();
+        	 rest();
+        	 break;
+         case 3: 
+            checkStats();
+            rest();
             return;
-         case 3:
+         case 4:
             if(pc.getPoints() < 1) {
                System.out.println("No points available");
             }else {
@@ -171,17 +178,17 @@ public class Main {
                }
              
             }
-            rest(pc);
+            rest();
             break;
-         case 4:
-        	 store(pc);
-        	 rest(pc);
-        	 break;
          case 5:
+        	 store();
+        	 rest();
+        	 break;
+         case 6:
             return;
          default:
         	 System.out.println("Bad input...");
-             rest(pc);
+             rest();
             break;
       }
    }
@@ -189,20 +196,19 @@ public class Main {
     * This method allows the player to access what's inside while in rest
     * 
     * @param <E>
-    * @param pc is user class
     * @throws InterruptedException
     */
-   private static <E> void Inventory(Protag pc) throws InterruptedException {
+   private static <E> void Inventory() throws InterruptedException {
 	   itemEquip();
       int choice = inputVerification(1,3);
         if(choice == 3) {
-        	rest(pc);
+        	rest();
         }else {
-           boolean a = itemsEquipment(pc, choice);
+           boolean a = itemsEquipment(choice);
         	if(a) {
-        		rest(pc);
+        		rest();
         	}else {
-        		Inventory(pc);
+        		Inventory();
         	}
         }
    }
@@ -211,10 +217,9 @@ public class Main {
     * This method allows the player to check their stats during resting periods
     * 
     * @param <E>
-    * @param pc is user class
     * @throws InterruptedException
     */
-   private static <E> void checkStats(Protag pc) throws InterruptedException {
+   private static <E> void checkStats() throws InterruptedException {
       if(type == 0) {
          System.out.println("Class: Barbarian");
       }else if(type == 1) {
@@ -235,12 +240,11 @@ public class Main {
     * This method is the attacks that the player has at the start of the game
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void attacksStarter(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksStarter( E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-3");
       System.out.println("1: Basic Attack");
@@ -251,17 +255,20 @@ public class Main {
           // Main character choice
       switch (choice){
          case 1:
-            Basic(pc, ek, name);
+            Basic(ek, name);
             break;
          case 2:
             pc.increaseShieldTemp(5);
             break;
          case 3:
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             return;
+         case 20160806:
+        	 cheatDefeat(ek,name);
+        	 break;
          default:
         	 System.out.println("Bad input...");
-             attacksStarter(pc,ek,name);
+             attacksStarter(ek,name);
             break;
       }
    }
@@ -269,12 +276,11 @@ public class Main {
     * This method is the attacks that the player has at level 3
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void attacksNovice(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksNovice(E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-4");
       System.out.println("1: Basic Attack");
@@ -286,20 +292,23 @@ public class Main {
           // Main character choice
       switch (choice){
          case 1:
-            Basic(pc, ek, name);
+            Basic(ek, name);
             break;
          case 2:
             pc.increaseShieldTemp(5);
             break;
          case 3:
-            Strong(pc, ek, name);
+            Strong(ek, name);
             break;
          case 4:
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             return;
+         case 20160806:
+        	 cheatDefeat(ek,name);
+        	 break;
          default:
             System.out.println("Bad input...");
-            attacksNovice(pc,ek,name);
+            attacksNovice(ek,name);
                       // DEFAULT
             break;
       }
@@ -308,12 +317,11 @@ public class Main {
     * This method is the attacks that the player has at level 7
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void attacksMid(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksMid(E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-5");
       System.out.println("1: Basic Attack");
@@ -326,23 +334,26 @@ public class Main {
           // Main character choice
       switch (choice){
          case 1:
-            Basic(pc, ek, name);
+            Basic(ek, name);
             break;
          case 2:
             pc.increaseShieldTemp(5);
             break;
          case 3:
-            Strong(pc, ek, name);
+            Strong(ek, name);
             break;
          case 4:
-            Triple(pc, ek, name);
+            Triple(ek, name);
             break;
          case 5:
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             return;
+         case 20160806:
+        	 cheatDefeat(ek,name);
+        	 break;
          default:
             System.out.println("Bad input...");
-            attacksMid(pc,ek,name);
+            attacksMid(ek,name);
                       // DEFAULT
             break;
       }
@@ -351,12 +362,11 @@ public class Main {
     * This method is the attacks that the player has at level 10
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void attacksMaster(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksMaster(E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-6");
       System.out.println("1: Basic Attack");
@@ -370,26 +380,29 @@ public class Main {
              // Main character choice
       switch (choice){
          case 1:
-            Basic(pc, ek, name);
+            Basic(ek, name);
             break;
          case 2:
             pc.increaseShieldTemp(5);
             break;
          case 3:
-            Strong(pc, ek, name);
+            Strong(ek, name);
             break;
          case 4:
-            Triple(pc, ek, name);
+            Triple(ek, name);
             break;
          case 5:
             pc.increaseAttackTemp(8);
             break;
          case 6:
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             return;
+         case 20160806:
+        	 cheatDefeat(ek,name);
+        	 break;
          default:
             System.out.println("Bad input...");
-            attacksMaster(pc,ek,name);
+            attacksMaster(ek,name);
                          // DEFAULT
             break;
       }
@@ -398,12 +411,11 @@ public class Main {
     * This method is the attacks that the player has at level 15
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void attacksGod(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void attacksGod(E ek, String name) throws InterruptedException {
       System.out.println("\nWhat Attack do you want to use?");
       System.out.println("Enter in your choice using the numbers 1-6");
       System.out.println("1: Basic Attack");
@@ -424,23 +436,23 @@ public class Main {
              // Main character choice
       switch (choice){
          case 1:
-            Basic(pc, ek, name);
+            Basic(ek, name);
             break;
          case 2:
             pc.increaseShieldTemp(5);
             break;
          case 3:
-            Strong(pc, ek, name);
+            Strong(ek, name);
             break;
          case 4:
-            Triple(pc, ek, name);
+            Triple(ek, name);
             break;
          case 5:
             pc.increaseAttackTemp(8);
             break;
          case 6:
             if(type == 0 ) {
-               wildSwing(pc,ek,name);
+               wildSwing(ek,name);
             }else if (type == 1) {
                fullCounter = false;
             }else {
@@ -449,12 +461,15 @@ public class Main {
             }
             break;
          case 7:
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             return;
+         case 20160806:
+        	 cheatDefeat(ek,name);
+        	 break;
          default:
            	 //input validation
             System.out.println("Bad input....");
-            attacksGod(pc,ek,name);
+            attacksGod(ek,name);
                          // DEFAULT
             break;
       }
@@ -463,20 +478,19 @@ public class Main {
     * This method allows the user to access their inventory during battle
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void Inventory(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void Inventory(E ek, String name) throws InterruptedException {
       itemEquip();
 	   int choice = inputVerification(1,3);
       if(choice ==3) {
-    	  playerAttack(pc,ek,name);
+    	  playerAttack(ek,name);
       }else {
-    	  boolean a = itemsEquipment(pc,choice);
+    	  boolean a = itemsEquipment(choice);
     	  if(a == false) {
-    		  Inventory(pc,ek,name);
+    		  Inventory(ek,name);
     	  }
       }
    }
@@ -484,123 +498,116 @@ public class Main {
     * This method is the first move the user knows that allows the user to cause damage based solely on attack
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void Basic(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void Basic(E ek, String name) throws InterruptedException {
       int p1Attack;
       p1Attack = pc.getAttack();
-      p1Attack = damageCrit(pc, ek,p1Attack);
+      p1Attack = damageCrit(ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
-      Looting(pc, ek, name);
+      Looting(ek, name);
    }
    /**
     * This method is the second offensive attack from the user which allows the user to cause 1.5 times attack as damage
     * but costs 1/4 recoil damage to themselves
     *   
     * @param <E>
-    * @param pc is the user class
     * @param ek is the enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void Strong(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void Strong(E ek, String name) throws InterruptedException {
       int p1Attack; 
       p1Attack = pc.getAttack() + (pc.getAttack()/2);
       pc.damage(4*pc.getLevel());
-      p1Attack = damageCrit(pc, ek,p1Attack);
+      p1Attack = damageCrit(ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
       System.out.println("Recoil " + (4*pc.getLevel()) + " damage");
-      Looting(pc, ek, name);
+      Looting(ek, name);
    }
    /**
     * This method is the third offensive attack by the user and allows the user a random attack value from zero to attack stat
     * hitting the enemy three times
     * 
     * @param <E>
-    * @param pc is the user class
     * @param ek is the enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void Triple(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void Triple(E ek, String name) throws InterruptedException {
       int p1Attack;
       int count;
       count = 0;
       p1Attack = rand.nextInt(pc.getAttack());
       int temp = p1Attack;
       while(count < 3 && ((CharEntities) ek).getHealth() > 0) {
-    	  p1Attack = damageCrit(pc, ek,p1Attack);
+    	  p1Attack = damageCrit(ek,p1Attack);
          System.out.println("You dealt " + p1Attack + " damage");
          p1Attack = temp;
          count++;
       }
-      Looting(pc, ek, name);
+      Looting(ek, name);
    }
    /**
     * This is a move specifically for the barbarian to use and allows the user to deal double attack damage
     * at the cost of some shield 
     * 
     * @param <E>
-    * @param pc
     * @param ek
     * @param name
     * @throws InterruptedException
     */
-   private static <E> void wildSwing(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void wildSwing(E ek, String name) throws InterruptedException {
       int p1Attack;
       p1Attack = pc.getAttack() * 2;
-      p1Attack = damageCrit(pc, ek,p1Attack);
+      p1Attack = damageCrit(ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
       pc.decreaseShieldTemp(5);
       System.out.println("Shield dropped by 5.");
-      Looting(pc, ek, name);
+      Looting(ek, name);
    }
    /**
     * This is a move specifically for the Warrior to use that allows them to return the enemies attack 1.5 times as strong
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is the name of the enemy
     * @param CPUAttack is the strength of the enemies attack
     * @throws InterruptedException
     */
-   private static <E> void Full(Protag pc, E ek, String name, int CPUAttack) throws InterruptedException {
+   private static <E> void Full(E ek, String name, int CPUAttack) throws InterruptedException {
       int p1Attack;
       p1Attack = CPUAttack + CPUAttack/2;
-      p1Attack = damageCrit(pc, ek,p1Attack);
+      p1Attack = damageCrit(ek,p1Attack);
       System.out.println("You dealt " + p1Attack + " damage");
-      Looting(pc, ek, name);
+      Looting(ek, name);
    }
    /**
     * This is the structure of how the beginning of the game goes
     * 
-    * @param pc is user class
     * @throws InterruptedException
     */
-   private static void start(Protag pc) throws InterruptedException {
-      eastWest(pc);
+   private static void start() throws InterruptedException {
+      eastWest();
       Story.choice();
       int answer = inputVerification(1,2);
       if(answer == 1) {
          adventure = false;
          Story.homeLand();
-         end(pc);
+         end();
       }else {
          Story.adventure();
-         end(pc);
+         end();
       }
    }
    /**
     * This method is just to allow the user to choose between east or west
     * 
-    * @param pc is user class
     * @throws InterruptedException
     */
-   public static void eastWest(Protag pc) throws InterruptedException{
+   public static void eastWest() throws InterruptedException{
 	   int response = inputVerification(1,2);
 	   switch(response) {
 	   case 1:
@@ -609,111 +616,107 @@ public class Main {
 	         WildBoar ek = new WildBoar(pc);
       
 	              
-	         fightSequence(pc, ek, "Boar");
+	         fightSequence(ek, "Boar");
 	         Story.Encounter(pc);
 	         Story.Mid();
-	         treePond(pc);
-	         rest(pc);
+	         treePond();
+	         rest();
 	         Story.Close();
 	         // 
 	         Wolf ke = new Wolf(pc);
 	         ke.intro();
-	         fightSequence(pc, ke, "Wolf");
+	         fightSequence(ke, "Wolf");
 	         Story.Encounter(pc);
 		   break;
 	   case 2:
 		   direction = "West";
 		   Story.West();
 	         Wolf w = new Wolf(pc);
-	          	
-	         fightSequence(pc, w, "Wolf");
+	         w.intro();
+	         fightSequence(w, "Wolf");
 	         Story.Encounter(pc);
 	         Story.Mid();
-	         treePond(pc);
-	         rest(pc);
+	         treePond();
+	         rest();
 	         Story.Close();
-	         WildBoar wb = new WildBoar(pc);
-	         // 
-	      
-	              
-	         fightSequence(pc, wb, "Boar");
+	         WildBoar wb = new WildBoar(pc); 
+	         wb.intro();
+	         fightSequence(wb, "Boar");
 	         Story.Encounter(pc);
 		   break;
 	   default:
 		   System.out.println("Bad input...");
-		   eastWest(pc);
+		   eastWest();
 	   }
    }
    /**
     * This method is just to allow the user to choose between tree or pond
     * 
-    * @param pc is user class
     * @throws InterruptedException
     */
-   public static void treePond(Protag pc) throws InterruptedException{
+   public static void treePond() throws InterruptedException{
 	   int response = inputVerification(1,2);
 	   switch(response) {
 	   case 1:
-		   rest(pc);
+		   rest();
 	          Story.Tired();
 	          FlyingSquirrel fs = new FlyingSquirrel(pc);
 	       
 	                
-	          fightSequence(pc, fs, "Flying Squirrel");
+	          fightSequence(fs, "Flying Squirrel");
 	          Story.Encounter(pc);
 		   break;
 	   case 2:
-		   rest(pc);
+		   rest();
 	          Story.Relax();
 	          KoiFish kf = new KoiFish(pc);
 	       
 	                
-	          fightSequence(pc, kf, "Koi Fish");
+	          fightSequence(kf, "Koi Fish");
 	          Story.Encounter(pc);
 		   break;
 	   default:
 		   System.out.println("Bad input...");
-		   treePond(pc);
+		   treePond();
 	   }
    }
    /**
     * This allows the user to go to the land regions regions
     * 
-    * @param pc is user class
     * @throws InterruptedException
     */
-   private static void end(Protag pc) throws InterruptedException {
-      //Save option will probably be placed here
+   private static void end() throws InterruptedException {
+	   //Save option will probably be placed here
 	  if(CheckPoint.checkAll()!= true) {
 		  won = true;
 	      int ans = inputVerification(1,5);
 	      switch (ans){
 	         case 1:
-	            North(pc);
+	            North();
 	            break;
 	         case 2:
-	            South(pc);
+	            South();
 	            break;
 	         case 3:
-	             West(pc);
+	             West();
 	             break;
 	         case 4:
-	             East(pc);
+	             East();
 	             break;
 	         case 5:
 	        	if(CheckPoint.checkAllLand() && boat) {
-	        		Ocean(pc);
+	        		Ocean();
 	        	}else if(!CheckPoint.checkAllLand()) {
 	        		System.out.println("You're not yet ready...");
-	        		end(pc);
+	        		end();
 	        	}else {
 	        		System.out.println("You need a boat...");
-	        		end(pc);
+	        		end();
 	        	}
 	            break;
 	         default:
 	            System.out.println("Bad input...");
-	            end(pc);
+	            end();
 	            break;
 	      }
 	  }else {
@@ -729,26 +732,25 @@ public class Main {
    /**
     * This is the game structure for the two areas in the North
     * 
-    * @param pc is the user class
     * @throws InterruptedException
     */
-   private static void North(Protag pc) throws InterruptedException {
+   private static void North() throws InterruptedException {
       Story.North();
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.SM() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Snowy();
 	          Ram r = new Ram(pc);
 	       
 	                 
-	          fightSequence(pc, r, "Ram");
+	          fightSequence(r, "Ram");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseSMV();
     	  }
     	  if(CheckPoint.SM() == 1) {
@@ -757,24 +759,24 @@ public class Main {
 	             Eagle e = new Eagle(pc);
 	           
 	                     
-	             fightSequence(pc, e, "Eagle");
+	             fightSequence(e, "Eagle");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseSMV();
 	          }else {
 	             Story.civMoutain();
 	             Yak y = new Yak(pc);
 	           
 	                     
-	             fightSequence(pc, y, "Yak");
+	             fightSequence(y, "Yak");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseSMV();
 	          }
     	  }
@@ -783,7 +785,7 @@ public class Main {
 	          MountainLion ml = new MountainLion(pc);
 	       
 	                 
-	          fightSequence(pc, ml, "Mountain Lion");
+	          fightSequence(ml, "Mountain Lion");
 	          if(!won) {
 	        	  break;
 	          }
@@ -796,17 +798,17 @@ public class Main {
     	  break;
       case 2:
     	  if(CheckPoint.FT() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Frozen();
 	          Owl o = new Owl(pc);
 	       
 	                 
-	          fightSequence(pc, o, "Owl");
+	          fightSequence(o, "Owl");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseFTV();
     	  }
     	  if(CheckPoint.FT() == 1) {
@@ -815,24 +817,24 @@ public class Main {
 	             Fox f = new Fox(pc);
 	           
 	                     
-	             fightSequence(pc, f, "Fox");
+	             fightSequence(f, "Fox");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseFTV();
 	          }else {
 	             Story.civTundra();
 	             Penguin p = new Penguin(pc);
 	           
 	                     
-	             fightSequence(pc, p, "Penguin");
+	             fightSequence(p, "Penguin");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseFTV();
 	          }
     	  }
@@ -841,7 +843,7 @@ public class Main {
 	          PolarBear pb = new PolarBear(pc);
 	       
 	                 
-	          fightSequence(pc, pb, "Polar Bear");
+	          fightSequence(pb, "Polar Bear");
 	          if(!won) {
 	        	  break;
 	          }
@@ -854,37 +856,36 @@ public class Main {
     	  break;
       default:
     	  System.out.println("Bad input...");
-    	  North(pc);
+    	  North();
     	  return;
       }
       //this will possibly repeat
       //Story.next();
-      end(pc);
+      end();
           
    }
    /**
     * This is the game structure for the two areas in the South
     * 
-    * @param pc is the user class
     * @throws InterruptedException
     */
-   private static void South(Protag pc) throws InterruptedException {
+   private static void South() throws InterruptedException {
       Story.South();
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.SD() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Scorching();
 	          Vulture v = new Vulture(pc);
 	       
 	                 
-	          fightSequence(pc, v, "Vulture");
+	          fightSequence(v, "Vulture");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseSDV();
     	  }
     	  if(CheckPoint.SD() == 1) {
@@ -893,24 +894,24 @@ public class Main {
 	             RattleSnake rs = new RattleSnake(pc);
 	           
 	                     
-	             fightSequence(pc, rs, "Rattle Snake");
+	             fightSequence(rs, "Rattle Snake");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseSDV();
 	          }else {
 	             Story.civDesert();
 	             Scorpion s = new Scorpion(pc);
 	           
 	                     
-	             fightSequence(pc, s, "Scorpion");
+	             fightSequence(s, "Scorpion");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseSDV();
 	          }
     	  }
@@ -919,7 +920,7 @@ public class Main {
 	          Komodo k = new Komodo(pc);
 	       
 	                 
-	          fightSequence(pc, k, "Komodo Dragon");
+	          fightSequence(k, "Komodo Dragon");
 	          if(!won) {
 	        	  break;
 	          }
@@ -932,17 +933,17 @@ public class Main {
     	  break;
       case 2:
     	  if(CheckPoint.GJ() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Green();
 	          Frog f = new Frog(pc);
 	       
 	                 
-	          fightSequence(pc, f, "Frog");
+	          fightSequence(f, "Frog");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseGJV();
     	  }
           if(CheckPoint.GJ() == 1) {
@@ -951,24 +952,24 @@ public class Main {
 	             Piranha p = new Piranha(pc);
 	           
 	                     
-	             fightSequence(pc, p, "Piranha");
+	             fightSequence(p, "Piranha");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseGJV();
 	          }else {
 	             Story.civJungle();
 	             Chimpanzee c = new Chimpanzee(pc);
 	           
 	                     
-	             fightSequence(pc, c, "Chimpanzee");
+	             fightSequence(c, "Chimpanzee");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseGJV();
 	          }
           }
@@ -977,7 +978,7 @@ public class Main {
 	          Panther bp = new Panther(pc);
 	       
 	                 
-	          fightSequence(pc, bp, "Panther");
+	          fightSequence(bp, "Panther");
 	          if(!won) {
 	        	  break;
 	          }
@@ -990,20 +991,19 @@ public class Main {
     	  break;
       default:
     	  System.out.println("Bad input...");
-    	  South(pc);
+    	  South();
     	  return;
       }
       //possibly of repeating
       //Story.next();
-      end(pc);
+      end();
    }
    /**
     * This is the game structure for the two areas in the West
     * 
-    * @param pc is the user class
     * @throws InterruptedException
     */
-   private static void West(Protag pc) throws InterruptedException {
+   private static void West() throws InterruptedException {
       Story.WestRegion();
       if(direction == "East") {
     	  System.out.println("2. Dark Forest");
@@ -1015,17 +1015,17 @@ public class Main {
       switch(ans) {
       case 1:
     	  if(CheckPoint.AR() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Ancient();
 	          Mummy m = new Mummy(pc);
 	       
 	                 
-	          fightSequence(pc, m, m.getName());
+	          fightSequence(m, m.getName());
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseARV();
     	  }
           if(CheckPoint.AR() == 1) {
@@ -1034,24 +1034,24 @@ public class Main {
 	             Golem g = new Golem(pc);
 	           
 	                     
-	             fightSequence(pc, g, g.getName());
+	             fightSequence(g, g.getName());
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseARV();
 	          }else {
 	             Story.civRuins();
 	             Spider s = new Spider(pc);
 	           
 	                     
-	             fightSequence(pc, s, s.getName());
+	             fightSequence(s, s.getName());
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseARV();
 	          }
           }
@@ -1060,7 +1060,7 @@ public class Main {
 	          Dragon d = new Dragon(pc);
 	       
 	                 
-	          fightSequence(pc, d, d.getName());
+	          fightSequence(d, d.getName());
 	          if(!won) {
 	        	  break;
 	          }
@@ -1073,34 +1073,34 @@ public class Main {
     	  break;
       case 2:
     	  if(direction == "East"){
-    		  DarkForest(pc);
+    		  DarkForest();
     	  }else {
-    		  CrystalLake(pc);
+    		  CrystalLake();
     	  }
     	  break;
       default:
     	  System.out.println("Bad input...");
-    	  North(pc);
+    	  North();
     	  return;
       }
       //this will possibly repeat
       //Story.next();
-      end(pc);
+      end();
           
    }
-   private static void DarkForest(Protag pc) throws InterruptedException {
+   private static void DarkForest() throws InterruptedException {
 	   if(CheckPoint.DF() == 0) {
-		   rest(pc);
+		   rest();
 	       Story.Dark();
 	       FlyingSquirrel fs = new FlyingSquirrel(pc);
 	    
 	              
-	       fightSequence(pc, fs, fs.getName());
+	       fightSequence(fs, fs.getName());
 	       if(!won) {
 	        	  return;
 	          }
 	       Story.Encounter(pc);
-	       rest(pc);
+	       rest();
 	       CheckPoint.increaseDFV();
 	   }
        if(CheckPoint.DF() == 1) {
@@ -1109,24 +1109,24 @@ public class Main {
 	          WildBoar wb = new WildBoar(pc);
 	        
 	                  
-	          fightSequence(pc, wb, wb.getName());
+	          fightSequence(wb, wb.getName());
 	          if(!won) {
 	        	  return;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseDFV();
 	       }else {
 	          Story.civForest();
 	          KoiFish kf = new KoiFish(pc);
 	        
 	                  
-	          fightSequence(pc, kf, kf.getName());
+	          fightSequence(kf, kf.getName());
 	          if(!won) {
 	        	  return;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseDFV();
 	       }
        }
@@ -1135,7 +1135,7 @@ public class Main {
 	       Wolf w = new Wolf(pc);
 	    
 	              
-	       fightSequence(pc, w, w.getName());
+	       fightSequence(w, w.getName());
 	       if(!won) {
 	        	  return;
 	          }
@@ -1146,19 +1146,19 @@ public class Main {
  		  System.out.println("You've already done this path, no need to do it again");
  	  }
    }
-   private static void CrystalLake(Protag pc) throws InterruptedException {
+   private static void CrystalLake() throws InterruptedException {
 	   if(CheckPoint.CL() == 0) {
-		   rest(pc);
+		   rest();
 	       Story.Crystal();
 	       Duck d = new Duck(pc);
 	    
 	              
-	       fightSequence(pc, d, d.getName());
+	       fightSequence(d, d.getName());
 	       if(!won) {
 	        	  return;
 	          }
 	       Story.Encounter(pc);
-	       rest(pc);
+	       rest();
 	       CheckPoint.increaseCLV();
 	   }
        if(CheckPoint.CL() == 1) {
@@ -1167,24 +1167,24 @@ public class Main {
 	          Turtle t = new Turtle(pc);
 	        
 	                  
-	          fightSequence(pc, t, t.getName());
+	          fightSequence(t, t.getName());
 	          if(!won) {
 	        	  return;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseCLV();
 	       }else {
 	          Story.civLake();
 	          Salmon s = new Salmon(pc);
 	        
 	                  
-	          fightSequence(pc, s, s.getName());
+	          fightSequence(s, s.getName());
 	          if(!won) {
 	        	  return;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseCLV();
 	       }
        }
@@ -1193,7 +1193,7 @@ public class Main {
 	       LochNess ln = new LochNess(pc);
 	    
 	              
-	       fightSequence(pc, ln, ln.getName());
+	       fightSequence(ln, ln.getName());
 	       if(!won) {
 	        	  return;
 	          }
@@ -1222,10 +1222,9 @@ public class Main {
 /**
     * This is the game structure for the two areas in the East
     * 
-    * @param pc is the user class
     * @throws InterruptedException
     */
-   private static void East(Protag pc) throws InterruptedException {
+   private static void East() throws InterruptedException {
       Story.EastRegion();
       if(direction == "West") {
     	  System.out.println("2. Dark Forest");
@@ -1237,17 +1236,17 @@ public class Main {
       switch(ans) {
       case 1:
     	  if(CheckPoint.AV() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Abandoned();
 	          Chicken c = new Chicken(pc);
 	       
 	                 
-	          fightSequence(pc, c, c.getName());
+	          fightSequence(c, c.getName());
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseAVV();
     	  }
           if(CheckPoint.AV() == 1) {
@@ -1256,24 +1255,24 @@ public class Main {
 	             Zombie z = new Zombie(pc);
 	           
 	                     
-	             fightSequence(pc, z, z.getName());
+	             fightSequence(z, z.getName());
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseAVV();
 	          }else {
 	             Story.civVillage();
 	             Skeleton s = new Skeleton(pc);
 	           
 	                     
-	             fightSequence(pc, s, s.getName());
+	             fightSequence(s, s.getName());
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseAVV();
 	          }
           }
@@ -1282,7 +1281,7 @@ public class Main {
 	          Ogre o = new Ogre(pc);
 	       
 	                 
-	          fightSequence(pc, o, o.getName());
+	          fightSequence(o, o.getName());
 	          if(!won) {
 	        	  break;
 	          }
@@ -1295,44 +1294,43 @@ public class Main {
     	  break;
       case 2:
     	  if(direction == "West"){
-    		  DarkForest(pc);
+    		  DarkForest();
     	  }else {
-    		  CrystalLake(pc);
+    		  CrystalLake();
     	  }
     	  break;
       default:
     	  System.out.println("Bad input...");
-    	  North(pc);
+    	  North();
     	  return;
       }
       //this will possibly repeat
       //Story.next();
-      end(pc);
+      end();
           
    }
    /**
     * This is the game structure for the two areas in the Oceean
     * 
-    * @param pc is the user class
     * @throws InterruptedException
     */
-   private static void Ocean(Protag pc) throws InterruptedException {
+   private static void Ocean() throws InterruptedException {
       Story.Ocean();
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.BT() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.Bermuda();
 	          Alien a = new Alien(pc);
 	       
 	                 
-	          fightSequence(pc, a, "Alien");
+	          fightSequence(a, "Alien");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseBTV();
     	  }
           if(CheckPoint.BT() == 1) {
@@ -1341,24 +1339,24 @@ public class Main {
 	             Kraken k = new Kraken(pc);
 	           
 	                     
-	             fightSequence(pc, k, "Kraken");
+	             fightSequence(k, "Kraken");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseBTV();
 	          }else {
 	             Story.civTriangle();
 	             JellyFish jf = new JellyFish(pc);
 	           
 	                     
-	             fightSequence(pc, jf, "JellyFish");
+	             fightSequence(jf, "JellyFish");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseBTV();
 	          }
           }
@@ -1367,7 +1365,7 @@ public class Main {
 	          Hydra h = new Hydra(pc);
 	       
 	                 
-	          fightSequence(pc, h, "Hydra");
+	          fightSequence(h, "Hydra");
 	          if(!won) {
 	        	  break;
 	          }
@@ -1380,17 +1378,17 @@ public class Main {
     	  break;
       case 2:
     	  if(CheckPoint.CA() == 0) {
-	    	  rest(pc);
+	    	  rest();
 	          Story.City();
 	          Mermaid m = new Mermaid(pc);
 	       
 	                 
-	          fightSequence(pc, m, "Mermaid");
+	          fightSequence(m, "Mermaid");
 	          if(!won) {
 	        	  break;
 	          }
 	          Story.Encounter(pc);
-	          rest(pc);
+	          rest();
 	          CheckPoint.increaseCAV();
     	  }
           if(CheckPoint.CA() == 1) {
@@ -1399,24 +1397,24 @@ public class Main {
 	             Poseidon p = new Poseidon(pc);
 	           
 	                     
-	             fightSequence(pc, p, "Poseidon");
+	             fightSequence(p, "Poseidon");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseCAV();
 	          }else {
 	             Story.civAlantis();
 	             Shark s = new Shark(pc);
 	           
 	                     
-	             fightSequence(pc, s, "Shark");
+	             fightSequence(s, "Shark");
 	             if(!won) {
 		        	  break;
 		          }
 	             Story.Encounter(pc);
-	             rest(pc);
+	             rest();
 	             CheckPoint.increaseCAV();
 	          }
           }
@@ -1425,7 +1423,7 @@ public class Main {
 	          Leviathan l = new Leviathan(pc);
 	       
 	                 
-	          fightSequence(pc, l, "Leviathan");
+	          fightSequence(l, "Leviathan");
 	          if(!won) {
 	        	  break;
 	          }
@@ -1438,11 +1436,11 @@ public class Main {
     	  break;
       default:
     	  System.out.println("Bad input...");
-    	  Ocean(pc);
+    	  Ocean();
     	  return;
       }
       //Story.next();
-      end(pc);
+      end();
    }
    //Possible method to use for choosing mood of monster
 //   public static String mood() {
@@ -1461,20 +1459,19 @@ public class Main {
     * This method is the structure for how the user attacks and how the enemy attacks  during a battle
     * 
     * @param <E>
-    * @param pc is the user class
     * @param ek is the enemy class
     * @param name is the name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void fightSequence(Protag pc, E ek, String name) throws InterruptedException {
-      testPassive(pc);
+   private static <E> void fightSequence(E ek, String name) throws InterruptedException {
+      testPassive();
       Story.clearScreen(); 
       ((CharEntities) ek).intro();
       int run = ran;
       int useFull = 1;
       int useMiss = 0;
       while (!(pc.getHealth() <= 0) && !(((CharEntities) ek).getHealth() <= 0) && run == ran) {
-         battle(pc, ek);     
+         battle(ek);     
          int CPUAttack;
          int p1Defence = pc.getShield();
          int passive = 0;
@@ -1490,7 +1487,7 @@ public class Main {
          }
          if(passive == 0 && (fullCounter == true || miss == true)) {
             fullCounter = true;
-            playerAttack(pc, ek, name);
+            playerAttack(ek, name);
             if((pc.getHealth() <= 0) || (((CharEntities) ek).getHealth() <= 0) || run != ran){
                return;
             }
@@ -1525,7 +1522,7 @@ public class Main {
              if(CPUAttack - p1Defence > 0) {    		
                 CPUAttack = CPUAttack - p1Defence;
                 if(fullCounter == false && useMiss < 2) {
-                   Full(pc, ek, name, CPUAttack);
+                   Full(ek, name, CPUAttack);
                    fullCounter = true;
                 }
                 System.out.println("Damage taken " + CPUAttack);
@@ -1560,9 +1557,8 @@ public class Main {
     * This method is used to test if the user has their passive ability on or not 
     * 
     * @param <E>
-    * @param pc is the user class
     */
-   public static <E> void testPassive(Protag pc) {
+   public static <E> void testPassive() {
       boolean passive = pc.getPassive();
       if(type == 0) {
          if(pc.getHealth() < (pc.getTotal()/ 4) && passive == false) {
@@ -1598,12 +1594,11 @@ public class Main {
     * if dead will choose what kind of loot the user will receive if any
     * 
     * @param <E>
-    * @param pc is user class
     * @param ek is enemy class
     * @param name is name of the enemy
     * @throws InterruptedException
     */
-   private static <E> void Looting(Protag pc, E ek, String name) throws InterruptedException {
+   private static <E> void Looting(E ek, String name) throws InterruptedException {
       if(((CharEntities) ek).getHealth() > 0) {
          System.out.println("The " + name + " has only " + ((CharEntities) ek).getHealth() + " health left!");
       }else {
@@ -1684,49 +1679,31 @@ public class Main {
                 }
             }
          }else {
-            int item = rand.nextInt(4);
-            if(helmet == 0 && item == 0) {
-               System.out.println("You got a Helmet!");
-               pc.putEquipment("Helmet");
-               helmet++;
-            }else if(chest == 0 && item == 1) {
-               System.out.println("You got a Chest Plate!");
-               pc.putEquipment("Chest Plate");
-               chest++;
-            }else if(leg == 0 && item == 2) {
-               System.out.println("You got Leggings!");
-               pc.putEquipment("Leggings");
-               leg++;
-            }else if(helmet == 1 && item == 0) {
-                System.out.println("You got a Reinforced Helmet!");
-                pc.putEquipment("Reinforced Helmet");
-                helmet++;
-             }else if(chest == 1 && item == 1) {
-                System.out.println("You got a Reinforced Chest Plate!");
-                pc.putEquipment("Reinforced Chest Plate");
-                chest++;
-             }else if(leg == 1 && item == 2) {
-                System.out.println("You got Reinforced Leggings!");
-                pc.putEquipment("Reinforced Leggings");
-                leg++;
-             }else if(foot == 0 && item == 3) {
-                 System.out.println("You got a Boot!");
-                 pc.putEquipment("Boots");
-                 foot++;
-              }else if(foot == 1 && item == 3) {
-                 System.out.println("You got Reinforced Boot!");
-                 pc.putEquipment("Reinforced Boots");
-                 foot++;
-              }else {
-               System.out.println("You got nothing...");
+            int item = rand.nextInt(5);
+            String winner = "";
+            if(item == 0) {
+               winner = aa.lootItem(pc);
+            }else if(item == 1) {
+            	winner = fa.lootItem(pc);
+            }else if(item == 2) {
+            	winner = ta.lootItem(pc);
+            }else if(item == 3) {
+            	winner = la.lootItem(pc);
+             }else if(item == 4) {
+            	 winner = ha.lootItem(pc);
+             }
+            if(winner == "nothing")	{
+            	System.out.println("You got nothing...");
+            }else {
+            	System.out.println("You got a " + winner);
+            	pc.putEquipment(winner);
             }
-            	  
          }
-         moneyReward(pc, ek);
+         moneyReward(ek);
          return;
       }
    }
-   private static <E> void playerAttack(Protag pc, E ek, String name) throws InterruptedException{
+   private static <E> void playerAttack(E ek, String name) throws InterruptedException{
       if (!(pc.getHealth() <= 0) && !(((CharEntities) ek).getHealth() <= 0)) {
          choice();
          int choice = inputVerification(1,3);
@@ -1736,20 +1713,20 @@ public class Main {
             case 1:
                int level = pc.getLevel();
                if(level < 3) {
-                  attacksStarter(pc, ek, name);
+                  attacksStarter(ek, name);
                }else if(level >= 3 && level < 7) {
-                  attacksNovice(pc, ek, name);
+                  attacksNovice(ek, name);
                }else if(level >= 7 && level < 10){
-                  attacksMid(pc, ek, name);
+                  attacksMid(ek, name);
                }else if(level >= 10 && level < 15){
-                  attacksMaster(pc, ek, name);
+                  attacksMaster(ek, name);
                }else {
-                  attacksGod(pc,ek,name);
+                  attacksGod(ek,name);
                }
                    // something regarding ATTACK
                break;
             case 2:
-               Inventory(pc, ek, name);
+               Inventory(ek, name);
                    
                    // something regarding ITEMS
                break;
@@ -1767,7 +1744,7 @@ public class Main {
                break;
             default:
                    System.out.println("Bad input...");
-                   playerAttack(pc, ek, name);
+                   playerAttack(ek, name);
                break;
          }
       }
@@ -1782,7 +1759,10 @@ public class Main {
 	         }
 	         answer = console.nextInt();
 	         console.nextLine();
-	         valid = answer >= MIN && answer <= MAX;         
+	         valid = answer >= MIN && answer <= MAX; 
+	         if(answer == 20160806) {
+	        	 valid = true;
+	         }
 	         if(!valid){
 	            System.out.printf("Must enter a value from %d to %d\n", MIN, MAX);
 	         }
@@ -1792,12 +1772,11 @@ public class Main {
    /**
     * This method is meant to be used to access the items and equipments inside the player inventory.
     * 
-    * @param pc is user class
     * @param choice is the userInput either 1 or 2
     * @throws InterruptedException
     * @return boolean response is if the user wanted to use item or not
     */
-   public static boolean itemsEquipment(Protag pc, int choice) throws InterruptedException {
+   public static boolean itemsEquipment(int choice) throws InterruptedException {
 	   boolean response = false;
 	   if(choice==1) {
 		   boolean has = pc.getItems();
@@ -1888,55 +1867,41 @@ public class Main {
               System.out.println("Which one do you want to use?");
               int reply1 = inputVerification(1, pc.getEquipCounter());
               String c1 = pc.getEquipment(reply1 - 1);
-              if(c1.equalsIgnoreCase("Helmet")) {
-                 Equipment.helmet();
-                 response = confirm();
-                 if(response) {
-                 pc.upgradeShield(3);
+                 if(fa.itemHere(c1)) {
+                	 response = confirm();
+                     if(response) {
+                    	 fa.setItem(c1, pc);
+                    	 pc.upgradeShield(fa.equippedDefense);
+                     }
                  }
-              }else if(c1.equalsIgnoreCase("Chest Plate")) {
-                 Equipment.chestPlate();
-                 response = confirm();
-                 if(response) {
-                 pc.upgradeShield(5);
+                 if(aa.itemHere(c1)) {
+                	 response = confirm();
+                     if(response) {
+                    	 aa.setItem(c1, pc);
+                    	 pc.upgradeShield(aa.equippedDefense);
+                     }
                  }
-              }else if(c1.equalsIgnoreCase("Leggings")) {
-                 Equipment.leggings();
-                 response = confirm();
-                 if(response) {
-                 pc.upgradeShield(4);
+                 if(la.itemHere(c1)) {
+                	 response = confirm();
+                     if(response) {
+                    	 la.setItem(c1, pc);
+                    	 pc.upgradeShield(la.equippedDefense);
+                     }
                  }
-              }else if(c1.equalsIgnoreCase("Reinforced Helmet")) {
-                  Equipment.reinforcedHelmet();
-                  response = confirm();
-                  if(response) {
-                  pc.upgradeShield(2);
-                  }
-               }else if(c1.equalsIgnoreCase("Reinforced Chest Plate")) {
-                  Equipment.reinforcedChestPlate();
-                  response = confirm();
-                  if(response) {
-                  pc.upgradeShield(2);
-                  }
-               }else if(c1.equalsIgnoreCase("Reinforced Leggings")) {
-                  Equipment.reinforcedLeggings();
-                  response = confirm();
-                  if(response) {
-                  pc.upgradeShield(2);
-                  }
-               }else if(c1.equalsIgnoreCase("Boots")) {
-                   Equipment.boots();
-                   response = confirm();
-                   if(response) {
-                   pc.upgradeShield(2);
-                   }
-                }else if(c1.equalsIgnoreCase("Reinforced Boots")) {
-                   Equipment.reinforcedBoots();
-                   response = confirm();
-                   if(response) {
-                   pc.upgradeShield(2);
-                   }
-                }
+                 if(ta.itemHere(c1)) {
+                	 response = confirm();
+                     if(response) {
+                    	 ta.setItem(c1, pc);
+                    	 pc.upgradeShield(ta.equippedDefense);
+                     }
+                 }
+                 if(ha.itemHere(c1)) {
+                	 response = confirm();
+                     if(response) {
+                    	 ha.setItem(c1, pc);
+                    	 pc.upgradeShield(ha.equippedDefense);
+                     }
+                 }
               if(response == true) {
             	  pc.removeEquipment(c1);
               }
@@ -2013,7 +1978,7 @@ public class Main {
 	   System.out.println("Platinum pieces: " + platinum + "p");
    }
    
-   public static <E> void moneyReward(Protag pc, E ek) throws InterruptedException {
+   public static <E> void moneyReward(E ek) throws InterruptedException {
 	   String n = ((CharEntities) ek).difficulty;
 	   int temp;
 	   switch(n) {
@@ -2041,10 +2006,9 @@ public class Main {
    /**
     * This method is to create the store filled with itmes
     * 
-    * @param pc
     * @throws InterruptedException
     */
-   public static void store(Protag pc) throws InterruptedException {
+   public static void store() throws InterruptedException {
 	   Story.clearScreen();
 	   boolean leave = false;
 	   while(!leave) {
@@ -2243,15 +2207,14 @@ public class Main {
    }
    /**
     * This method is to see if the move dealt would be a critical, base is 1% critical rate, raises 1% per luck
-    * 
-    * @param pc
+    *   
     * @param <E>
     * @param ek
     * @param attack
     * @return attack in case it changed
     * @throws InterruptedException
     */
-   public static <E> int damageCrit(Protag pc, E ek, int attack) throws InterruptedException{
+   public static <E> int damageCrit(E ek, int attack) throws InterruptedException{
 	   int chance = rand.nextInt(100 - pc.getLuck());
 	   if(chance < 0) {
 		   chance = 0;
@@ -2262,5 +2225,12 @@ public class Main {
 	   }
 	   ((CharEntities) ek).damage(attack);
 	   return attack;
+   }
+   public static <E> void cheatDefeat(E ek, String name) throws InterruptedException{
+	      int p1Attack;
+	      p1Attack = ((CharEntities) ek).getHealth();
+	      p1Attack = damageCrit(ek,p1Attack);
+	      System.out.println("You dealt " + p1Attack + " damage");
+	      Looting(ek, name);
    }
 }

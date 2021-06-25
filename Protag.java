@@ -417,7 +417,10 @@ public class Protag {
       	}catch(ArrayIndexOutOfBoundsException e) {
       		equipCounter--;
       		return " ";
-	  }
+      	}
+      }
+      public boolean checkEquipment(String word) {
+    	  return equip.contains(word);
       }
       /**
        * This method is used to remove an equipment in treeset and decrease equipCounter
