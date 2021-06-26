@@ -17,7 +17,6 @@ public class characterSheet{
       fa = f;
       w = ww;
       w.setItem("Rusty Sword");
-      w.setDurability(w.getDurabilityMax());
       ha.setItem("Headgear", pc);
       ta.setItem("Shirt", pc);
       aa.setItem("Cotton Sleeves", pc);

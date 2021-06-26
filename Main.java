@@ -42,6 +42,7 @@ public class Main {
       if(run == true) {
          pc = new Protag(type);
          cs = new characterSheet(ha, ta, aa, la, fa, w, pc);
+         pc.upgradeAttack(w.getAttack());
          int item = rand.nextInt(4);
          if(item == 0) {
             pc.putItems("Health Potion");
@@ -1868,6 +1869,7 @@ public class Main {
               int reply1 = inputVerification(1, pc.getEquipCounter());
               String c1 = pc.getEquipment(reply1 - 1);
                  if(fa.itemHere(c1)) {
+                	 fa.printItem(c1);
                 	 response = confirm();
                      if(response) {
                     	 fa.setItem(c1, pc);
@@ -1875,6 +1877,7 @@ public class Main {
                      }
                  }
                  if(aa.itemHere(c1)) {
+                	 aa.printItem(c1);
                 	 response = confirm();
                      if(response) {
                     	 aa.setItem(c1, pc);
@@ -1882,6 +1885,7 @@ public class Main {
                      }
                  }
                  if(la.itemHere(c1)) {
+                	 la.printItem(c1);
                 	 response = confirm();
                      if(response) {
                     	 la.setItem(c1, pc);
@@ -1889,6 +1893,7 @@ public class Main {
                      }
                  }
                  if(ta.itemHere(c1)) {
+                	 ta.printItem(c1);
                 	 response = confirm();
                      if(response) {
                     	 ta.setItem(c1, pc);
@@ -1896,6 +1901,7 @@ public class Main {
                      }
                  }
                  if(ha.itemHere(c1)) {
+                	 ha.printItem(c1);
                 	 response = confirm();
                      if(response) {
                     	 ha.setItem(c1, pc);
@@ -1930,7 +1936,7 @@ public class Main {
     * @throws InterruptedException
     */
    public static boolean confirm() throws InterruptedException{
-	   System.out.println("\nAre you sure you want to use this?");
+	   System.out.println("\nAre you sure?");
 	   System.out.println("1: Yes");
 	   System.out.println("2: No");
 	   int response = inputVerification(1,2);
@@ -2021,9 +2027,9 @@ public class Main {
 		   System.out.println("1: Stats Boosters");
 		   System.out.println("2: Misc");
 		   //This is for a future update when I add different armor types and weapons
-		   //System.out.println("3: Weapons and Shields");
+		   System.out.println("3: Weapons");
 		   //System.out.println("4: Armor");
-		   System.out.println("3: Leave");
+		   System.out.println("4: Leave");
 		   System.out.println();
 		   int category = inputVerification(1, 3);
 		   int choice;
@@ -2123,6 +2129,142 @@ public class Main {
 			   }
 			   break;
 		   case 3:
+			   int returnNumber = 2;
+			   System.out.println("What would you like to buy?");
+			   System.out.println("Note** Weapons are automatically equipped. Old weapon auto sold.");
+			   System.out.println();
+			   System.out.println("1. Iron Sword - 2s");
+			   if(pc.getLevel() >= 3) {
+				   returnNumber++;
+				   System.out.println("2. Silver Sword - 24s");
+			   }else if(pc.getLevel() >= 5) {
+				   returnNumber++;
+				   System.out.println("3. Steel Sword- 78s");
+			   }else if(pc.getLevel() >= 10) {
+				   returnNumber+= 2;
+				   System.out.println("4. Damascus Sword- 4g");
+				   System.out.println("5. Tamahagane Sword- 4g");
+			   }else if(pc.getLevel() >= 15) {
+				   returnNumber++;
+				   System.out.println("6. Demon Claw Sword- 60g");
+			   }else if(pc.getLevel() >= 20) {
+				   returnNumber++;
+				   System.out.println("7. Dragon Tooth Sword- 1p");
+			   }
+			   
+			   System.out.println("" + returnNumber +": Return");
+			   choice = inputVerification(1, returnNumber);
+			   if(choice == 1) {
+				   w.printItem("Iron Sword");
+				   if(confirm()) {
+					   if(spend(200)) {
+						   System.out.println("You've gained the Iron Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Iron Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == returnNumber) {
+				   //didn't know what to put for this since its just returning.
+				   System.out.print("");
+			   }else if(choice == 2 && pc.getLevel() >= 3) {
+				   w.printItem("Silver Sword");
+				   if(confirm()) {
+					   if(spend(2400)) {
+						   System.out.println("You've gained the Silver Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Silver Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == 3 && pc.getLevel() >= 5) {
+				   w.printItem("Steel Sword");
+				   if(confirm()) {
+					   if(spend(7800)) {
+						   System.out.println("You've gained the Steel Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Steel Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == 4 && pc.getLevel() >= 10) {
+				   w.printItem("Damascus Sword");
+				   if(confirm()) {
+					   if(spend(40000)) {
+						   System.out.println("You've gained the Damascus Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Damascus Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == 5 && pc.getLevel() >= 10) {
+				   w.printItem("Tamahagane Sword");
+				   if(confirm()) {
+					   if(spend(40000)) {
+						   System.out.println("You've gained the Tamahagane Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Tamahagane Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == 6 && pc.getLevel() >= 15) {
+				   w.printItem("Demon Claw Sword");
+				   if(confirm()) {
+					   if(spend(600000)) {
+						   System.out.println("You've gained the Demon Claw Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Demon Claw Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }else if(choice == 7 && pc.getLevel() >= 20) {
+				   w.printItem("Dragon Tooth Sword");
+				   if(confirm()) {
+					   if(spend(1000000)) {
+						   System.out.println("You've gained the Dragon Tooth Sword");
+						   System.out.println(w.getName()+" has been sold for " + earnAmount(w.sellItem(w.getName())) + earnType(w.sellItem(w.getName())));
+						   pc.downgradeAttack(w.getAttack());
+						   w.setItem("Dragon Tooth Sword");
+						   pc.upgradeAttack(w.getAttack());
+					   }else {
+						   System.out.println("You can't afford this.");
+						   System.out.println();
+						   Thread.sleep(250);
+					   }
+				   }
+			   }
+			   break;
+		   case 4:
 			   leave = true;
 			   break;
 			default:
@@ -2204,6 +2346,46 @@ public class Main {
 		   }
 	   }
 	   return spent;
+   }
+   /**
+    * This method is to get the amount of currency earned
+    * 
+    * @param cost
+    * @return
+    */
+   public static int earnAmount(int cost) {
+	   if(cost < 100) {
+		   copper += cost;
+	   }else if(cost < 10000) {
+		   cost = cost/100;
+		   silver += cost;
+	   }else if(cost < 1000000) {
+		   cost = cost/10000;
+		   gold += cost;
+	   }else {
+		   cost = cost/1000000;
+		   platinum += cost;
+	   }
+	   return cost;
+   }
+   /**
+    * This method is to get the type of currency earned
+    * 
+    * @param cost
+    * @return
+    */
+   public static String earnType(int cost) {
+	   String currency = "o";
+	   if(cost < 100) {
+		   currency = "c";
+	   }else if(cost < 10000) {
+		   currency = "s";
+	   }else if(cost < 1000000) {
+		   currency = "g";
+	   }else {
+		   currency = "p";
+	   }
+	   return currency;
    }
    /**
     * This method is to see if the move dealt would be a critical, base is 1% critical rate, raises 1% per luck
