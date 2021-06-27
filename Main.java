@@ -72,9 +72,9 @@ public class Main {
       System.out.println("|_|  |_/_/    \\_\\/   |______|_| \\_|");
       System.out.println();
       System.out.println("Start a game by picking a class.");
-      System.out.println("Press 0 to  be a Barbarian(High-Health/Mid-Attack/Low-Shield/Low-Luck)");
-      System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield/Mid-Luck)");
-      System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield/High-Luck)");
+      System.out.println("Press 0 to  be a Barbarian(High-Health/Mid-Attack/Low-Shield/Mid-Speed/Low-Luck)");
+      System.out.println("Press 1 to  be a Warrior(Low-Health/High-Attack/Mid-Shield/High-Speed/Mid-Luck)");
+      System.out.println("Press 2 to  be a Knight(Mid-Health/Low-Attack/High-Shield/Low-Speed/High-Luck)");
       System.out.println("Press 3 to exit");
       int start = inputVerification(0, 3);
       if(start == 0 || start == 1 || start == 2) {
@@ -146,8 +146,9 @@ public class Main {
                System.out.println("1. Attack");
                System.out.println("2. Defense");
                System.out.println("3. Health");
-               System.out.println("4. Luck");
-               int answer = inputVerification(1,4);
+               System.out.println("4. Speed");
+               System.out.println("5. Luck");
+               int answer = inputVerification(1,5);
                switch(answer) {
                   case 1:
                      System.out.print("Attack: " + pc.getAttack() + "-->");
@@ -168,6 +169,12 @@ public class Main {
                      System.out.print(pc.getTotal()+ "\n");
                      break;
                   case 4:
+                	  System.out.print("Speed: " + pc.getSpeed() + "-->");
+                      pc.upgradeHealth(1);
+                      pc.usePoint(1);
+                      System.out.print(pc.getSpeed()+ "\n");
+                      break;
+                  case 5:
                      System.out.print("Luck: " + pc.getLuck() + "-->");
                      pc.upgradeLuck(1);
                      pc.usePoint(1);
@@ -231,6 +238,7 @@ public class Main {
       System.out.println("Total Health: " + pc.getTotal());
       System.out.println("Attack: " + pc.getAttack());
       System.out.println("Shield: " + pc.getShield());
+      System.out.println("Speed: " + pc.getSpeed());
       System.out.println("Points: " + pc.getPoints());
       System.out.println("Level: " + pc.getLevel());
       System.out.println("Health: " + pc.getHealth());
@@ -1620,14 +1628,14 @@ public class Main {
          if(chance < 1) {
             System.out.println("You got nothing...");
          }else if(chance > 2) {
-            int item = rand.nextInt(4);
-            int strength = rand.nextInt(2);
+            int item = rand.nextInt(5);
+            int strength = rand.nextInt(3);
             if(item == 0) {
-               if(pc.getLevel() >= 10 && strength == 1) {
+               if(pc.getLevel() >= 10 && strength == 2) {
             	   System.out.println("You got Adrenaline!");
             	   System.out.println("You can heal yourself with this.");
            			pc.putItems("Adrenaline");
-               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
+               }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 1) {
             	   System.out.println("You got a Booster potion!");
             	   System.out.println("You can heal yourself with this.");
            			pc.putItems("Booster Potion");
@@ -1637,11 +1645,11 @@ public class Main {
             		pc.putItems("Health Potion");
                }
             }else if(item == 1) {
-            	if(pc.getLevel() >= 10 && strength == 1) {
+            	if(pc.getLevel() >= 10 && strength == 2) {
             		System.out.println("You got Flex tape!");
             		System.out.println("You can increase your shield with this.");
                     pc.putItems("Flex tape");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 1) {
                 	System.out.println("You got Duct tape!");
                 	System.out.println("You can increase your shield with this.");
                     pc.putItems("Duct tape");
@@ -1651,11 +1659,11 @@ public class Main {
                     pc.putItems("Scotch tape");
                 }
             }else if(item == 2) {
-            	if(pc.getLevel() >= 10 && strength == 1) {
+            	if(pc.getLevel() >= 10 && strength == 2) {
             		System.out.println("You got Steroids!");
             		System.out.println("You can increase your attack with this.");
                     pc.putItems("Steroids");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 1) {
                 	System.out.println("You got a Strength potion!");
                 	System.out.println("You can increase your attack with this.");
                     pc.putItems("Strength Potion");
@@ -1664,12 +1672,26 @@ public class Main {
                 	System.out.println("You can increase your attack with this.");
                     pc.putItems("Attack Potion");
                 }
+            }else if(item == 3) {
+            	if(pc.getLevel() >= 10 && strength == 2) {
+            		System.out.println("You got Lightning Bottle!");
+            		System.out.println("You can increase your speed with this.");
+                    pc.putItems("Lightning Bottle");
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 1) {
+                	System.out.println("You got a Strength potion!");
+                	System.out.println("You can increase your speed with this.");
+                    pc.putItems("Quick Potion");
+                }else {
+                	System.out.println("You got an Attack potion!");
+                	System.out.println("You can increase your speed with this.");
+                    pc.putItems("Speed Potion");
+                }
             }else {
-            	if(pc.getLevel() >= 10 && strength == 1) {
+            	if(pc.getLevel() >= 10 && strength == 2) {
             		System.out.println("You got a Four Leaf Clover!");
             		System.out.println("You can increase your luck with this.");
                     pc.putItems("Four Leaf Clover");
-                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 0) {
+                }else if(pc.getLevel()< 10 && pc.getLevel() >= 5 && strength >= 1) {
                 	System.out.println("You got a Fortune potion!");
                 	System.out.println("You can increase your luck with this.");
                     pc.putItems("Fortune Potion");
@@ -1803,7 +1825,13 @@ public class Main {
                  if(response) {
                  pc.upgradeAttack(3);
                  }
-              } else if(c.equalsIgnoreCase("Luck Potion")){
+              }else if(c.equalsIgnoreCase("Speed Potion")) {
+                  Items.speedPotion();
+                  response = confirm();
+                  if(response) {
+                  pc.upgradeSpeed(3);
+                  }
+               } else if(c.equalsIgnoreCase("Luck Potion")){
                  Items.LuckPotion();
                  response = confirm();
                  if(response) {
@@ -1827,7 +1855,13 @@ public class Main {
                   if(response) {
                   pc.upgradeAttack(6);
                   }
-               } else if(c.equalsIgnoreCase("Fortune Potion")) {
+               }else if(c.equalsIgnoreCase("Quick Potion")) {
+                   Items.quickPotion();
+                   response = confirm();
+                   if(response) {
+                   pc.upgradeSpeed(5);
+                   }
+                } else if(c.equalsIgnoreCase("Fortune Potion")) {
                   Items.fortunePotion();
                   response = confirm();
                   if(response) {
@@ -1851,7 +1885,13 @@ public class Main {
                    if(response) {
                    pc.upgradeAttack(10);
                    }
-                } else if(c.equalsIgnoreCase("Four Leaf Clover")) {
+                }else if(c.equalsIgnoreCase("Lightning Bottle")) {
+                    Items.lightning();
+                    response = confirm();
+                    if(response) {
+                    pc.upgradeSpeed(8);
+                    }
+                 } else if(c.equalsIgnoreCase("Four Leaf Clover")) {
                    Items.clover();
                    response = confirm();
                    if(response) {
@@ -2041,6 +2081,7 @@ public class Main {
 			   System.out.println("2: Health Potion - 80c");
 			   System.out.println("3: Scotch Tape - 5s");
 			   System.out.println("4: Luck Potion - 70s");
+			   System.out.println("5: Speed Potion - 2s");
 			   System.out.println("5: Return");
 			   System.out.println();
 			   choice = inputVerification(1, 5);
@@ -2090,6 +2131,17 @@ public class Main {
 				   }
 				   break;
 			   case 5:
+				   if(spend(200)) {
+					   System.out.println("You got a Speed Potion!");
+	               	   System.out.println("You can increase your speed with this.");
+	                   pc.putItems("Speed Potion");
+				   }else {
+					   System.out.println("You can't afford this.");
+					   System.out.println();
+					   Thread.sleep(250);
+				   }
+				   break;
+			   case 6:
 				   break;
 			   default:
 					break;

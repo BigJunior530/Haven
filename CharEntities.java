@@ -10,6 +10,7 @@ public abstract class CharEntities{
       int totalHealth;
       int attack;
       int level;
+      int speed;
       String difficulty;
       String name;
       public static Random rand = new Random();
@@ -36,20 +37,53 @@ public abstract class CharEntities{
     	  level = (rand.nextInt(4)) + enemy + bonus;
       }
       /**
-       * This method uses whatever stat is passed by the animals constructor and multiplies it by the level to get attack
+       * This method uses whatever stat is passed by the animals constructor and multiplies it by bonus depending on difficulty adding to base to get attack
        *
        * @param stat is the number passed by constructor
        */
       public void setAttack(int stat) {
-    	  attack = stat*level;
+    	  int bonus = 2;
+    	  int base = stat;
+    	  if(difficulty == "Hard") {
+    		  bonus = 6;
+    	  }else if(difficulty == "Normal") {
+    		  bonus = 4;
+    	  }
+    	  base += base * (level/10);
+    	  attack = base + (bonus * level);
       }
       /**
-       * This method uses whatever stat is passed by the animals constructor and multiplies it by the level to get health
+       * This method uses whatever stat is passed by the animals constructor and multiplies it by bonus depending on difficulty adding to base to get health
        *
        * @param stat is the number passed by constructor
        */
       public void setHealth(int stat) {
-    	 health = stat*level;
+    	  int bonus = 3;
+    	  int base = stat;
+    	  if(difficulty == "Hard") {
+    		  bonus = 8;
+    	  }else if(difficulty == "Normal") {
+    		  bonus = 5;
+    	  }
+    	  base += base * (level/10);
+    	 health = base + (bonus * level);
+    	 totalHealth = health;
+      }
+      /**
+       * This method uses whatever stat is passed by the animals constructor and multiplies it by bonus depending on difficulty adding to base to get speed
+       *
+       * @param stat is the number passed by constructor
+       */
+      public void setSpeed(int stat) {
+    	  int bonus = 1;
+    	  int base = stat;
+    	  if(difficulty == "Hard") {
+    		  bonus = 3;
+    	  }else if(difficulty == "Normal") {
+    		  bonus = 2;
+    	  }
+    	  base += base * (level/10);
+    	 speed = base + (bonus * level);
       }
       /**
        * This method sets the difficulty of the animal to either easy, normal, hard depending on what is sent by the constructor
@@ -65,7 +99,7 @@ public abstract class CharEntities{
        * @param boost
        */
       public void upHealth(int boost) {
-    	  if(boost + health > 10*level) {
+    	  if(boost + health > totalHealth) {
     		  health=totalHealth;
     	  }else {
     		  health = health + boost;
@@ -78,6 +112,14 @@ public abstract class CharEntities{
        */
       public int getAttack(){
             return this.attack;
+      }
+      /**
+       * This method is just used to get the speed of the enemy
+       * 
+       * @return global variable attack
+       */
+      public int getSpeed(){
+            return this.speed;
       }
       /**
        * This method is just used to get the difficulty of the enemy
@@ -188,11 +230,11 @@ public abstract class CharEntities{
       public int getEXP() {
     	  switch(getDifficulty()) {
     	  	case "Easy":
-    	  		return getLevel();
+    	  		return 3 * getLevel();
     	  	case "Normal":
-    	  		return 3 + getLevel();
+    	  		return 5 * getLevel();
     	  	case "Hard":
-    	  		return 9 + getLevel();
+    	  		return 8 * getLevel();
     	  	default:
     	  		return getLevel();
     	
@@ -218,6 +260,7 @@ class WildBoar extends CharEntities{
           setLevel(enemy);
           setAttack(3);
           setHealth(6);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Wild Boar
@@ -241,20 +284,26 @@ class WildBoar extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Boar rolls in mud");
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Boar uses Body Slam");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Boar uses Tackle");
         	  dam = attack;
           }
@@ -297,6 +346,7 @@ class Alien extends CharEntities{
           setLevel(enemy);
           setAttack(4);
           setHealth(4);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Alien
@@ -317,17 +367,23 @@ class Alien extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Alien uses Hypnosis");
         	  dam = pc.getAttack()/2;
         	  System.out.println("You got confused. Then punched yourself to get out of confusion");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Alien uses Probe");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Alien uses Tackle");
         	  dam = attack;
           }
@@ -370,6 +426,7 @@ class Chicken extends CharEntities{
           setLevel(enemy);
           setAttack(2);
           setHealth(2);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Chicken
@@ -389,20 +446,26 @@ class Chicken extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Chicken uses Pluck");
         	  dam = 0;
         	  System.out.println("You lost some shield.");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Chicken uses Peck");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Chicken uses Tackle");
         	  dam = attack;
           }
@@ -445,6 +508,7 @@ class Chimpanzee extends CharEntities{
           setLevel(enemy);
           setAttack(4);
           setHealth(5);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Chimpanzee
@@ -465,9 +529,15 @@ class Chimpanzee extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Chimpanzee uses Poop Throw");
         	  dam = 0;
         	  System.out.println("You lost some shield");
@@ -475,11 +545,11 @@ class Chimpanzee extends CharEntities{
         	  pc.downgradeShield(1);
         	  System.out.print(pc.getShield()+ "\n");
         	  
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Chimpanzee uses both arms to smash against your body");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Chimpanzee uses Tackle");
         	  dam = attack;
           }
@@ -522,6 +592,7 @@ class Dragon extends CharEntities{
           setLevel(enemy);
           setAttack(10);
           setHealth(10);
+          setSpeed(8);
       }
       /**
        * This method prints out the ascii art for the Dragon
@@ -547,20 +618,26 @@ class Dragon extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Dragon uses HeatWave");
         	  dam = 0;
         	  System.out.println("Its attack increased");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Dragon uses Volcanic Ash");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Dragon uses Tackle");
         	  dam = attack;
           }
@@ -603,6 +680,7 @@ class Duck extends CharEntities{
           setLevel(enemy);
           setAttack(3);
           setHealth(3);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Duck
@@ -623,20 +701,26 @@ class Duck extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Duck uses Pluck");
         	  dam = 0;
         	  System.out.println("You lost some shield.");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Duck uses Water Gun");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Duck uses Tackle");
         	  dam = attack;
           }
@@ -679,6 +763,7 @@ class Eagle extends CharEntities{
           setLevel(enemy);
           setAttack(6);
           setHealth(4);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Eagle
@@ -701,20 +786,26 @@ class Eagle extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Eagle uses Feather Dance");
         	  dam = 0;
         	  System.out.println("It's attack doubled.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Eagle uses its Talons");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Eagle uses Tackle");
         	  dam = attack;
           }
@@ -757,6 +848,7 @@ class FlyingSquirrel extends CharEntities{
           setLevel(enemy);
           setAttack(2);
           setHealth(4);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Flying Squirrel
@@ -778,9 +870,15 @@ class FlyingSquirrel extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Squirell uses Fluffy Tail");
         	  dam = 0;
         	  System.out.println("You kind of don't want to hurt it now.");
@@ -788,11 +886,11 @@ class FlyingSquirrel extends CharEntities{
         	  System.out.println("Attack " + pc.getAttack() + "-->");
         	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Squirrel uses Pierce");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Squirrel uses Tackle");
         	  dam = attack;
           }
@@ -835,6 +933,7 @@ class Fox extends CharEntities{
           setLevel(enemy);
           setAttack(6);
           setHealth(4);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Fox
@@ -853,9 +952,15 @@ class Fox extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Fox uses Fluffy Tail");
         	  dam = 0;
         	  System.out.println("You kind of don't want to hurt it now.");
@@ -863,11 +968,11 @@ class Fox extends CharEntities{
         	  System.out.println("Attack " + pc.getAttack() + "-->");
         	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Fox uses Bite");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Fox uses Tackle");
         	  dam = attack;
           }
@@ -911,6 +1016,7 @@ class Frog extends CharEntities{
           setLevel(enemy);
           setAttack(6);
           setHealth(4);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Frog
@@ -932,20 +1038,26 @@ class Frog extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Frog uses slime");
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Frog uses its Tongue");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Frog uses Tackle");
         	  dam = attack;
           }
@@ -988,6 +1100,7 @@ class Golem extends CharEntities{
           setLevel(enemy);
           setAttack(4);
           setHealth(7);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Golem
@@ -1008,20 +1121,26 @@ class Golem extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Golem uses Clay Hardening");
         	  dam = 0;
         	  System.out.println("It healed itself.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Golem uses Crush");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Golem uses Tackle");
         	  dam = attack;
           }
@@ -1064,6 +1183,7 @@ class Hydra extends CharEntities{
           setLevel(enemy);
           setAttack(7);
           setHealth(9);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Hydra
@@ -1087,20 +1207,26 @@ class Hydra extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Hydra grows another head");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("All of Hydras heads attacked");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Hydra uses Tackle");
         	  dam = attack;
           }
@@ -1150,6 +1276,7 @@ class JellyFish extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(3);
+          setSpeed(1);
       }
       /**
        * This method prints out the ascii art for the JellyFish
@@ -1176,20 +1303,26 @@ class JellyFish extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("JellyFish uses Paralyze");
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("JellyFish uses Poison Sting");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("JellyFish uses Tackle");
         	  dam = attack;
           }
@@ -1232,6 +1365,7 @@ class KoiFish extends CharEntities{
           setLevel(enemy);
           setAttack(2);
           setHealth(6);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Koi Fish
@@ -1250,20 +1384,26 @@ class KoiFish extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Koi uses Glistening Scales");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Koi uses Razor Scales");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Koi uses Tackle");
         	  dam = attack;
           }
@@ -1306,6 +1446,7 @@ class Komodo extends CharEntities{
           setLevel(enemy);
           setAttack(8);
           setHealth(7);
+          setSpeed(7);
       }
       /**
        * This method prints out the ascii art for the Komodo Dragon
@@ -1327,20 +1468,26 @@ class Komodo extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Komodo Dragon uses Sand attack");
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Komodo Dragon uses Acid Spit");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Komodo Dragan uses Tackle");
         	  dam = attack;
           }
@@ -1387,6 +1534,7 @@ class Kraken extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(7);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Kraken
@@ -1409,20 +1557,26 @@ class Kraken extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Kraken Submerges itself");
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Kraken uses Tsunami");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Kraken uses Smack");
         	  dam = attack;
           }
@@ -1465,6 +1619,7 @@ class Leviathan extends CharEntities{
           setLevel(enemy);
           setAttack(10);
           setHealth(12);
+          setSpeed(8);
       }
       /**
        * This method prints out the ascii art for the Leviathan
@@ -1488,20 +1643,26 @@ class Leviathan extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Leviathan uses glare");
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Leviathan uses crunch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Leviathan uses tackle");
         	  dam = attack;
           }
@@ -1548,6 +1709,7 @@ class LochNess extends CharEntities{
           setLevel(enemy);
           setAttack(8);
           setHealth(10);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Loch Ness Monster
@@ -1567,17 +1729,23 @@ class LochNess extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Loch Ness Monster uses Enigma");
         	  dam = pc.getAttack()/2;
         	  System.out.println("You hurt yourself in confusion");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Loch Ness Monster uses Tsunami");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Loch Ness Monster uses Tackle");
         	  dam = attack;
           }
@@ -1620,6 +1788,7 @@ class Mermaid extends CharEntities{
           setLevel(enemy);
           setAttack(3);
           setHealth(5);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Mermaid
@@ -1643,17 +1812,23 @@ class Mermaid extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Mermaid uses Song");
         	  dam = pc.getAttack()/2;
         	  System.out.println("You're body slowing started walking by itself towads the Mermaid. You stabbed youself to Stop.");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Mermaid uses drown");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Mermaid uses Tackle");
         	  dam = attack;
           }
@@ -1696,6 +1871,7 @@ class MountainLion extends CharEntities{
           setLevel(enemy);
           setAttack(8);
           setHealth(8);
+          setSpeed(7);
       }
       /**
        * This method prints out the ascii art for the Mountain Lion
@@ -1715,20 +1891,26 @@ class MountainLion extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Mountain Lion used Sharpen claw");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Moutain Lion uses Mangle");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Mountain Lion uses Pounce");
         	  dam = attack;
           }
@@ -1775,6 +1957,7 @@ class Mummy extends CharEntities{
           setLevel(enemy);
           setAttack(4);
           setHealth(3);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Mummy
@@ -1799,20 +1982,26 @@ class Mummy extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Mummy uses Rebandage");
         	  dam = 0;
         	  System.out.println("It healed itself");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Mummy uses Pharoah's Demise");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Mummy uses Tackle");
         	  dam = attack;
           }
@@ -1855,6 +2044,7 @@ class Ogre extends CharEntities{
           setLevel(enemy);
           setAttack(9);
           setHealth(9);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Ogre
@@ -1875,20 +2065,26 @@ class Ogre extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Ogre uses Mud");
         	  dam = 0; 
         	  System.out.println("It healed itself.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Ogre uses Crush");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Ogre uses Tackle");
         	  dam = attack;
           }
@@ -1931,6 +2127,7 @@ class Owl extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(4);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Owl
@@ -1951,17 +2148,23 @@ class Owl extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Owl spun its head");
         	  dam = pc.getAttack()/2;
         	  System.out.println("You got confused and tried to twist your own head.");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Owl used its Talons");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Owl uses Tackle");
         	  dam = attack;
           }
@@ -2004,6 +2207,7 @@ class Panther extends CharEntities{
           setLevel(enemy);
           setAttack(7);
           setHealth(9);
+          setSpeed(9);
       }
       /**
        * This method prints out the ascii art for the Panther
@@ -2024,21 +2228,27 @@ class Panther extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Panther prepares to pounce");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
-          }else if(move == 1) {
+          }else if(move > 95) {
+          }else if(move > 95) {
         	  System.out.println("Panther uses Maul");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Panther uses Pounce");
         	  dam = attack;
           }
@@ -2085,6 +2295,7 @@ class Penguin extends CharEntities{
           setLevel(enemy);
           setAttack(2);
           setHealth(6);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Penguin
@@ -2109,9 +2320,15 @@ class Penguin extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Penguin uses Happy Feet");
         	  dam = 0;
         	  System.out.println("You kind of don't want to hurt it now.");
@@ -2119,11 +2336,11 @@ class Penguin extends CharEntities{
         	  System.out.println("Attack " + pc.getAttack() + "-->");
         	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Penguin uses Drill  Peck");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Penguin uses Tackle");
         	  dam = attack;
           }
@@ -2166,6 +2383,7 @@ class Piranha extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(4);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Piranha
@@ -2188,20 +2406,26 @@ class Piranha extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Piranha uses BloodLust");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Piranha uses Frenzy");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Piranha uses Tackle");
         	  dam = attack;
           }
@@ -2244,6 +2468,7 @@ class PolarBear extends CharEntities{
           setLevel(enemy);
           setAttack(8);
           setHealth(11);
+          setSpeed(7);
       }
       /**
        * This method prints out the ascii art for the Polar Bear
@@ -2264,20 +2489,26 @@ class PolarBear extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Polar Bear uses its thick fur to warm itself up.");
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Polar Bear smashes its paws against the Ice to completely shatter the Ice under you");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Polar Bear uses Strike");
         	  dam = attack;
           }
@@ -2326,6 +2557,7 @@ class Poseidon extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(7);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Poseidon
@@ -2348,20 +2580,26 @@ class Poseidon extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Poseidon used Wrath");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Poseidon used Tsunami");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Poseidon used surf");
         	  dam = attack;
           }
@@ -2404,6 +2642,7 @@ class Ram extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(4);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Ram
@@ -2426,20 +2665,26 @@ class Ram extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Ram smashes his Horns into the wall");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Ram uses Head Smash");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Ram uses Tackle");
         	  dam = attack;
           }
@@ -2482,6 +2727,7 @@ class RattleSnake extends CharEntities{
           setLevel(enemy);
           setAttack(8);
           setHealth(5);
+          setSpeed(7);
       }
       /**
        * This method prints out the ascii art for the Rattle Snake
@@ -2499,20 +2745,26 @@ class RattleSnake extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Snake uses its poison");
         	  dam = 0;
         	  System.out.println("You lost some shield");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Snake uses Constriction");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Snake uses Strike");
         	  dam = attack;
           }
@@ -2555,6 +2807,7 @@ class Salmon extends CharEntities{
           setLevel(enemy);
           setAttack(3);
           setHealth(5);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Salmon
@@ -2573,20 +2826,26 @@ class Salmon extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Salmon uses Current");
         	  dam = 0;
         	  System.out.println("Its attack increased");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Salmon uses Razor Scale");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Salmon uses Tackle");
         	  dam = attack;
           }
@@ -2629,6 +2888,7 @@ class Scorpion extends CharEntities{
           setLevel(enemy);
           setAttack(6);
           setHealth(3);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Scorpion
@@ -2652,17 +2912,23 @@ class Scorpion extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Scorpion uses Posion Sting");
         	  dam = pc.getAttack()/2;
         	  System.out.println("You cut off the area to stop the Poison from spreading");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Scorpion uses Pinch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Scorpion uses Tackle");
         	  dam = attack;
           }
@@ -2705,6 +2971,7 @@ class Shark extends CharEntities{
           setLevel(enemy);
           setAttack(7);
           setHealth(9);
+          setSpeed(8);
       }
       /**
        * This method prints out the ascii art for the Shark
@@ -2729,20 +2996,26 @@ class Shark extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Shark smells Blood");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Shark uses its rows of Razer Sharp teeth to shred you");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Shark uses Tackle");
         	  dam = attack;
           }
@@ -2785,6 +3058,7 @@ class Skeleton extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(4);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Skeleton
@@ -2813,20 +3087,26 @@ class Skeleton extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Skeleton uses Hone");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Skeleton uses Bone Rattler");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Skeleton uses Tackle");
         	  dam = attack;
           }
@@ -2869,6 +3149,7 @@ class Spider extends CharEntities{
           setLevel(enemy);
           setAttack(7);
           setHealth(3);
+          setSpeed(4);
       }
       /**
        * This method prints out the ascii art for the Spider
@@ -2891,20 +3172,26 @@ class Spider extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Spider uses Fear");
         	  dam = 0;
         	  System.out.println("You become more fearlful... lose some attack");
         	  System.out.println("Attack " + pc.getAttack() + "-->");
         	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Spider uses Venom");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Spider uses Tackle");
         	  dam = attack;
           }
@@ -2947,6 +3234,7 @@ class Turtle extends CharEntities{
           setLevel(enemy);
           setAttack(4);
           setHealth(4);
+          setSpeed(2);
       }
       /**
        * This method prints out the ascii art for the Turtle
@@ -2966,20 +3254,26 @@ class Turtle extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Turtle uses Harden");
         	  dam = 0;
         	  System.out.println("Its health increases");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Turtle uses Crunch");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Turtle uses Tackle");
         	  dam = attack;
           }
@@ -3022,6 +3316,7 @@ class Vulture extends CharEntities{
           setLevel(enemy);
           setAttack(3);
           setHealth(6);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Vulture
@@ -3042,9 +3337,15 @@ class Vulture extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Vulture uses Fly");
         	  dam = 0;
         	  System.out.println("You cant't really reach it.");
@@ -3052,11 +3353,11 @@ class Vulture extends CharEntities{
         	  System.out.println("Attack " + pc.getAttack() + "-->");
         	  pc.decreaseAttackTemp(2);
         	  System.out.print(pc.getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Vulture uses Scavenger");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Vulture uses tackle");
         	  dam = attack;
           }
@@ -3099,6 +3400,7 @@ class Wolf extends CharEntities{
           setLevel(enemy);
           setAttack(7);
           setHealth(7);
+          setSpeed(6);
       }
       /**
        * This method prints out the ascii art for the Wolf
@@ -3124,20 +3426,26 @@ class Wolf extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Wolf uses Howl");
         	  dam = 0;
         	  System.out.println("It's attack increased.");
         	  System.out.println("Attack " + getAttack() + "-->");
         	  upAttack(getAttack()/2);
         	  System.out.print(getAttack()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Wolf uses Mutilate");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Wolf uses Tackle");
         	  dam = attack;
           }
@@ -3180,6 +3488,7 @@ class Yak extends CharEntities{
           setLevel(enemy);
           setAttack(5);
           setHealth(8);
+          setSpeed(5);
       }
       /**
        * This method prints out the ascii art for the Yak
@@ -3201,20 +3510,26 @@ class Yak extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Yak uses its thick fur to warm itself up");
         	  dam = 0;
         	  System.out.println("It's healed some health.");
         	  System.out.println("Health " + getHealth() + "-->");
         	  upHealth(level);
         	  System.out.print(getHealth()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Yak uses Charge");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Yak uses Tackle");
         	  dam = attack;
           }
@@ -3257,6 +3572,7 @@ class Zombie extends CharEntities{
           setLevel(enemy);
           setAttack(6);
           setHealth(3);
+          setSpeed(3);
       }
       /**
        * This method prints out the ascii art for the Zombie
@@ -3276,20 +3592,26 @@ class Zombie extends CharEntities{
        * @return dam is the damage it will deal to the user
        */
       public int getMove(Protag pc){
-          int move = rand.nextInt(4);
+          int move = rand.nextInt(100);
           int dam = 0;
-          if(move == 0) {
+          if(health < (int) Math.ceil(totalHealth * .25)) {
+        	  move -= 25;
+          }
+          if(health > (int) Math.ceil(totalHealth * .95)) {
+        	  move += 10;
+          }
+          if(move < 30) {
         	  System.out.println("Zombie uses Virus");
         	  dam = 0;
         	  System.out.println("You become more vulnerable to attacks.");
         	  System.out.println("Shield " + pc.getShield() + "-->");
         	  pc.decreaseShieldTemp(4);
         	  System.out.print(pc.getShield()+ "\n");
-          }else if(move == 1) {
+          }else if(move > 95) {
         	  System.out.println("Zombie uses Decay");
         	  dam = attack*2;
         	  System.out.println("It's a critical");
-          }else if(move == 2 || move == 3) {
+          }else if(move >= 30 || move <=95) {
         	  System.out.println("Zombie uses Tackle");
         	  dam = attack;
           }

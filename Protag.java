@@ -10,6 +10,7 @@ public class Protag {
       private int health;
       private int totalHealth;
       private int attack;
+      private int speed;
       private int shield;
       private int exp;
       private int level;
@@ -33,23 +34,29 @@ public class Protag {
       public Protag(int type){
     	  this.type = type; 
     	  if(type == 0) {
-    		  this.health = 125;
-              totalHealth = 125;
+    		  //13 points not including health 13 points
+    		  this.health = 130;
+              totalHealth = 130;
               this.attack = 5;
               this.shield = 3; 
               luck = 1;
+              speed = 4;
     	  }else if(type == 1) {
-    		  this.health = 75;
-              totalHealth = 75;
-              this.attack = 8;
+    		  //21 points not including health 7 points
+    		  this.health = 70;
+              totalHealth = 70;
+              this.attack = 7;
               this.shield = 5; 
               luck = 3;
+              speed = 6;
     	  }else {
+    		  //17 points not including health 10 points
     		  this.health = 100;
               totalHealth = 100;
               this.attack = 3;
-              this.shield = 8; 
+              this.shield = 7; 
               luck = 5;
+              speed = 2;
     	  }
     	  	
             level = 1;
@@ -128,6 +135,14 @@ public class Protag {
       public int getHealth(){
           return health;
       }
+      /**
+       * This method is used to get the speed of the User
+       * 
+       * @return health
+       */
+      public int getSpeed(){
+          return speed;
+      }
       /** 
        * This method is used to set the health depending on idx
        * 
@@ -195,6 +210,14 @@ public class Protag {
        */
       public void upgradeAttack(int boost){
     	  attack = attack + boost;
+      }
+      /**
+       * This method is used to increase the speed of the User
+       * 
+       * @param boost is how much to increase the attack
+       */
+      public void upgradeSpeed(int boost){
+    	  speed = speed + boost;
       }
       /**
        * This method is used to increase the total health of the User
@@ -293,6 +316,15 @@ public class Protag {
     		  upgradeAttack(3);
     	  }
     	  System.out.print(getAttack()+ "\n");
+    	  System.out.print("Speed: " + getSpeed() + "-->");
+    	  if(type == 0) {
+    		  upgradeSpeed(3);
+    	  }else if(type == 1) {
+    		  upgradeSpeed(4);
+    	  }else {
+    		  upgradeSpeed(2);
+    	  }
+    	  System.out.print(getSpeed()+ "\n");
     	  System.out.print("Shield: " + getShield() + "-->");
     	  if(type == 0) {
     		  upgradeShield(2);
