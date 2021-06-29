@@ -101,7 +101,7 @@ public class Protag {
        * @param strength is the attack of the Enemy
        */
       public void setExp(int strength) {
-    	  exp = exp + (strength*2);
+    	  exp = exp + (strength);
       }
       /**
        * This method is used to get the luck of the User

@@ -30,6 +30,7 @@ public class Main {
    public static feetArmor fa = new feetArmor();
    public static weapons w = new weapons();
    public static characterSheet cs;
+   public static int speed = 0;
    
    /**
     * This is where the game starts
@@ -53,7 +54,7 @@ public class Main {
          }else {
             pc.putItems("Luck Potion");
          }
-         Story.intro(pc);
+         Story.intro(pc, speed);
          start();
       }
             
@@ -80,9 +81,10 @@ public class Main {
       if(start == 0 || start == 1 || start == 2) {
          run = true;
          type = start;
-         Story.clearScreen();
+         Story.clearScreen(speed);
+         textSpeed();
       }else {
-         Story.clearScreen();
+         Story.clearScreen(speed);
          System.out.println("Goodbye...");
       }
     	 
@@ -121,8 +123,8 @@ public class Main {
     * 
     */
    private static void rest() throws InterruptedException {
-      Story.Check();
-      int choice = inputVerification(1,5);
+      Story.Check(speed);
+      int choice = inputVerification(1,7);
             
             // Main character choice
       switch (choice){
@@ -193,6 +195,10 @@ public class Main {
         	 rest();
         	 break;
          case 6:
+        	 textSpeed();
+        	 rest();
+        	 break;
+         case 7:
             return;
          default:
         	 System.out.println("Bad input...");
@@ -600,14 +606,14 @@ public class Main {
     */
    private static void start() throws InterruptedException {
       eastWest();
-      Story.choice();
+      Story.choice(speed);
       int answer = inputVerification(1,2);
       if(answer == 1) {
          adventure = false;
-         Story.homeLand();
+         Story.homeLand(speed);
          end();
       }else {
-         Story.adventure();
+         Story.adventure(speed);
          end();
       }
    }
@@ -621,37 +627,37 @@ public class Main {
 	   switch(response) {
 	   case 1:
 		   direction = "East";
-		   Story.East();
+		   Story.East(speed);
 	         WildBoar ek = new WildBoar(pc);
       
 	              
 	         fightSequence(ek, "Boar");
-	         Story.Encounter(pc);
-	         Story.Mid();
+	         Encounter();
+	         Story.Mid(speed);
 	         treePond();
 	         rest();
-	         Story.Close();
+	         Story.Close(speed);
 	         // 
 	         Wolf ke = new Wolf(pc);
 	         ke.intro();
 	         fightSequence(ke, "Wolf");
-	         Story.Encounter(pc);
+	         Encounter();
 		   break;
 	   case 2:
 		   direction = "West";
-		   Story.West();
+		   Story.West(speed);
 	         Wolf w = new Wolf(pc);
 	         w.intro();
 	         fightSequence(w, "Wolf");
-	         Story.Encounter(pc);
-	         Story.Mid();
+	         Encounter();
+	         Story.Mid(speed);
 	         treePond();
 	         rest();
-	         Story.Close();
+	         Story.Close(speed);
 	         WildBoar wb = new WildBoar(pc); 
 	         wb.intro();
 	         fightSequence(wb, "Boar");
-	         Story.Encounter(pc);
+	         Encounter();
 		   break;
 	   default:
 		   System.out.println("Bad input...");
@@ -668,21 +674,21 @@ public class Main {
 	   switch(response) {
 	   case 1:
 		   rest();
-	          Story.Tired();
+	          Story.Tired(speed);
 	          FlyingSquirrel fs = new FlyingSquirrel(pc);
 	       
 	                
 	          fightSequence(fs, "Flying Squirrel");
-	          Story.Encounter(pc);
+	          Encounter();
 		   break;
 	   case 2:
 		   rest();
-	          Story.Relax();
+	          Story.Relax(speed);
 	          KoiFish kf = new KoiFish(pc);
 	       
 	                
 	          fightSequence(kf, "Koi Fish");
-	          Story.Encounter(pc);
+	          Encounter();
 		   break;
 	   default:
 		   System.out.println("Bad input...");
@@ -744,13 +750,13 @@ public class Main {
     * @throws InterruptedException
     */
    private static void North() throws InterruptedException {
-      Story.North();
+      Story.North(speed);
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.SM() == 0) {
 	    	  rest();
-	          Story.Snowy();
+	          Story.Snowy(speed);
 	          Ram r = new Ram(pc);
 	       
 	                 
@@ -758,13 +764,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseSMV();
     	  }
     	  if(CheckPoint.SM() == 1) {
 	          if(adventure) {
-	             Story.adMoutain();
+	             Story.adMoutain(speed);
 	             Eagle e = new Eagle(pc);
 	           
 	                     
@@ -772,11 +778,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseSMV();
 	          }else {
-	             Story.civMoutain();
+	             Story.civMoutain(speed);
 	             Yak y = new Yak(pc);
 	           
 	                     
@@ -784,13 +790,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseSMV();
 	          }
     	  }
     	  if(CheckPoint.SM() == 2) {
-	          Story.Moutain();
+	          Story.Moutain(speed);
 	          MountainLion ml = new MountainLion(pc);
 	       
 	                 
@@ -798,7 +804,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseSMV();
     	  }
     	  if(CheckPoint.SM() >= 3) {
@@ -808,7 +814,7 @@ public class Main {
       case 2:
     	  if(CheckPoint.FT() == 0) {
 	    	  rest();
-	          Story.Frozen();
+	          Story.Frozen(speed);
 	          Owl o = new Owl(pc);
 	       
 	                 
@@ -816,13 +822,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseFTV();
     	  }
     	  if(CheckPoint.FT() == 1) {
 	          if(adventure) {
-	             Story.adTundra();
+	             Story.adTundra(speed);
 	             Fox f = new Fox(pc);
 	           
 	                     
@@ -830,11 +836,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseFTV();
 	          }else {
-	             Story.civTundra();
+	             Story.civTundra(speed);
 	             Penguin p = new Penguin(pc);
 	           
 	                     
@@ -842,13 +848,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseFTV();
 	          }
     	  }
     	  if(CheckPoint.FT() == 2) {
-	          Story.Tundra();
+	          Story.Tundra(speed);
 	          PolarBear pb = new PolarBear(pc);
 	       
 	                 
@@ -856,7 +862,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseFTV();
     	  }
     	  if(CheckPoint.FT() >= 3) {
@@ -879,13 +885,13 @@ public class Main {
     * @throws InterruptedException
     */
    private static void South() throws InterruptedException {
-      Story.South();
+      Story.South(speed);
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.SD() == 0) {
 	    	  rest();
-	          Story.Scorching();
+	          Story.Scorching(speed);
 	          Vulture v = new Vulture(pc);
 	       
 	                 
@@ -893,13 +899,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseSDV();
     	  }
     	  if(CheckPoint.SD() == 1) {
 	          if(adventure) {
-	             Story.adDesert();
+	             Story.adDesert(speed);
 	             RattleSnake rs = new RattleSnake(pc);
 	           
 	                     
@@ -907,11 +913,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseSDV();
 	          }else {
-	             Story.civDesert();
+	             Story.civDesert(speed);
 	             Scorpion s = new Scorpion(pc);
 	           
 	                     
@@ -919,13 +925,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseSDV();
 	          }
     	  }
     	  if(CheckPoint.SD() == 2) {
-	          Story.Desert();
+	          Story.Desert(speed);
 	          Komodo k = new Komodo(pc);
 	       
 	                 
@@ -933,7 +939,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseSDV();
     	  }
     	  if(CheckPoint.SD() >= 3) {
@@ -943,7 +949,7 @@ public class Main {
       case 2:
     	  if(CheckPoint.GJ() == 0) {
 	    	  rest();
-	          Story.Green();
+	          Story.Green(speed);
 	          Frog f = new Frog(pc);
 	       
 	                 
@@ -951,13 +957,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseGJV();
     	  }
           if(CheckPoint.GJ() == 1) {
 	          if(adventure) {
-	             Story.adJungle();
+	             Story.adJungle(speed);
 	             Piranha p = new Piranha(pc);
 	           
 	                     
@@ -965,11 +971,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseGJV();
 	          }else {
-	             Story.civJungle();
+	             Story.civJungle(speed);
 	             Chimpanzee c = new Chimpanzee(pc);
 	           
 	                     
@@ -977,13 +983,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseGJV();
 	          }
           }
           if(CheckPoint.GJ() == 2) {
-	          Story.Jungle();
+	          Story.Jungle(speed);
 	          Panther bp = new Panther(pc);
 	       
 	                 
@@ -991,7 +997,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseGJV();
           }
           if(CheckPoint.GJ() >= 3) {
@@ -1013,7 +1019,7 @@ public class Main {
     * @throws InterruptedException
     */
    private static void West() throws InterruptedException {
-      Story.WestRegion();
+      Story.WestRegion(speed);
       if(direction == "East") {
     	  System.out.println("2. Dark Forest");
       }else {
@@ -1025,7 +1031,7 @@ public class Main {
       case 1:
     	  if(CheckPoint.AR() == 0) {
 	    	  rest();
-	          Story.Ancient();
+	          Story.Ancient(speed);
 	          Mummy m = new Mummy(pc);
 	       
 	                 
@@ -1033,13 +1039,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseARV();
     	  }
           if(CheckPoint.AR() == 1) {
 	          if(adventure) {
-	             Story.adRuins();
+	             Story.adRuins(speed);
 	             Golem g = new Golem(pc);
 	           
 	                     
@@ -1047,11 +1053,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseARV();
 	          }else {
-	             Story.civRuins();
+	             Story.civRuins(speed);
 	             Spider s = new Spider(pc);
 	           
 	                     
@@ -1059,13 +1065,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseARV();
 	          }
           }
           if(CheckPoint.AR() == 2) {
-	          Story.Ruins();
+	          Story.Ruins(speed);
 	          Dragon d = new Dragon(pc);
 	       
 	                 
@@ -1073,7 +1079,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseARV();
           }
           if(CheckPoint.AR() >= 3) {
@@ -1100,7 +1106,7 @@ public class Main {
    private static void DarkForest() throws InterruptedException {
 	   if(CheckPoint.DF() == 0) {
 		   rest();
-	       Story.Dark();
+	       Story.Dark(speed);
 	       FlyingSquirrel fs = new FlyingSquirrel(pc);
 	    
 	              
@@ -1108,13 +1114,13 @@ public class Main {
 	       if(!won) {
 	        	  return;
 	          }
-	       Story.Encounter(pc);
+	       Encounter();
 	       rest();
 	       CheckPoint.increaseDFV();
 	   }
        if(CheckPoint.DF() == 1) {
 	       if(adventure) {
-	          Story.adForest();
+	          Story.adForest(speed);
 	          WildBoar wb = new WildBoar(pc);
 	        
 	                  
@@ -1122,11 +1128,11 @@ public class Main {
 	          if(!won) {
 	        	  return;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseDFV();
 	       }else {
-	          Story.civForest();
+	          Story.civForest(speed);
 	          KoiFish kf = new KoiFish(pc);
 	        
 	                  
@@ -1134,13 +1140,13 @@ public class Main {
 	          if(!won) {
 	        	  return;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseDFV();
 	       }
        }
        if(CheckPoint.DF() == 2) {
-	       Story.Forest();
+	       Story.Forest(speed);
 	       Wolf w = new Wolf(pc);
 	    
 	              
@@ -1148,7 +1154,7 @@ public class Main {
 	       if(!won) {
 	        	  return;
 	          }
-	       Story.Encounter(pc);
+	       Encounter();
 	       CheckPoint.increaseDFV();
        }
        if(CheckPoint.DF() >= 3) {
@@ -1158,7 +1164,7 @@ public class Main {
    private static void CrystalLake() throws InterruptedException {
 	   if(CheckPoint.CL() == 0) {
 		   rest();
-	       Story.Crystal();
+	       Story.Crystal(speed);
 	       Duck d = new Duck(pc);
 	    
 	              
@@ -1166,13 +1172,13 @@ public class Main {
 	       if(!won) {
 	        	  return;
 	          }
-	       Story.Encounter(pc);
+	       Encounter();
 	       rest();
 	       CheckPoint.increaseCLV();
 	   }
        if(CheckPoint.CL() == 1) {
 	       if(adventure) {
-	          Story.adLake();
+	          Story.adLake(speed);
 	          Turtle t = new Turtle(pc);
 	        
 	                  
@@ -1180,11 +1186,11 @@ public class Main {
 	          if(!won) {
 	        	  return;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseCLV();
 	       }else {
-	          Story.civLake();
+	          Story.civLake(speed);
 	          Salmon s = new Salmon(pc);
 	        
 	                  
@@ -1192,13 +1198,13 @@ public class Main {
 	          if(!won) {
 	        	  return;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseCLV();
 	       }
        }
        if(CheckPoint.CL() == 2) {
-	       Story.Lake();
+	       Story.Lake(speed);
 	       LochNess ln = new LochNess(pc);
 	    
 	              
@@ -1206,7 +1212,7 @@ public class Main {
 	       if(!won) {
 	        	  return;
 	          }
-	       Story.Encounter(pc);
+	       Encounter();
 	       CheckPoint.increaseCLV();
        }
        if(CheckPoint.CL() >= 3) {
@@ -1234,7 +1240,7 @@ public class Main {
     * @throws InterruptedException
     */
    private static void East() throws InterruptedException {
-      Story.EastRegion();
+      Story.EastRegion(speed);
       if(direction == "West") {
     	  System.out.println("2. Dark Forest");
       }else {
@@ -1246,7 +1252,7 @@ public class Main {
       case 1:
     	  if(CheckPoint.AV() == 0) {
 	    	  rest();
-	          Story.Abandoned();
+	          Story.Abandoned(speed);
 	          Chicken c = new Chicken(pc);
 	       
 	                 
@@ -1254,13 +1260,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseAVV();
     	  }
           if(CheckPoint.AV() == 1) {
 	          if(adventure) {
-	             Story.adVillage();
+	             Story.adVillage(speed);
 	             Zombie z = new Zombie(pc);
 	           
 	                     
@@ -1268,11 +1274,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseAVV();
 	          }else {
-	             Story.civVillage();
+	             Story.civVillage(speed);
 	             Skeleton s = new Skeleton(pc);
 	           
 	                     
@@ -1280,13 +1286,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseAVV();
 	          }
           }
           if(CheckPoint.AV() == 2) {
-	          Story.Village();
+	          Story.Village(speed);
 	          Ogre o = new Ogre(pc);
 	       
 	                 
@@ -1294,7 +1300,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseAVV();
           }
           if(CheckPoint.AV() >= 3) {
@@ -1324,13 +1330,13 @@ public class Main {
     * @throws InterruptedException
     */
    private static void Ocean() throws InterruptedException {
-      Story.Ocean();
+      Story.Ocean(speed);
       int ans = inputVerification(1,2);
       switch(ans) {
       case 1:
     	  if(CheckPoint.BT() == 0) {
 	    	  rest();
-	          Story.Bermuda();
+	          Story.Bermuda(speed);
 	          Alien a = new Alien(pc);
 	       
 	                 
@@ -1338,13 +1344,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseBTV();
     	  }
           if(CheckPoint.BT() == 1) {
 	          if(adventure) {
-	             Story.adTriangle();
+	             Story.adTriangle(speed);
 	             Kraken k = new Kraken(pc);
 	           
 	                     
@@ -1352,11 +1358,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseBTV();
 	          }else {
-	             Story.civTriangle();
+	             Story.civTriangle(speed);
 	             JellyFish jf = new JellyFish(pc);
 	           
 	                     
@@ -1364,13 +1370,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseBTV();
 	          }
           }
 	      if(CheckPoint.BT() == 2) {
-	          Story.Triangle();
+	          Story.Triangle(speed);
 	          Hydra h = new Hydra(pc);
 	       
 	                 
@@ -1378,7 +1384,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseBTV();
           }
 	      if(CheckPoint.BT() >= 3) {
@@ -1388,7 +1394,7 @@ public class Main {
       case 2:
     	  if(CheckPoint.CA() == 0) {
 	    	  rest();
-	          Story.City();
+	          Story.City(speed);
 	          Mermaid m = new Mermaid(pc);
 	       
 	                 
@@ -1396,13 +1402,13 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          rest();
 	          CheckPoint.increaseCAV();
     	  }
           if(CheckPoint.CA() == 1) {
 	          if(adventure) {
-	             Story.adAlantis();
+	             Story.adAlantis(speed);
 	             Poseidon p = new Poseidon(pc);
 	           
 	                     
@@ -1410,11 +1416,11 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseCAV();
 	          }else {
-	             Story.civAlantis();
+	             Story.civAlantis(speed);
 	             Shark s = new Shark(pc);
 	           
 	                     
@@ -1422,13 +1428,13 @@ public class Main {
 	             if(!won) {
 		        	  break;
 		          }
-	             Story.Encounter(pc);
+	             Encounter();
 	             rest();
 	             CheckPoint.increaseCAV();
 	          }
           }
           if(CheckPoint.CA() == 2) {
-	          Story.Alantis();
+	          Story.Alantis(speed);
 	          Leviathan l = new Leviathan(pc);
 	       
 	                 
@@ -1436,7 +1442,7 @@ public class Main {
 	          if(!won) {
 	        	  break;
 	          }
-	          Story.Encounter(pc);
+	          Encounter();
 	          CheckPoint.increaseCAV();
           }
           if(CheckPoint.CA() >= 3) {
@@ -1474,7 +1480,7 @@ public class Main {
     */
    private static <E> void fightSequence(E ek, String name) throws InterruptedException {
       testPassive();
-      Story.clearScreen(); 
+      Story.clearScreen(speed); 
       ((CharEntities) ek).intro();
       int run = ran;
       int useFull = 1;
@@ -2055,7 +2061,7 @@ public class Main {
     * @throws InterruptedException
     */
    public static void store() throws InterruptedException {
-	   Story.clearScreen();
+	   Story.clearScreen(speed);
 	   boolean leave = false;
 	   while(!leave) {
 		   System.out.println("Welcome to the Store");
@@ -2071,7 +2077,7 @@ public class Main {
 		   //System.out.println("4: Armor");
 		   System.out.println("4: Leave");
 		   System.out.println();
-		   int category = inputVerification(1, 3);
+		   int category = inputVerification(1, 4);
 		   int choice;
 		   switch(category) {
 		   case 1:
@@ -2082,9 +2088,9 @@ public class Main {
 			   System.out.println("3: Scotch Tape - 5s");
 			   System.out.println("4: Luck Potion - 70s");
 			   System.out.println("5: Speed Potion - 2s");
-			   System.out.println("5: Return");
+			   System.out.println("6: Return");
 			   System.out.println();
-			   choice = inputVerification(1, 5);
+			   choice = inputVerification(1, 6);
 			   switch(choice) {
 			   case 1:
 				   if(spend(1000)) {
@@ -2322,6 +2328,7 @@ public class Main {
 			default:
 				System.out.println("Bad Input... try again");
 		   }
+		   Thread.sleep(500);
 	   }
 	   
    }
@@ -2467,4 +2474,31 @@ public class Main {
 	      System.out.println("You dealt " + p1Attack + " damage");
 	      Looting(ek, name);
    }
+   public static void textSpeed() throws InterruptedException {
+	   System.out.println("Choose speed of text.");
+       System.out.println("1: Slow");
+       System.out.println("2: Normal");
+       System.out.println("3: Fast");
+       int choice = inputVerification(1,3);
+       if(choice == 1) {
+    	   speed = -500;
+       }else if(choice == 3) {
+    	   speed = 500;
+       }else {
+    	   speed=0;
+       }
+       Story.clearScreen(speed);
+   }
+	public static void Encounter() throws InterruptedException {
+		pc.reset();
+		System.out.println("Total Exp is now " + pc.getExp());
+        Thread.sleep(1000 + speed);
+        pc.heal(2*pc.getLevel());
+        pc.setNeeded();
+        System.out.println(pc.getNeeded() + " left to get to the next level");
+        Thread.sleep(1000 + speed);
+        System.out.println("You continue on your path.");
+        Thread.sleep(500);
+        
+  }
 }
