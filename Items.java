@@ -32,7 +32,7 @@ public class Items {
 	 * @throws InterruptedException
 	 */
 	public static void boosterPotion() throws InterruptedException{
-		System.out.println("Health Potion.");
+		System.out.println("Booster Potion.");
         Thread.sleep(1000);
 		System.out.println("Adds 50 health.");
         Thread.sleep(1000);
@@ -145,6 +145,39 @@ public class Items {
 		System.out.println("Flex Tape.");
         Thread.sleep(1000);
 		System.out.println("Adds 6 shield.");
+        Thread.sleep(1000);
+	}
+	/**
+	 * This method prints out the information for the Speed Potion
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void speedPotion() throws InterruptedException{
+		System.out.println("Speed Potion.");
+        Thread.sleep(1000);
+		System.out.println("Adds 3 speed.");
+        Thread.sleep(1000);
+	}
+	/**
+	 * This method prints out the information for the Quick Potion
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void quickPotion() throws InterruptedException{
+		System.out.println("Quick Potion.");
+        Thread.sleep(1000);
+		System.out.println("Adds 5 speed.");
+        Thread.sleep(1000);
+	}
+	/**
+	 * This method prints out the information for the Lightning Bottle
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void lightning() throws InterruptedException{
+		System.out.println("Lightning Bottle.");
+        Thread.sleep(1000);
+		System.out.println("Adds 8 speed.");
         Thread.sleep(1000);
 	}
 }

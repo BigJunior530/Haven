@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.TreeSet;
 /**
  * This creates the User class
@@ -9,14 +10,14 @@ public class Protag {
       private int health;
       private int totalHealth;
       private int attack;
+      private int speed;
       private int shield;
       private int exp;
       private int level;
       private int needed;
       private int lvlPoint;
-      private static TreeSet<String> items = new TreeSet<String>();
+      private static ArrayList<String> items = new ArrayList<>(100);
       private static TreeSet<String> equip = new TreeSet<String>();
-      private int itemCounter;
       private int equipCounter;
       public int attackTemp;
       public int shieldTemp;
@@ -33,30 +34,35 @@ public class Protag {
       public Protag(int type){
     	  this.type = type; 
     	  if(type == 0) {
-    		  this.health = 125;
-              totalHealth = 125;
+    		  //13 points not including health 13 points
+    		  this.health = 130;
+              totalHealth = 130;
               this.attack = 5;
               this.shield = 3; 
               luck = 1;
+              speed = 4;
     	  }else if(type == 1) {
-    		  this.health = 75;
-              totalHealth = 75;
-              this.attack = 8;
+    		  //21 points not including health 7 points
+    		  this.health = 70;
+              totalHealth = 70;
+              this.attack = 7;
               this.shield = 5; 
               luck = 3;
+              speed = 6;
     	  }else {
+    		  //17 points not including health 10 points
     		  this.health = 100;
               totalHealth = 100;
               this.attack = 3;
-              this.shield = 8; 
+              this.shield = 7; 
               luck = 5;
+              speed = 2;
     	  }
     	  	
             level = 1;
             lvlPoint = 0;
             exp = 0;
             needed = 10;
-            itemCounter = 0;
             equipCounter = 0;
             attackTemp = 0;
             shieldTemp = 0;
@@ -68,13 +74,26 @@ public class Protag {
        * This method prints out the sprite for the player
        */
       public void sprite(){
-    	  System.out.println("\\");
-          System.out.println(" \\    ");
-          System.out.println(" _\\|  O  }");
-          System.out.println("   M_/|\\_|}");
-          System.out.println("      |  }");
-          System.out.println("     / \\");
-          System.out.println("   _/   \\_");
+    	  System.out.println("      _,.");
+          System.out.println("    ,` -.)");
+          System.out.println("   ( _/-\\\\-._");
+          System.out.println("  /,|`--._,-^|            ,");
+          System.out.println("  \\_| |`-._/||          ,'|");
+          System.out.println("    |  `-, / |         /  /");
+          System.out.println("    |     || |        /  /");
+          System.out.println("     `r-._||/   __   /  /");
+          System.out.println(" __,-<_     )`-/  `./  /");
+          System.out.println("'  \\   `---'   \\   /  /");
+          System.out.println("    |           |./  /");
+          System.out.println("    /           //  /");
+          System.out.println("\\_/' \\         |/  /");
+          System.out.println(" |    |   _,^-'/  /");
+          System.out.println(" |    , ``  (\\/  /_");
+          System.out.println("  \\,.->._    \\X-=/^");
+          System.out.println("  (  /   `-._//^`");
+          System.out.println("   `Y-.____(__}");
+          System.out.println("    |     {__)");
+          System.out.println("          ()");
        }
       /**
        * This method increasingly adds exp to the total exp
@@ -82,7 +101,7 @@ public class Protag {
        * @param strength is the attack of the Enemy
        */
       public void setExp(int strength) {
-    	  exp = exp + (strength*2);
+    	  exp = exp + (strength);
       }
       /**
        * This method is used to get the luck of the User
@@ -115,6 +134,14 @@ public class Protag {
        */
       public int getHealth(){
           return health;
+      }
+      /**
+       * This method is used to get the speed of the User
+       * 
+       * @return health
+       */
+      public int getSpeed(){
+          return speed;
       }
       /** 
        * This method is used to set the health depending on idx
@@ -185,6 +212,14 @@ public class Protag {
     	  attack = attack + boost;
       }
       /**
+       * This method is used to increase the speed of the User
+       * 
+       * @param boost is how much to increase the attack
+       */
+      public void upgradeSpeed(int boost){
+    	  speed = speed + boost;
+      }
+      /**
        * This method is used to increase the total health of the User
        * 
        * @param boost is how much to increase the total health
@@ -253,7 +288,7 @@ public class Protag {
        * This method shows the user what increases when they level up and if they unlock a new move
        */
       public void levelUp() {
-    	  
+    	  System.out.println("\nCongrats you just Leveled Up!\n");
     	  System.out.print("Total Health: " + getTotal() + "-->");
     	  if(type == 0) {
     		  upgradeHealth(7); 
@@ -281,6 +316,15 @@ public class Protag {
     		  upgradeAttack(3);
     	  }
     	  System.out.print(getAttack()+ "\n");
+    	  System.out.print("Speed: " + getSpeed() + "-->");
+    	  if(type == 0) {
+    		  upgradeSpeed(3);
+    	  }else if(type == 1) {
+    		  upgradeSpeed(4);
+    	  }else {
+    		  upgradeSpeed(2);
+    	  }
+    	  System.out.print(getSpeed()+ "\n");
     	  System.out.print("Shield: " + getShield() + "-->");
     	  if(type == 0) {
     		  upgradeShield(2);
@@ -316,8 +360,8 @@ public class Protag {
        * 
        * @return itemCounter is global variable of how many items there are
        */
-      public int getItemCounter() {
-    	  return itemCounter;
+      public int getItemsSize() {
+    	  return items.size();
       }
       /**
        * This method is used to print out the items the User has or not
@@ -325,19 +369,13 @@ public class Protag {
        * @return true if there are items and false if no items
        */
       public boolean getItems(){
-          if(itemCounter == 0) {  
-        	  System.out.println("No Items");
+    	  if(items.isEmpty()){
+    	      System.out.println("No items");
         	  return false;
           }else {
-        	  if(itemCounter > 1) {
-        		  for(int i = 0; i< itemCounter; i++) {
-        			  if(getItem(i) != " ") {
-        				  System.out.println((i + 1) + ": " + getItem(i));
-        			  }
-        		  }
-        	  }else if(itemCounter == 1) {
-        		  System.out.println("1: " + getItem(0));
-        	  }
+        	  for(int i = 0; i < items.size(); i++){
+                  System.out.println((i + 1) + ": " + items.get(i));
+               }
         	  return true;
           }
       }
@@ -349,9 +387,8 @@ public class Protag {
        */
       public String getItem(int idx) {
     	  try {
-    		  return (String) items.toArray()[idx];
+    		  return (String) items.get(idx);
     	  }catch(ArrayIndexOutOfBoundsException e) {
-    		  itemCounter--;
     		  return " ";
     	  }
       }
@@ -360,9 +397,8 @@ public class Protag {
        * 
        * @param word is the item we need to remove
        */
-      public void removeItem(String word) {
-    	  items.remove(word);
-    	  itemCounter--;
+      public void removeItem(int idx) {
+    	  items.remove(idx);
       }
       /**
        * This method is used to put an item to treeset and increase the itemCounter
@@ -370,8 +406,7 @@ public class Protag {
        * @param thing is the item we are adding
        */
       public void putItems(String thing) {
-    	  items.add(thing);
-    	  itemCounter++;  
+    	  items.add(thing); 
       }
       /**
        * This method is made to return the number of equipments
@@ -414,7 +449,10 @@ public class Protag {
       	}catch(ArrayIndexOutOfBoundsException e) {
       		equipCounter--;
       		return " ";
-	  }
+      	}
+      }
+      public boolean checkEquipment(String word) {
+    	  return equip.contains(word);
       }
       /**
        * This method is used to remove an equipment in treeset and decrease equipCounter
